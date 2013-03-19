@@ -1,0 +1,61 @@
+
+/************************************************************************* 
+               
+ * EXTRANET - DAVÓ SUPERMERCADOS
+ * Criado em: 19/12/2011 por Jorge Nova                              
+ * Descrição: CSS Para template da Extranet
+ * Entrada:   
+ * Origens:   
+           
+**************************************************************************/
+
+
+
+body{
+    font-family:    verdana, arial, tahoma, sans-serif;
+    font-size:      11px;
+    font-style:     normal;
+    font-variant:   normal;
+    font-weight:    normal;
+    letter-spacing: normal;
+    line-height:    1.5em;
+    color:          #444444;
+    /*text-transform: capitalize; -- essa tag faz todos as palavras iniciarem com a letra maiuscula exe: Esse Sistema É Legal*/
+}
+
+/* Elementos únicos */
+#cabecalho{
+    background: #FFF url(imagens/bkg-cabecalho.png) repeat-x bottom;
+}
+
+
+
+
+.padding-padrao-vertical{
+    padding: 10px 0;
+/*    border: 1px dotted red;*/
+}
+
+.margim-padrao-horizontal{
+    margin: 0 10px;
+/*border: 1px dotted blue;    */
+}
+
+.botao-padrao{
+    border: 1px solid #E6E6E6;
+    background: #FFF url(imagens/bkg-classe-botao-padrao.png) repeat-x bottom;
+    padding: 5px 10px;
+    -webkit-border-radius: 3px; 
+    -moz-border-radius:    3px; 
+    border-radius:         3px;
+    cursor: pointer;
+}
+
+.botao-padrao:hover{
+    border: 1px solid #C6C6C6;
+    -webkit-box-shadow:    rgba(0,0,0,0.80) 0 0.5px 0px; 
+    -moz-box-shadow:       rgba(0,0,0,0.80) 0 0.5px 0px; 
+    box-shadow:            rgba(0,0,0,0.80) 0 0.5px 0px; 
+    box-shadow:            rgba(0,0,0,0.80) 0 0.5px 0px \0/IE9;       
+    background: #FFF url(imagens/bkg-classe-botao-padrao-hover.png) repeat-x bottom;    
+}

@@ -1,0 +1,16 @@
+<?php
+
+//Instancia Classe
+$conn   =   "";
+$obj    =   new models_T0045($conn);
+
+
+$tabela         =   "T068_mata_burro_detalhes";
+$delimitador    =   "T067_id"." = ".$_REQUEST['IdColeta'];
+
+$obj->excluir($tabela, $delimitador);
+
+$tabela=    "T067_mata_burro";
+$obj->excluir($tabela, $delimitador);
+
+?>

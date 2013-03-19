@@ -1,0 +1,332 @@
+/************************************************************************* 
+               
+                    Intranet - DAVÓ SUPERMERCADOS
+ * Criado em: 22/09/2011 por Jorge Nova                              
+ * Descrição: CSS para template de displays
+ * Entrada:   
+ * Origens:   
+           
+**************************************************************************
+
+/* 
+ZERA AS PROPRIEDADES PADRÕES DO ESPAÇAMENTO, BORDA E MARGEM DAS TAGS 
+DE HTML, DIV, P, UL E LI 
+*/ 
+html, body, div, p, ul, li { 
+    padding: 0px; 
+    border:  0px; 
+    margin:  0px;
+}
+
+/* Defini propriedades para o body da página*/
+body { 
+    font:                   12px/50px "Arial Black", sans-serif; 
+    background-color:       transparent; 
+    color:                  #333; 
+    -webkit-font-smoothing: antialiased; 
+}
+
+/************************************************************************* 
+ * Formatação das DIVs principais do template
+ * #cabecalho - DIV utilizada para criar o cabeçalho
+ * #conteudo  - DIV utilizada para definir conteúdo da página
+ * #rodape    - DIV utilizada para definir rodapé da página
+
+**************************************************************************
+*/
+#cabecalho{
+    height:     60px;
+    background: url(imagens-display/background-cabecalho.png) repeat-x bottom;
+    padding:    10px 0;
+}
+
+#conteudo{
+    overflow:   hidden;
+    margin:     0 10px;
+    padding:    3px 0;
+}
+
+#rodape {
+    background: #E4EAED url(imagens-display/logo_davo.png) 10px 50% no-repeat ;
+    padding:    25px 0;
+    position:   absolute;
+    bottom:     0px;
+    width:      100%;
+}
+
+/************************************************************************* 
+ * Formatação das DIVs principais do Carrosel Dinâmico 
+ * #tabela-dinamica - DIV utilizada para identificar o carrosel de tabela
+
+**************************************************************************
+*/
+
+#tabela-dinamica { 
+    margin:     0px 3px;
+}
+
+#tabela-dinamica .tabela-titulo {
+    background:  #F5F5F5 url(imagens-display/background-titulo-table.png) repeat-x bottom;
+    color:       #999999;
+    padding:     10px 0;
+    font-size:   20px;
+}
+
+#tabela-dinamica .tabela-conteudo { 
+    font-size:   25px;
+    font-weight: bolder;  
+}
+
+/************************************************************************* 
+ * Formatação das DIVs principais do Slider de conteúdo 
+ * #slides - DIV utilizada para identificar o slider de conteudo
+ * Da linha 144 a 186, são formatações de paginador e de botões de slide anterior/próximo
+ para facilitar a navegação
+**************************************************************************
+*/
+
+#slides {
+    padding:    3px 0;
+    margin:     0 3px;
+    background: url(imagens-display/background-slider.png) repeat-x top;
+        text-shadow: 1px 1px 2px #ccc;
+}
+
+.slide-conteudo {
+    width:       598px;
+    height:      351px;
+    overflow:    hidden;
+    position:    relative;
+    display:     none;
+    font-weight: bolder;
+}
+
+#slides .slide {
+    padding:  5px 0;
+    width:    595px;
+    display:  block;
+}
+
+.slide-rodape {
+    background: #F5F5F5 url(imagens-display/background-titulo-table.png) repeat-x top;
+    color:      #999999;
+    padding:    10px 0;
+    font-size:  30px;
+}
+
+.valorDesconto{
+    font-size: 35px;
+    text-decoration: line-through;
+}
+
+.valorPor{
+    font-size: 35px;
+}
+
+.valorPorReal{
+    color: red;
+    font-size: 75px
+}
+
+.valorPorCentavo{
+    color: red;
+    vertical-align: 30px;
+    font-size: 30px;
+}
+
+.valorDeReal{
+    font-size: 75px
+}
+
+.valorDeCentavo{
+    vertical-align: 30px;
+    font-size: 30px;
+}
+
+/*
+#slides .next,#slides .prev {
+	position:absolute;
+	top:107px;
+	left:-39px;
+	width:24px;
+	height:43px;
+	display:block;
+	z-index:101;
+}
+
+#slides .next {
+	left:585px;
+}
+
+.pagination {
+    clear: both;
+}
+
+.pagination li {
+    float:left;
+    margin:0 1px;
+    list-style:none;
+}
+
+.pagination li a {
+    display:block;
+    width:12px;
+    height:0;
+    padding-top:12px;
+    background-image:url(imagens-display/pagination.png);
+    background-position:0 0;
+    float:left;
+    overflow:hidden;
+}
+
+.pagination li.current a {
+    background-position:0 -12px;
+}*/
+
+.red {
+    color: red;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.titulo_display {
+    text-align: center;
+    font-size: 45px;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+
+
+
+.rodape-conteudo{
+    margin: 0 10px 0 120px;
+    font-size: 20px;
+}
+
+.sombra { 
+    border:                1px solid; 
+    border-color:          #e5e5e5 #dbdbdb #d2d2d2; 
+    background:            #fff;
+    -webkit-border-radius: 5px; 
+    -moz-border-radius:    5px; 
+    border-radius:         5px;
+    -webkit-box-shadow:    rgba(0,0,0,.45) 0 1px 3px; 
+    -moz-box-shadow:       rgba(0,0,0,.45) 0 1px 3px; 
+    box-shadow:            rgba(0,0,0,.45) 0 1px 3px; 
+    box-shadow:            rgba(0,0,0,.45) 0 1px 3px \0/IE9;
+}
+
+.subconteudo{
+    padding: 3px 0px;
+    -webkit-border-radius: 5px; 
+    -moz-border-radius:    5px; 
+    border-radius:         5px;    
+    margin: 4px 0;
+}
+
+
+.esquerdo{
+    float: left;
+    width: 50%;
+}
+
+.direito{
+    float: right;
+    width: 49%;
+}
+    
+
+
+
+
+/*#tabela-dinamica .tabela-conteudo ul li{ list-style:none; display:block; padding-bottom:1px; margin-bottom:5px; }*/
+.overflow{
+    overflow: hidden;
+    width:    100%;
+}
+
+.linha-verde{
+    background:    #EEEEEE;
+    border-bottom: 1px solid #DDDDDD;
+    margin: 0 auto;
+}
+
+.linha{
+    border-bottom: 1px solid #DDDDDD;
+    background:    #FFFFFF;    
+    margin: 0 auto;    
+}
+
+.linha-titulo{
+    border-bottom: 1px solid #62020E;
+    background:    #BF051A;    
+    margin:        0px auto; 
+    text-align: center;
+    color: #FFF;
+    text-shadow: 1px 1px 2px #000;   
+}
+
+.ov-direita{
+    float:         right;
+    width:         27%;
+    text-align:    right;
+}
+
+.ov-esquerda{
+    float: left;
+    width: 70%;
+}
+
+.oferta{
+    background: url('imagens-display/oferta.jpg') no-repeat;
+    height: 31px;
+    width: 46px;
+    float: right;
+}
+
+
+.divlinha{
+/*    height: 95px;*/
+    text-shadow: 1px 1px 2px #ccc;
+}
+
+.ovslide-direita{
+    float: right;
+    width: 277px;  
+/*    border: 1px solid red;    */
+}
+
+.titulo-slide{
+    font-size: 40px;
+    margin-bottom: 50px;
+}
+
+.ovslide-esquerda{
+    float: left;
+    width: 312px;
+}
+
+.clear { clear: both; }
+
+.amarelo{
+    background: #FFFF00;
+}
+    
+
+/* -------- Controle de versões - estilo-display.css --------------
+ * 1.0.0 - 22/09/2011 - Jorge --> Liberada versao inicial
+ *                                
+ */

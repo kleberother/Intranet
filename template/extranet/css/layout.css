@@ -1,0 +1,71 @@
+
+/************************************************************************* 
+               
+ * EXTRANET - DAVÓ SUPERMERCADOS
+ * Criado em: 20/12/2011 por Jorge Nova                              
+ * Descrição: CSS Para template da Extranet
+ * Entrada:   
+ * Origens:   
+           
+**************************************************************************/
+
+
+/* Tags HTML */
+
+body{
+    font-family:    verdana, arial, tahoma, sans-serif;
+    font-size:      12px;
+    font-style:     normal;
+    font-variant:   normal;
+    font-weight:    normal;
+    letter-spacing: normal;
+    line-height:    1.5em;
+    color:          #444444;
+    /*text-transform: capitalize; -- essa tag faz todos as palavras iniciarem com a letra maiuscula exe: Esse Sistema É Legal*/
+}
+
+label{
+    font-weight:    bold;
+    margin-bottom:  3px;
+    display:        block;
+}
+
+/* Elementos únicos */
+
+#cabecalho{
+    background: #FFF url(imagens/bkg-cabecalho.png) repeat-x bottom;
+}
+
+#corpo{
+    overflow:   hidden;
+}
+
+#rodape{
+    border-top: 1px solid #CCCCCC;
+}
+
+#menu-usuario li{
+    padding:        3px 10px;
+    margin-right:   10px;
+    margin-left:    -15px;    
+}
+
+#menu-usuario li a{
+
+}
+
+#menu-principal{
+    background:    #F6F6F6;
+    border-bottom: 1px solid #C7C7C7;
+}
+
+#menu-principal ul li{
+    padding:        3px 10px;
+    margin-right:   10px;
+}
+
+#dicas{
+    border-top: 1px solid #C7C7C7;
+    background: #F6F6F6;
+}
+

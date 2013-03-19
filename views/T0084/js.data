@@ -1,0 +1,18 @@
+<?php
+/**************************************************************************/
+/*                          DAVÓ SUPERMERCADOS                            */
+/* Criado em: 18/04/2012 por Rodrigo Alfieri                              */
+/* Descrição:                                                             */
+/**************************************************************************/
+$DataEmissao    =   $_REQUEST['DtEmiss'];
+$NumDias        =   $_REQUEST['NumDias'];
+
+$Data           =   date("d/m/Y");
+
+echo "DTE".$DataEmissao;
+echo "DT".$Data;
+
+echo $DataEmissao-$Data;
+
+
+?>

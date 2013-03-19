@@ -1,0 +1,111 @@
+ /**************************************************************************
+                Intranet - DAVÓ SUPERMERCADOS
+ * Criado em: 27/07/2011 por Jorge Nova                              
+ * Descrição: Arquivo contém todas as funções em ajax para inserir ou buscar itens dinamicamente
+ * Entrada:   
+ * Origens:   views/T026/novo.php
+           
+**************************************************************************
+*/
+
+ $(function(){
+
+    // FUNÇÃO PARA CARREGAR SELECT BOX DA LOJA DE DESTINO SEM A OPÇÃO JÁ ESCOLHIDA;
+    $(".loja_origem").live("change",function(){
+        var tipo = 1;
+        var loja = $(".loja_origem").val();
+        $.getJSON("?router=T0026/js.busca&loja="+loja+"&tipo="+tipo, function(dados){
+           $('.loja_destino').html(dados);          
+        });       
+    })
+
+    // FUNÇÃO PARA BUSCAR A DISTANCIA ENTRE AS LOJAS
+    $(".loja_destino").live("change",function(){
+        var tipo        = 2;
+        var lojaOrigem  = $(".loja_origem").val();
+        var lojaDestino = $(".loja_destino").val();
+        $.get("?router=T0026/js.busca&lojaOrigem="+lojaOrigem+"&lojaDestino="+lojaDestino+"&tipo="+tipo, function(dados){
+           $('.km_distancia').val(dados);
+        });
+    })
+    
+    // FUNÇÃO PARA SALVAR HEADER DA TABELA E ABRIR DIV PARA DETALHAR AS DESPESAS
+    $(".btn_proximo").live("click",function(){
+        var tipo         = 1;
+        var data_inicial =  $("#T016_dt_inicio").val();
+        var data_final   =  $("#T016_dt_final").val();
+        var usuario      =  $("#T004_login").val();
+        var centro_custo =  $("#T013_codigo").val();
+              
+        $.get("?router=T0026/js.insere&data_inicial="+data_inicial+"&data_final="+data_final+"&usuario="+usuario+"&centro_custo="+centro_custo+"&tipo="+tipo, function(dados){
+            alert(dados);
+            $("#tabs").removeClass("oculto");
+            $("#total").removeClass("oculto");
+        });
+    })  
+    
+    // FUNÇÃO PARA SALVAR A LINHA INPUTADA NA T015_T016 E ADICIONAR NOVA LINHA
+    $(".btn_add_km").live("click", function () {
+        
+        alert("to aki");
+        
+        // ATRIBUI O THIS A FUNÇÃO, CLASSE dadosKM
+        var $this   =   $(".dadosKM");
+        var tipo    =   2;
+        
+        //INSERE CONTEUDO DA LINHA NA TABELA T073
+        //CAPTURA VALORES DOS INPUTS
+        var descricao   =   $this.find("tr:last").find(".posto").val();
+        
+        //PASSA NA URL OS PARAMETROS E ABRE O PHP PARA INSERIR NO BANCO
+//        $.get("?router=T0022/js.insere&PesquisaId="+PesquisaId+"&PostoId="+PostoId+"&ValGC="+ValGC+"&ValGA="+ValGA+"&ValEC="+ValEC+"&ValEA="+ValEA+"&ValDI="+ValDI+"&ValGN="+ValGN+"&Tipo="+Tipo, function(dados){
+//            $this.find("tr:last").find(".ItemId").val(dados);
+//
+//            var input   =   '<tr class="mest-quad-list-tabl-tr-input">';
+//                input  +=   '<input type="hidden" name="ItemId[]"        class="ItemId"  />';
+//                input  +=   '<td>';
+//                input  +=   '<select  name="posto[]" class="posto" style="width: 450px;">';
+//                //input  +=   '<option value="" selected>Selecione</option>';
+//                input  +=   '</select>';
+//                input  +=   '</td>';
+//                input  +=   '<td><input type="text" name="gc[]"         class="gc"         size="1"  /></td>';
+//                input  +=   '<td><input type="text" name="ga[]"         class="ga"         size="1"  /></td>';
+//                input  +=   '<td><input type="text" name="ec[]"         class="ec"         size="1"  /></td>';
+//                input  +=   '<td><input type="text" name="ea[]"         class="ea"         size="1"  /></td>';
+//                input  +=   '<td><input type="text" name="di[]"         class="di"         size="1"  /></td>';
+//                input  +=   '<td><input type="text" name="gn[]"         class="gn"         size="1"  /></td>';
+//                input  +=   '<td><span class="lista_acoes"><ul><li class="ui-state-default ui-corner-all" title="Deletar"   ><a class="ui-icon ui-icon-minus btn_del"></a></li></ul></span></td>';
+//                input  +=   '</tr>';
+//                $this.append(input);
+//
+//            var loja    =   $("#mestre").find("#mest-quadrado-left").find("tbody").find("#loja").val();
+//
+//            $.getJSON("?router=T0022/js.busca&loja="+loja+"&Tipo="+Tipo, function(dados){
+//               $this.find("tr:last").find("td").find(".posto").html(dados);
+//            });
+//        });
+
+        //BLOQUEIA INPUTS
+//        $(".posto").attr("disabled","disabled");
+//        $(".gc").attr("readonly","readonly");
+//        $(".ga").attr("readonly","readonly");
+//        $(".ec").attr("readonly","readonly");
+//        $(".ea").attr("readonly","readonly");
+//        $(".di").attr("readonly","readonly");
+//        $(".gn").attr("readonly","readonly");
+        //CONTADOR
+        //var cont    =   parseFloat($this.find("tr").find("td").find(".contador").val());//
+        //cont++;
+        //$this.find("tr").find("td").find(".contador").val(cont);
+        
+    });    
+
+});
+
+
+
+
+/* -------- Controle de versões - T0026.js --------------
+ * 1.0.0 - 27/07/2011 - Jorge --> 1. Liberada versao inicial
+ * 1.0.1 - 15/09/2011 - Jorge --> 1. Função para quando clicar no botão de classe "btn_proximo" inserir na tabela T016 e abrir div para começar a inserir as despesas de acordo com o período
+ */

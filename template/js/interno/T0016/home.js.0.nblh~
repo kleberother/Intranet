@@ -1,0 +1,84 @@
+$(function(){
+    //-- Preencher data Final = Data Inicial (qdo em branco)
+        $( ".FilVencimentoInicial" ).live("change",function(){
+          var $this                 =   $(".FilVencimentoInicial");
+          var FilVencimentoFinal    =   $(".FilVencimentoFinal").val()
+          if(FilVencimentoFinal == "")
+          {
+           $( ".FilVencimentoFinal" ).val($this.val());
+          }
+        });
+
+
+    //js.busca Dinamica para elementos dinamicos
+    var qs =    $("#id_search").quicksearch(".dados", {
+                noResults: '#semresultado',
+                stripeRows: ['odd', 'even'],
+                loader: 'span.loading'
+                });
+   
+    
+    //executa a ação a partir do "change"
+    $("#aps").bind("change", function(){        
+       Filtrar ();
+    })
+    
+    
+    $("#btnFiltrar").bind("click", function(){        
+        Filtrar ();
+    })
+
+    $(".CampoFiltro").bind("change", function(){        
+        Filtrar ();
+    })
+    
+
+function Filtrar(){
+    
+    var tipo    =   10; // tipo fixo para consulta de APs
+    var Status  =   $("#aps").val();
+    var FilRegistros = $("#FilRegistros").val();
+    var itens   =   "";
+    var FilAp   =  $("#FilAp").val();
+    var FilNf   =  $("#FilNf").val(); 
+    var FilCNPJ              = $("#FilCNPJ").val();
+    var FilFornecedor        = $("#FilFornecedor").val();
+    var FilVencimentoInicial = $(".FilVencimentoInicial").val();
+    var FilVencimentoFinal   = $(".FilVencimentoFinal").val();
+    var FilValorInicial      = $("#FilValorInicial").val();
+    var FilValorFinal        = $("#FilValorFinal").val();
+    
+
+    // Verifica se nao foi selecionando nenhum status
+    if (Status == 0)
+        {
+            $(".dados").remove();
+            $("#carregando").html("Escolha algum status para Consulta");
+        }
+        else
+            {
+                
+            $("#carregando").html("Aguarde Carregando...");
+            $.getJSON("?router=T0016/js.busca&tipo="+tipo+"&FilRegistros="+FilRegistros+"&status="+Status+"&FilAp="+FilAp+"&FilNf="+FilNf+"&FilCNPJ="+FilCNPJ+"&FilFornecedor="+FilFornecedor+"&FilVencimentoInicial="+FilVencimentoInicial+"&FilVencimentoFinal="+FilVencimentoFinal+"&FilValorInicial="+FilValorInicial+"&FilValorFinal="+FilValorFinal, function(dados){
+                if (dados == null)
+                    {
+                        $(".dados").remove();
+                        $("#carregando").html("Não existem dados para esta seleção...");
+                    }
+                else
+                    {
+                        $.each(dados, function(i, item){
+                            itens = itens + item;
+                        })
+                        $(".campos").html(itens);
+                        //Utiliza o que tem no cache para efetuar o filtro em elemento dinamico
+                        qs.cache();
+                        $("#carregando").html("");
+                    }
+
+            })
+            }
+          //$("#aps").focus();
+
+    }
+})

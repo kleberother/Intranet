@@ -1,0 +1,131 @@
+// Data de Criação: 31/01/2012 
+// Descrição:      Funções T0084, que executam um request no banco e retornam resultados
+// Desenvolvedor:  Jorge Nova
+
+// Nome da Função:            Busca CRF
+// Data de Criação da Função: 31/01/2012
+// Desenvolvedor:             Jorge Nova
+// Descrição:                 Ao sair do campo de classe .buscaCRF, se tiver valor, ele busca a descrição reduzida no banco do RMS
+// Versão:                    0.0.1
+
+ $(function(){
+         
+    $(".buscaCRF").live("blur",function(){
+        
+        var elemento  =   $(this);
+        
+        var CRF       =   elemento.val();
+              
+        $.get("?router=T0084/js.buscaCRF&CRF="+CRF, function(dados){
+           elemento.parents("li").find(".descricao").val(dados);
+        });
+    })
+        
+});
+
+
+// Nome da Função:            Adicionar Linha
+// Data de Criação da Função: 
+// Desenvolvedor:             Rodrigo Alfieri
+// Descrição:                 Ao clicar no botão adicionarLinha, ele adiciona uma linha igual a anterior
+// Versão:                    0.0.1
+
+$('.adicionaLinha').live("click",function(event){
+    event.preventDefault();
+
+    //Html para nova linha
+    var html    =   "<li class='elementosLista'>";
+    
+        html    +=      "<div class='padding-2px-vertical conteudo-visivel'>";
+        
+        html    +=          "<div class='coluna c04_tipo_c_01 margim-5px-horizontal padding-2px-vertical'>";
+        html    +=              "<input type='text' name='T088_codigo[]' size='1' class='buscaCRF'   maxlength='3' />";
+        html    +=          "</div>";
+        
+        html    +=          "<div class='coluna c04_tipo_c_02 margim-5px-horizontal padding-2px-vertical'>";
+        html    +=              "<input  type='text' name='T088_descricao_nota_debito'   size='108' class='descricao'    disabled    />";
+        html    +=          "</div>";
+        
+        html    +=          "<div class='coluna c04_tipo_c_03 margim-5px-horizontal padding-2px-vertical'>";
+        html    +=              "<input type='text' name='T087_valor[]' size='23'   class='valorCRF' />";
+        html    +=          "</div>";
+        
+        html    +=          "<div class='coluna c04_tipo_c_04 margim-5px-horizontal padding-2px-vertical'>";
+        html    +=              "<ul class='lista-de-acoes'>";
+        html    +=                  "<li><a href='#' title='Excluir Linha'><span class='ui-icon ui-icon-minus removeLinha'></span></a></li>";
+        html    +=              "</ul>";
+        html    +=          "</div>";
+        
+        html    +=      "</div>";
+        
+        html    +=  "</li>";
+
+
+
+        
+        //Inclui na DIV conteudo, adicionando uma nova linha
+        $(".lista-itens-body").append(html);
+
+})
+
+// Nome da Função:            Remover Linha
+// Data de Criação da Função: 
+// Desenvolvedor:             Rodrigo Alfieri
+// Descrição:                 Ao clicar no botão removerLinha, ele remove a linha clicada
+// Versão:                    0.0.1
+
+$('.removeLinha').live("click",function(event){
+    
+    //Para retorno 0 ao clicar no link <a></a>
+    event.preventDefault();
+    
+    //remove linha
+    $(this).parents('.elementosLista').remove();
+    
+    
+})
+
+//Função para calculo do Total geral
+function calculaTotalGeral()
+{
+    var totalDespesa    =   0;
+    var totalDespesaDiv =   0;
+    var totalGeral      =   0;
+
+        totalDespesa    =   parseFloat($(".totalDespesa").val());            
+        totalDespesaDiv =   parseFloat($(".totalDespesaDiv").val());
+
+        if(isNaN(totalDespesaDiv))
+            totalDespesaDiv =   0;
+        if(isNaN(totalDespesa))
+            totalDespesa    =   0;
+
+
+        totalGeral  =   totalDespesa +   totalDespesaDiv;
+
+        $(".totalGeral").val(totalGeral.toFixed(2));
+
+}
+    
+//Função para efetuar calculo "automatico" dos campos de Totais
+function calculaTotal()
+{        
+    //Inclui soma dos campos de Km no campo TotalKm
+    var Total           =   0;
+    var valorCRF        =   0;
+
+        valorCRF        =   $(".valorCRF").sum();
+
+        //valorPorKm      =   valorPorKm.replace(",",".");
+
+        $(".totalDespesa").val(totalDespesa);
+
+    calculaTotalGeral();
+
+}
+
+// Campo Valor Total
+$('.valorCRF').live("change", function(event){
+    event.preventDefault();
+    calculaTotal();
+});

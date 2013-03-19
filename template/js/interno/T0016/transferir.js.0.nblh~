@@ -1,0 +1,57 @@
+function transferir(prog,pagina,valor)
+{
+    document.prog   =   prog;
+    document.pagina =   pagina;
+    document.valor  =   valor;
+    $("#dialog-transferir").dialog
+    ({
+            resizable: false,
+            height:250,
+            width:330,
+            modal: true,
+            buttons:
+            {
+                    "Transferir": function() 
+                    {
+                       // Captura o grupo selecionado
+                       var grupo = $(".grupoWF").val();
+                        
+                       $.get('?router='+document.prog+'/js.transferir&pagina='+document.pagina+'&valor='+document.valor+'$grupo='+grupo, function(dados){
+                           $('body').html(dados);
+                       });
+//                       $(this).dialog("close");
+//                        var qs =    $("#id_search").quicksearch(".dados", {
+//                                    noResults: '#semresultado',
+//                                    stripeRows: ['odd', 'even'],
+//                                    loader: 'span.loading'
+//                                    });
+//                        var tipo    =   10;
+//                        var filtro  =   $("#aps").val();
+//                        var itens   =   "";
+//                        $("#carregando").html("Carregando...");
+//                        $.getJSON("?router=T0016/busca&tipo="+tipo+"&filtro="+filtro, function(dados){
+//                            if (dados == null)
+//                                {
+//                                    $(".dados").remove();
+//                                    $("#carregando").html("Não existem dados para esta seleção...");
+//                                }
+//                            else
+//                                {
+//                                $.each(dados, function(i, item){
+//                                    itens = itens + item;
+//                                })
+//                                $(".campos").html(itens);
+//                                //Utiliza o que tem no cache para efetuar o filtro em elemento dinamico
+//                                qs.cache();
+//                                $("#carregando").html("");
+//                                }
+//                        })
+                    }
+                    ,
+                    Fechar: function()
+                    {
+                        $(this).dialog("close");
+                    }
+            }
+    });
+}

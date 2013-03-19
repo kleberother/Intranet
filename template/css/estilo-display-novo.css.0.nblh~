@@ -1,0 +1,257 @@
+/************************************************************************* 
+               
+                    Intranet - DAVÓ SUPERMERCADOS
+ * Criado em: 22/09/2011 por Jorge Nova                              
+ * Descrição: CSS para template de displays
+ * Entrada:   
+ * Origens:   
+           
+**************************************************************************
+
+/* 
+ZERA AS PROPRIEDADES PADRÕES DO ESPAÇAMENTO, BORDA E MARGEM DAS TAGS 
+DE HTML, DIV, P, UL E LI 
+*/ 
+html, body, div, p, ul, li { 
+    padding: 0px; 
+    border:  0px; 
+    margin:  0px;
+    outline: 0px;
+}
+
+/* Defini propriedades para o body da página*/
+body { 
+    font:                   12px/50px "Arial Black", sans-serif; 
+    background-color:       transparent; 
+    color:                  #333; 
+    -webkit-font-smoothing: antialiased; 
+}
+
+/************************************************************************* 
+ * Formatação das DIVs principais do template
+ * #cabecalho - DIV utilizada para criar o cabeçalho
+ * #conteudo  - DIV utilizada para definir conteúdo da página
+ * #rodape    - DIV utilizada para definir rodapé da página
+
+**************************************************************************
+*/
+#cabecalho{
+    background:     rgb(212,213,215); /* Browsers Antigos */
+    background:     -moz-linear-gradient(left, rgba(212,213,215,1) 0%, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 60%, rgba(212,213,215,1) 100%); /* FF3.6+ */
+    background:     -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(212,213,215,1)), color-stop(40%,rgba(255,255,255,1)), color-stop(50%,rgba(255,255,255,1)), color-stop(60%,rgba(255,255,255,1)), color-stop(100%,rgba(212,213,215,1))); /* Chrome,Safari4+ */
+    background:     -webkit-linear-gradient(left, rgba(212,213,215,1) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 60%,rgba(212,213,215,1) 100%); /* Chrome10+,Safari5.1+ */
+    background:     -o-linear-gradient(left, rgba(212,213,215,1) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 60%,rgba(212,213,215,1) 100%); /* Opera11.10+ */
+    background:     -ms-linear-gradient(left, rgba(212,213,215,1) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 60%,rgba(212,213,215,1) 100%); /* IE10+ */
+    filter:         progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4d5d7', endColorstr='#d4d5d7',GradientType=1 ); /* IE6-9 */
+    background:     linear-gradient(left, rgba(212,213,215,1) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 60%,rgba(212,213,215,1) 100%); /* W3C */
+    border-bottom:  1px solid #777676;
+    font-size:      30px;
+    text-align:     center;
+    font-weight:    bold;
+    text-shadow:    -1px -1px 1px #666;  
+    font-style:     italic;
+    color:          #E5010A;
+}
+
+#conteudo{
+/*    overflow: hidden;*/
+}
+
+#coluna-esquerda{
+    width: 60%;
+    float: left;
+}
+
+#coluna-direita{
+    width:  39%;   
+    float:  left;
+    border: 1px solid blue;
+/*    height: 500px;*/
+    margin-left: 5px; 
+}
+
+#rodape {
+    position:    absolute;
+    bottom:      0px;
+    width:       100%;
+    background:  rgb(212,213,215); /* Browsers Antigos */
+    background:  -moz-linear-gradient(left, rgba(212,213,215,1) 0%, rgba(255,255,255,1) 40%, rgba(255,255,255,1) 50%, rgba(255,255,255,1) 60%, rgba(212,213,215,1) 100%); /* FF3.6+ */
+    background:  -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(212,213,215,1)), color-stop(40%,rgba(255,255,255,1)), color-stop(50%,rgba(255,255,255,1)), color-stop(60%,rgba(255,255,255,1)), color-stop(100%,rgba(212,213,215,1))); /* Chrome,Safari4+ */
+    background:  -webkit-linear-gradient(left, rgba(212,213,215,1) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 60%,rgba(212,213,215,1) 100%); /* Chrome10+,Safari5.1+ */
+    background:  -o-linear-gradient(left, rgba(212,213,215,1) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 60%,rgba(212,213,215,1) 100%); /* Opera11.10+ */
+    background:  -ms-linear-gradient(left, rgba(212,213,215,1) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 60%,rgba(212,213,215,1) 100%); /* IE10+ */
+    filter:      progid:DXImageTransform.Microsoft.gradient( startColorstr='#d4d5d7', endColorstr='#d4d5d7',GradientType=1 ); /* IE6-9 */
+    background:  linear-gradient(left, rgba(212,213,215,1) 0%,rgba(255,255,255,1) 40%,rgba(255,255,255,1) 50%,rgba(255,255,255,1) 60%,rgba(212,213,215,1) 100%); /* W3C */
+    border-top:  1px solid #777676;
+    font-size:   25px;
+    font-weight: bold;
+    text-shadow: -1px -1px 1px #666;  
+}
+
+/************************************************************************* 
+ * Formatação das Classes 
+
+**************************************************************************
+*/
+.subconteudo{    
+    margin: 0 10px;
+}
+
+.overflow{
+    overflow: hidden;
+}
+
+.over-col-01-a{
+    width: 80%;
+    float: left;
+}
+
+.over-col-02-a{
+    width: 18%;
+    float: left;
+/*    border-left: 1px solid #373435;*/
+}
+
+.over-col-01-b{
+    width: 10%;
+    float: left;
+}
+
+.over-col-02-b{
+    width: 90%;
+    float: left;
+}
+
+.over-col-01-c{
+    width: 350px;
+    float: left;
+    border: 1px solid red;    
+}
+
+.over-col-02-c{
+    width:  200px;
+    float:  left;
+    border: 1px solid red;    
+}
+
+
+.alinhamento-direita{
+    text-align: right;
+}
+
+
+.logo-davo{
+    background: url(imagens-display/logo-davo.png) no-repeat;
+    width:      80px;
+    height:     81px;
+    margin:     12px 20px;
+}
+
+.p-rodape{
+    margin-top:  25px;
+}
+
+
+/************************************************************************* 
+ * Formatação das DIVs principais do Carrosel Dinâmico 
+ * #tabela-dinamica - DIV utilizada para identificar o carrosel de tabela
+
+**************************************************************************
+*/
+
+#tabela-dinamica { 
+    
+}
+
+#tabela-dinamica .tabela-titulo {
+    background:  rgb(127,127,127); /* Old browsers */
+    background:  -moz-linear-gradient(top, rgba(127,127,127,1) 0%, rgba(176,175,175,1) 11%, rgba(234,234,234,1) 41%, rgba(246,246,246,1) 100%); /* FF3.6+ */
+    background:  -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(127,127,127,1)), color-stop(11%,rgba(176,175,175,1)), color-stop(41%,rgba(234,234,234,1)), color-stop(100%,rgba(246,246,246,1))); /* Chrome,Safari4+ */
+    background:  -webkit-linear-gradient(top, rgba(127,127,127,1) 0%,rgba(176,175,175,1) 11%,rgba(234,234,234,1) 41%,rgba(246,246,246,1) 100%); /* Chrome10+,Safari5.1+ */
+    background:  -o-linear-gradient(top, rgba(127,127,127,1) 0%,rgba(176,175,175,1) 11%,rgba(234,234,234,1) 41%,rgba(246,246,246,1) 100%); /* Opera11.10+ */
+    background:  -ms-linear-gradient(top, rgba(127,127,127,1) 0%,rgba(176,175,175,1) 11%,rgba(234,234,234,1) 41%,rgba(246,246,246,1) 100%); /* IE10+ */
+    filter:      progid:DXImageTransform.Microsoft.gradient( startColorstr='#7f7f7f', endColorstr='#f6f6f6',GradientType=0 ); /* IE6-9 */
+    background:  linear-gradient(top, rgba(127,127,127,1) 0%,rgba(176,175,175,1) 11%,rgba(234,234,234,1) 41%,rgba(246,246,246,1) 100%); /* W3C */    
+    font-weight: bolder;
+    text-shadow: -1px -1px 1px #666;  
+    font-size:   20px;
+    text-align:  center;
+}
+
+#tabela-dinamica .tabela-conteudo { 
+/*    border: 1px solid blue;*/
+    font-size:   30px;
+    font-weight: bolder;    
+    text-shadow: -1px -1px 1px #666;      
+}
+
+#tabela-dinamica .tabela-conteudo ul li{
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+.tc-titulo-sessao{
+    background:  #E5010A;
+    text-align:  center;
+    color:       #FFF;
+    font-weight: bolder;    
+    text-shadow: -1px -1px 1px #666;  
+    font-style:  italic;
+}
+
+.tc-linha-zebra-01{
+    background:  #FFF;
+}
+
+.tc-linha-zebra-02{
+    background:  #EFEFF0;
+}
+
+.tc-linha-oferta{
+    background:  #FFF212 url(imagens-display/oferta.png) no-repeat 80% 50%;
+}
+
+.tc-titulo-sessao, .tc-linha-oferta, .tc-linha-zebra-01, .tc-linha-zebra-02 p{
+    margin: 0 0 0 5px;
+}
+
+.clear { clear: both; }
+
+/************************************************************************* 
+ * Formatação das DIVs principais do Slider de conteúdo 
+ * #slides - DIV utilizada para identificar o slider de conteudo
+**************************************************************************
+*/
+
+#slides {
+    padding:     3px 0;
+    margin:      0 3px;
+    text-shadow: 1px 1px 2px #ccc;
+    border:      1px solid green;
+}
+
+.slide-conteudo {
+    width:       597px;
+    height:      351px;
+    overflow:    hidden;
+    position:    relative;
+    display:     none;
+    font-weight: bolder;
+    border: 1px solid purple;    
+}
+
+#slides .slide {
+    padding:  5px 0;
+    width:    595px;
+    display:  block;
+    border: 1px solid yellow;      
+}
+
+
+    
+
+/* -------- Controle de versões - estilo-display.css --------------
+ * 1.0.0 - 22/09/2011 - Jorge --> Liberada versao inicial
+ *                                
+ */

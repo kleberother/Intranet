@@ -1,0 +1,235 @@
+@import "-resetar-tags.css";
+
+html{
+    overflow-y: hidden;
+}
+
+body{
+    font-family:tahoma, verdana, arial, sans-serif;
+    font-size:20px;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:normal;
+    letter-spacing:normal;
+    line-height:1;
+    /*text-transform: capitalize; -- essa tag faz todos as palavras iniciarem com a letra maiuscula exe: Esse Sistema É Legal*/
+}
+
+#cabecalho{
+    border-bottom: 1px solid #77090E;
+    background: #F0424C;
+}
+
+#cabecalho p{
+    font-size: 50px;
+    padding: 3px 0;
+    text-align: center;
+    color: #fff;
+}
+
+#conteudo{
+/*    background: url(images/background-conteudo-display.png) repeat-x;*/
+    overflow: hidden;
+    padding: 5px;
+/*    border-bottom: 1px solid #A4A4A4;*/
+}
+
+#cont-right{
+    float: right;
+    margin-right: 5px;
+    width: 49%;
+}
+
+#cont-left{
+    float: left;
+    margin-left: 5px;
+    width: 49%;  
+}
+
+#cont-middle{
+    float:left;
+    width: 1px;
+    height: 637px;
+    background: #A4A4A4;
+    margin-left:10px;
+}
+
+#rodape{
+    padding: 2px 0;
+    font-size: 40px;
+    background: #E1E1E1;
+    border-top: 1px solid #A4A4A4;
+    height: 64px;
+}
+
+
+#rodape marquee{
+    width: 95%;
+    margin: 0 auto;
+    padding: 5px 0;
+}
+
+.produtos{
+    width: 100%;
+}
+
+.produtos th{
+    border-bottom: 1px solid #A4A4A4;
+    padding: 3px 2px;
+    background: url(images/background-classe-produtos-th.png) repeat-x bottom;
+}
+
+.produtos td{
+    border-right: 1px solid #A4A4A4;
+    padding: 3px 2px;
+}
+
+.produtos td.colortd{
+    background: #E1E1E1 /*url(images/background-conteudo-td-color.png) repeat-x*/;
+}
+
+.produtos thead{
+    color: #0099FF;
+}
+
+.produtos thead th{
+    padding: 2px 0;
+}
+
+.produtos thead th.border{
+    border-left: 1px solid #A4A4A4;
+    border-right: 1px solid #A4A4A4;
+}
+
+.produtos tbody{
+    font-size: 37px;
+}
+
+.produtos tbody td{
+    padding: 6px 0;
+}
+
+.produtos td.without-border-left{
+    border-left: 1px solid transparent;
+}
+
+.produtos td.without-border-right{
+    border-right: 1px solid transparent;
+}
+
+.cont-right-img{
+/*    border-top: 1px solid #A4A4A4;*/
+    border-bottom: 1px solid #A4A4A4;
+    background: url(images/background-conteudo-right-imagem.png) repeat-x bottom;
+    padding: 12px 0;
+    height: 287px;
+}
+
+.cont-right-img2{
+/*    border-top: 1px solid #A4A4A4;*/
+    border-bottom: 1px solid #A4A4A4;
+    background: url(images/background-conteudo-right-imagem.png) repeat-x bottom;
+    padding: 12px 0;
+    margin-top: 11px;
+    height: 287px;
+}
+
+.cont-right-img3{
+/*    border-top: 1px solid #A4A4A4;*/
+    border-bottom: 1px solid #A4A4A4;
+    background: url(images/background-conteudo-right-imagem.png) repeat-x bottom;
+    padding: 12px 0;
+    margin-top: 18px;
+    height: 313px;
+}
+
+/* DIV PARA IMAGEM GRANDE USA 2 QUADRANTES DA TELA */
+.cont-right-img4{
+/*    border-top: 1px solid #A4A4A4;*/
+    border-bottom: 1px solid #A4A4A4;
+    background: url(images/background-conteudo-right-imagem.png) repeat-x bottom;
+    padding: 12px 0;
+    margin-top: 20px;
+    height: 590px;
+}
+
+#cont-right-img-coluna{
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.cont-right-img-title{
+    font-size: 60px;
+    color: #990000;
+    margin: 0 10px 20px 10px;
+}
+
+.cont-right-img-titleGrande{
+    font-size: 70px;
+    color: #990000;
+    margin: 0 10px 70px 10px;
+}
+
+.cont-right-img-subtitle{
+    font-size: 40px;
+    color: #CCCCCC;
+    margin: 0 10px 20px 10px;
+    text-align: right;
+}
+
+.de{
+    font-size: 30px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-decoration: line-through;
+}
+
+.deGrande{
+    font-size: 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-decoration: line-through;
+}
+
+.para{
+    font-size: 40px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    color: #0066CC;
+}
+
+.paraGrande{
+    font-size: 60px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    color: #0066CC;
+}
+
+.left{
+    float: left;
+    width: 49%;
+}
+
+.right{
+    float: right;
+    width: 49%;
+}
+
+.center{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.align-right{
+    text-align: right;
+}
+
+.align-left{
+    text-align: left;
+}
+
+.codigo{
+    font-size: 15px;
+    vertical-align: middle;
+}
+

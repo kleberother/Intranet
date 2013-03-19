@@ -1,0 +1,257 @@
+
+/************************************************************************* 
+               
+ * EXTRANET - DAVÓ SUPERMERCADOS
+ * Criado em: 20/12/2011 por Jorge Nova                              
+ * Descrição: CSS Para classes do projeto extranet
+ * Entrada:   
+ * Origens:   
+           
+**************************************************************************/
+
+.logo-01{
+    font-size:      30px;
+    background:     url(imagens/logo-davo.png) no-repeat;
+    padding:        10px 0 10px 80px;
+    display:        block;
+    text-shadow:    1px 1px 1px #DFDFDF;
+}
+
+.logo-02{
+    background: url(imagens/logo-davo-02.png) no-repeat;
+    width:      99px;
+    height:     21px;
+}
+
+/* -- Margins e Espaçamentos -- */
+
+.padding-padrao-vertical    {   padding: 10px 0;    }
+
+.padding-5px-vertical       {   padding: 5px 0;     }
+
+.margim-padrao-horizontal   {   margin: 0 10px;     }
+
+.margim-5px-horizontal      {   margin: 0 5px;      }
+
+.margin-direita-05px        {   margin-right: 5px;  }
+
+
+/* Formatação das Listas e Dvis de Conteudo */
+
+.conteudo-visivel{
+    overflow: hidden;
+}
+
+.alinhado-esquerda{
+    float: left;
+}
+
+.alinhado-direita{
+    float: right;
+}
+
+.lista-horizontal li{
+    display: inline;
+}
+
+.divisao-de-lista{
+    background: url(imagens/divisao-de-lista.png) no-repeat right;
+}
+
+.caixa-de-ferramentas{
+    border-bottom: 1px solid #E5E5E5;
+}
+
+.caixa-de-ferramentas ul li{
+    margin-right: 5px;
+}
+
+.caixa-de-ferramentas ul li a{
+    position: relative;
+    padding: .4em .5em .4em 20px;
+}
+
+.caixa-de-ferramentas ul li a span.ui-icon{
+    margin: 0 5px 0 0; position: absolute; left: .2em; top: 50%; margin-top: -8px;
+}
+
+.submenu-tree{
+    display:none;
+}
+
+.diretorio{
+    background: url(imagens/icon-folder.gif) no-repeat 0px 5px;
+    padding: 5px 0 0 20px;
+}
+
+.diretorio .item{
+    padding: 5px 0 0 20px;
+    margin-left: 10px;
+}
+
+.lista-arquivos{
+    overflow-y: scroll;
+    height: 450px;   
+}
+
+.lista-arquivos li{
+/*    border-bottom: 1px solid #E5E5E5;
+    padding: 5px 0;*/
+    position: relative;   
+}
+
+/*.lista-arquivos li:hover{
+    background-color: #F9F9F9;
+}*/
+
+.lista-arquivos li .celula{
+    border-bottom: 1px solid #E5E5E5;
+}
+
+.lista-arquivos li .celula:hover{ 
+    background-color: #F9F9F9;
+}
+
+
+.lista-arquivos li.selected{
+    background-color: #EEEEEE;
+    font-style: italic;
+}
+
+.lista-dica li{
+    margin: 5px 0;
+}
+
+.div-input{
+/*    background: #FFF url(imagens/bkg-div-input.png) repeat-x bottom;*/
+    padding: 5px 0;    
+}
+
+.Scroll-Y{
+    overflow-y:                 scroll;
+}
+
+.div_usuarios_com_permissao{
+    height: 50px;
+    width:  100%;
+}
+
+
+/* -- Colunas utilizadas para o sistema extranet -- */
+.coluna {   float:  left;   border: 1px solid transparent;  }
+/*.coluna {   float:  left;   border: 1px solid red;  }          */
+
+/* Linha com 3 colunas */
+.c03_tipo_a_01  { width: 39%; }
+.c03_tipo_a_02  { width: 39%; }
+.c03_tipo_a_03  { width: 19%; }
+
+/* Linha com 5 colunas */
+.c05_tipo_a_01  { width: 20%; }
+.c05_tipo_a_02  { width: 10%; }
+.c05_tipo_a_03  { width: 20%; }
+.c05_tipo_a_04  { width: 10%; }
+.c05_tipo_a_05  { width:  6%; }
+
+
+/* -- Formatações de Texto -- */
+.negrito                    {   font-weight: bolder;    }
+
+.texto-alinhado-meio        {   text-align: center;     }
+
+.texto-alinhado-direita     {   text-align: right;      }
+
+.texto-alinhado-esquerda    {   text-align: left;       }
+
+.texto-alinhado-justificado {   text-align: justify;    }
+
+.titulo     {   font-size:  18px;   margin-bottom:  10px;   text-shadow:    1px 1px 1px #999999;    }
+.titulo-02  {   font-size:  14px;   margin-bottom:  10px;   border-bottom:  1px solid #C7C7C7;  font-weight:    bolder; }
+
+
+.ui-comment-span{
+    background:     url(imagens-jquery/ui-icons_222222_256x240.png) -128px -96px no-repeat;
+    height:         16px;
+    width:          16px;    
+}
+
+.subtitulo{
+    font-size:      12px;
+    margin-bottom:  10px;
+    font-style:     italic;
+    color:          #999999;
+    text-shadow:    0px 1px 1px #F7F7F7;
+}
+
+.copyright{
+    color:          #E16606;
+}
+
+.destaque-01{
+    color:          #E16606;
+}
+
+.sombra{
+    -webkit-box-shadow: 0px 0px 1px 5px rgba(229, 229, 229, 0.7); 
+    -moz-box-shadow:    0px 0px 1px 5px rgba(229, 229, 229, 0.7);
+    box-shadow:         0px 0px 1px 5px rgba(229, 229, 229, 0.7);
+}
+
+/* -- Formatação de campos de formulário -- */
+
+.multiploSelectBoxModal{
+    width:  325px;
+    height: 180px;
+}
+
+a.botao-padrao, a.botao-padrao-vermelho {
+    text-decoration: none;
+}
+
+.botao-padrao{
+    border:                 1px solid #E6E6E6;
+    background:             #FFF url(imagens/bkg-classe-botao-padrao.png) repeat-x bottom;
+    padding:                5px 10px;
+    -webkit-border-radius:  3px; 
+    -moz-border-radius:     3px; 
+    border-radius:          3px;
+    cursor:                 pointer;
+    margin:                 10px 0;
+}
+
+.botao-padrao:hover{
+    border:                 1px solid #C6C6C6;
+    -webkit-box-shadow:     0px 0px 1px 0px rgba(229, 229, 229, 0.8); 
+    -moz-box-shadow:        0px 0px 1px 0px rgba(229, 229, 229, 0.8);
+    box-shadow:             0px 0px 1px 0px rgba(229, 229, 229, 0.8);   
+    background:             #FFF url(imagens/bkg-classe-botao-padrao-hover.png) repeat-x bottom;    
+}
+
+.botao-padrao-vermelho{
+    border:                 1px solid #D14836;
+    background:             #DD4B39 url(imagens/bkg-classe-botao-padrao-vermelho.png) repeat-x bottom;
+    padding:                5px 10px; 
+    -webkit-border-radius:  3px; 
+    -moz-border-radius:     3px; 
+    border-radius:          3px;
+    cursor:                 pointer;
+    margin:                 10px 0;
+    color:                  #FFF;
+}
+
+.botao-padrao-vermelho:hover{
+    border:                 1px solid #B0281A;
+    -webkit-box-shadow:     0px 0px 1px 0px rgba(229, 229, 229, 0.8); 
+    -moz-box-shadow:        0px 0px 1px 0px rgba(229, 229, 229, 0.8);
+    box-shadow:             0px 0px 1px 0px rgba(229, 229, 229, 0.8);      
+    background:             #E45240 url(imagens/bkg-classe-botao-padrao-vermelho-hover.png) repeat-x bottom;    
+}
+
+.caixa-texto-padrao{
+    border-top:             1px solid #C0C0C0;
+    border-bottom:          1px solid #D9D9D9;
+    border-left:            1px solid #D9D9D9;
+    border-right:           1px solid #D9D9D9;
+    padding:                10px 5px 5px 5px;    
+    margin:                 5px 0;
+}
