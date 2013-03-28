@@ -185,7 +185,7 @@ if (!empty($_POST))
 
         <div style="position: absolute; top: 205px; left: 665px;">
             <label class="label">Hora*</label>
-            <select name="hr_ini" class="validate[required]">
+            <select id="hr_ini" name="hr_ini" class="validate[required]">
                 <?php $obj->comboHora();?>
             </select>       
         </div>
@@ -197,7 +197,7 @@ if (!empty($_POST))
 
         <div style="position: absolute; top: 205px; left: 825px;">
             <label class="label">Hora*</label>
-            <select name="hr_fim" class="validate[required]">
+            <select id="hr_fim" name="hr_fim" class="validate[required]">
                 <?php $obj->comboHora();?>
             </select>            
         </div>
@@ -264,7 +264,7 @@ if (!empty($_POST))
                             
                            <div style="position: absolute; top: 30px; left: 150px;">
                                 <label class="label">Total</label>
-                                <input style="width: 60px" type="text" name="tempo_total" placeholder="" />
+                                <input style="width: 60px" type="text" name="T113_tempo_total" placeholder="" id="tempoTotal" readonly />
                             </div>   
                         
                              

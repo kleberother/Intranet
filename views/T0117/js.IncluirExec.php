@@ -90,5 +90,36 @@ $obj->inserir($tabela, $campos);
        
           $obj->inserir($tabela, $campos);
            
+       } elseif ($_REQUEST["cod"]   ==  4) {
+       
+           $tabela  =   "T004_T113";
+           $codRM   =   $_REQUEST["codRM"];
+           $login   =   $_REQUEST["login"];
+           $parecer =   $_REQUEST["parecer"];
+           
+           $user       =   $login;
+        $dadosUser  =   $obj->retornaDadosUsuario($user);
+        
+        foreach($dadosUser as $cp   =>  $vl)
+        {
+            $nomeUsuario    =   $vl['NomeUsuario'];
+            $emailUsuario   =   $vl['EmailUsuario'];
+        }
+                
+        $campos =   array(
+                            "T113_codigo"               =>  $codRM
+                         ,  "T004_login"                =>  $login
+                         ,  "T004_T113_nome"            =>  $nomeUsuario
+                         ,  "T004_T113_email"           =>  $emailUsuario
+                         ,  "T004_T113_telefone"        =>  ""
+                         ,  "T004_T113_tipo"            =>  4        
+                         ,  "T004_T113_justificativa"   => $parecer   //Tipo 1 = Responsaveis RM
+                         );
+        
+  
+       $obj->inserir($tabela, $campos);
+       
        }
+       
+
 ?>
