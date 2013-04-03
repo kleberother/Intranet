@@ -13,6 +13,8 @@
 
 $obj            =   new models_T0026();
 
+
+
 ?>
     <!-- Divs com a barra de ferramentas -->
 <div class="div-primaria caixa-de-ferramentas padding-padrao-vertical">
@@ -36,53 +38,65 @@ $obj            =   new models_T0026();
             <div class="clear10"></div>
 
             <div class="grid_2">
-                <label>Data</label>
-                <input type="text" class="data required" id="dialogData">
-            </div>
-
-            <div class="grid_1 prefix_3">
-                <label>Km</label>
-                <input type="text" id="dialogKm" disabled="disabled" class="required">
+                <label>Data *</label>
+                <input type="text" class="data validate[required] required" id="dialogData">
             </div>
 
             <div class="clear10"></div>
 
             <div class="grid_6">
-                <label>Histórico/Detalhes</label>
-                <textarea class="" id="dialogHistorico" maxlength="200" style="width:340px;height:100px;"></textarea>
+                <label>Histórico/Detalhes *</label>
+                <textarea class="required" id="dialogHistorico" maxlength="200" style="width:340px;height:100px;"></textarea>
             </div>
 
             <div class="clear10"></div>
 
             <div class="grid_4">
-                <label>Origem</label>
-                <select id="dialogLojaOrigem">
-                    <option>Selecione...</option>
+                <label>Origem *</label>
+                <select id="dialogLojaOrigem" class="required">
                 </select>
             </div>
 
             <div class="grid_2">
-                <label>Hora Origem</label>
-                <select id="dialogHoraOrigem">                
+                <label>Hora Origem *</label>
+                <select id="dialogHoraOrigem" class="required">                
                     <?php echo $obj->comboHora();?>
                 </select>    
             </div>
+            
+            <div class="clear10"></div>
+            
+            <div class="grid_6" style="display:none" id="externoOrigem">
+                <label>Externo Origem *</label>
+                <input type="text" maxlength="200" id="txtExternoOrigem"/>              
+            </div>
 
             <div class="clear10"></div>
 
             <div class="grid_4">
-                <label>Destino</label>
-                <select id="dialogLojaDestino">
-                    <option>Selecione...</option>
+                <label>Destino *</label>
+                <select id="dialogLojaDestino" class="required">
                 </select>
             </div>
 
             <div class="grid_2">
-                <label>Hora Destino</label>
-                <select id="dialogHoraDestino">                
+                <label>Hora Destino *</label>
+                <select id="dialogHoraDestino" class="required">                
                     <?php echo $obj->comboHora();?>    
                 </select>
-            </div>                    
+            </div>
+            
+            <div class="clear10"></div>
+            
+            <div class="grid_4" style="display:none" id="externoDestino">
+                <label>Externo Destino *</label>
+                <input type="text" maxlength="200" id="txtExternoDestino"/>
+            </div>            
+            
+            <div class="grid_1">
+                <label>Km *</label>
+                <input type="text" id="dialogKm" disabled="disabled" class="required"/>
+            </div>            
             
         </form>
         
@@ -93,7 +107,24 @@ $obj            =   new models_T0026();
 <form action="" method="post">
 
     <div class="conteudo_16">
-    
+        
+        <div class="clear10"></div>
+        
+        <div class="grid_2">
+            <p>CPF*</p>
+            <input type="text"  class="cpf validate[required]" name="cpf"/>
+        </div>        
+        
+        
+        <div class="grid_6">
+            <p>Nome</p>
+            <input type="text" disabled="disabled" id="nomeColaborador"/>
+        </div>        
+        
+    </div>
+        
+    <div id="abasDespesa" class="conteudo_16" style="display:none">
+            
         <div id="tabs">
             <ul>
                 <li class="ui-state-default"><a href="#tabs-1">Despesas com Quilometragem</a></li>
@@ -120,15 +151,9 @@ $obj            =   new models_T0026();
                             <th>Km              </th>
                         </tr>
                     </thead>
-                    <tbody id="dDados">
+                    <tbody id="dDados">                        
                     <tr>
-                        <td>Teste</td>
-                        <td>Teste</td>
-                        <td>Teste</td>
-                        <td>Teste</td>
-                        <td>Teste</td>
-                        <td>Teste</td>
-                        <td>Teste</td>
+                        <td colspan="7" align="center" id="linhaInfo">Clique em adicionar despesa para uma nova despesa.</td>
                     </tr>
                 </table>
                 

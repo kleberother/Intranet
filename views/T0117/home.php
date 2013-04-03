@@ -1,5 +1,5 @@
 <?php 
-  
+
 //Instancia Classe
 $obj    =   new models_T0117();  
  
@@ -70,17 +70,25 @@ echo "";
                 </thead>
                 <tbody class="campos">
                     <?php foreach($dados    as  $campos =>  $valores){?>
-                    <tr>
+                    <tr class="linha_<?php echo $valores["CodigoRM"];?>">
                         <td><label class="rmCmp"><?php echo sprintf("%06s",$valores['CodigoRM']);?></label></td>
                         <td><?php echo $valores['DataRM'];?></td>
                         <td><?php echo $valores['TituloRM'];?></td>
                         <td><?php echo $valores['SolicitanteNome']." - ".$valores['SolicitanteLogin'];?></td>
-                        <td><?php echo $valores['StatusRM'];?></td>
+                        <td><?php $obj->nomeStatus($valores['StatusRM']);?></td>
                         <td class="acoes">
                             <span class="lista_acoes">
                                 <ul>
                                     <li class="ui-state-default ui-corner-all" title="Alterar">
                                         <a href="?router=T0117/alterar&codRM=<?php echo $valores['CodigoRM'];?>" class="ui-icon ui-icon-pencil"></a> 
+                                    </li>
+                                    <li class="ui-state-default ui-corner-all" title="Visualizar">
+                                        <a href="?router=T0117/consultar&codRM=<?php echo $valores['CodigoRM'];?>" class="ui-icon ui-icon-search"></a> 
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li class="ui-state-default ui-corner-all" title="Excluir">
+                                        <a href="#" onclick="excluirLinha(<?php echo $valores['CodigoRM'];?>)" class="ui-icon ui-icon-closethick"></a> 
                                     </li>
                                 </ul>
                            </span>

@@ -963,8 +963,7 @@ class models extends PDO
         
         return $this->query($sql);
     }    
-    
-    
+        
     //Monta tabela ToolTip Fluxo WorkFlow
     public function tabelaToolTipFluxoWorkFlow($Codigo, $NumeroTabela)
     {

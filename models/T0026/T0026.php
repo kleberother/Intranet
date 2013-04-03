@@ -63,7 +63,8 @@ class models_T0026 extends models
                          WHERE T006_codigo  NOT IN  (0)";
         
         if(isset($loja))
-            $sql   .=  "   AND T006_codigo  NOT IN  ($loja)";
+            if($loja!="999")
+                $sql   .=  "   AND T006_codigo  NOT IN  ($loja)";
             
         return $this->query($sql);
     }
@@ -480,6 +481,21 @@ class models_T0026 extends models
                         FROM T014_conta T14";
         
         return $this->query($sql);
+    }
+    
+    public function verificaCpf($cpf)
+    {
+        $connORA  =   $this->consulta;
+        
+        $sql = "  SELECT A.TIP_RAZAO_SOCIAL NOME
+                    FROM RMS.AA2CTIPO A
+                   WHERE A.TIP_LOJ_CLI  =   'F'
+                     AND A.TIP_NATUREZA =   'FS'
+                     AND A.TIP_CGC_CPF  = '$cpf'";        
+        
+        $stid    = oci_parse($connORA, $sql);
+        oci_execute($stid);
+        return($stid);
     }
     
 }

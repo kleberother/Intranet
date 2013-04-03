@@ -22,11 +22,11 @@ class models_T0117 extends models
     {        
         $insere = $this->exec($this->insere($tabela, $campos));
         
-       if($insere)
-            $this->alerts('false', 'Alerta!', 'Incluido com Sucesso!');
-       else
-            $this->alerts('true', 'Erro!', 'Não foi possível Incluir!');
-       
+//       if($insere)
+//            $this->alerts('false', 'Alerta!', 'Incluido com Sucesso!');
+//       else
+//            $this->alerts('true', 'Erro!', 'Não foi possível Incluir!');
+//       
        return $insere;
     }      
        
@@ -74,7 +74,12 @@ class models_T0117 extends models
                             , T113.T113_status                              StatusRM
                             , T113.T113_tempo_previsto                      TempoPrevisto
                             , T113.T113_obs_contingencia                    ObsContingencia
-                            , T113.T004_responsavel                         Responsavel   
+                            , T113.T004_responsavel                         Responsavel
+                            ,T113.T113_tempo_total                          TempoTotal
+                            ,T113.T113_janela_disponivel                    JanelaDisp
+                            ,T113.T113_hora_prevista                        HoraPrevista
+                            ,T113.T113_hora_disponivel                      HoraDisponivel
+                            ,T113.T113_hora_total                           HoraTotal
                          FROM T113_requisicao_mudanca T113
                          JOIN T004_usuario T04 ON T04.T004_login = T113.T004_responsavel
                          JOIN T004_usuario T04B ON T04B.T004_login = T113.T004_solicitante
@@ -142,7 +147,23 @@ class models_T0117 extends models
         
     }
     
-       public function excluir($tabela, $delim)
+    public function retornaComiteRM($codRm){
+        
+           $sql    =   "SELECT T04113.T113_codigo           Codigo
+                          , T04113.T004_T113_nome           Nome
+                          , T04113.T004_login               Login
+                          , T04113.T004_T113_justificativa  Justificativa
+                          , T04113.T004_T113_aprovado       Aprovado    
+                       FROM T004_T113 T04113
+                      WHERE T04113.T004_T113_tipo = 4
+                        AND T04113.T113_codigo    = $codRm";
+           
+           return $this->query($sql);
+        
+    }
+
+
+    public function excluir($tabela, $delim)
     {
         $exclui = $this->exec($this->exclui($tabela, $delim));
         
@@ -153,6 +174,42 @@ class models_T0117 extends models
        
        return $exclui;
     }  
+    
+    public function retornaPerfil($user, $perfil) {
+        
+        $sql = "SELECT T004_login   Login
+                  FROM T004_T009    T0409
+                 WHERE T009_codigo  = $perfil
+                   AND T004_login   = '$user'";
+        
+        return $this->query($sql);
+        
+    }
+    
+    public function nomeStatus($status) {
+        
+        switch ($status) {
+            case 1:
+                echo    "Aberta";
+                break;
+            case 2:
+               echo     "Revisada";
+                break;
+            case 3:
+                echo    "Suspensa";
+                break;
+            case 4:
+                echo    "Reprovada";
+                break;
+            case 5:
+                echo    "Aprovada";
+                break;
+            case 6:
+                echo    "Concluída";
+                break;
+        }
+        
+    }
     
 
      
