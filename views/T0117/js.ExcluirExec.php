@@ -58,5 +58,19 @@ $obj->excluir($tabela, $delim);
        
           $obj->excluir($tabela, $delim);
            
-       }
+       } elseif ($_REQUEST["cod"]   ==  4) {
+       
+        $codRM      =  $_REQUEST["codRM"];  
+        $login      =  $_REQUEST["login"];
+            
+        $tabela     =   "T004_T113";
+        
+        $delim   =   "T113_codigo       =    $codRM ";
+        $delim  .=   "AND T004_login        =   '$login' "; 
+        $delim  .=   "AND T004_T113_tipo    =   4" ;
+        
+        $obj->excluir($tabela, $delim);
+           
+           
+}
 ?>
