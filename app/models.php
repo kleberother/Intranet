@@ -1321,7 +1321,10 @@ class models extends PDO
         
     }
     
+    public function formataMoeda($valor)
+    {
+        return $valor  =   'R$ ' . number_format($valor, 2, ',', '.'); // retorna R$100.000,50
+    }    
+    
 }
-
-
 ?>

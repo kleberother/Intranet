@@ -3,6 +3,77 @@
 // Desenvolvedor:  Rodrigo Alfieri
 
 $(function(){
+        
+    function calculaTotalDespesaKm()
+    {
+        var total   =   0;
+        $.each($("#dDados").find("tr"), function(){
+            var tKm     =   parseInt($(this).find(".qKm").text())   ;
+            var vKm     =   $("#parametroKm").val()                 ; //Valor Km                                                             
+                total  +=   tKm * vKm                               ;  
+        });
+        $("#totalDespesaKm").val(total);
+        $("#totalDespesaKm").priceFormat({
+                                            prefix: 'R$ ',
+                                            centsSeparator: ',',
+                                            thousandsSeparator: '.'
+                                          });   
+    }
+    
+    function calculaTotalDespesaDiversa()
+    {
+        var total   =   0;
+        $.each($("#dDadosDiversos").find("tr"), function(){
+
+            var vValor  =   $(this).find(".vValor").text()  ;
+
+            vValor  =   vValor.replace('.','');
+            vValor  =   vValor.replace(',','.');
+
+                total  +=   parseFloat(vValor);  
+
+        });
+        $("#totalDespesaDiversas").val(total.toFixed(2));
+        $("#totalDespesaDiversas").priceFormat({
+                                            prefix: 'R$ ',
+                                            centsSeparator: ',',
+                                            thousandsSeparator: '.'
+                                          });   
+    }
+    
+    function calculaTotalGeral()
+    {
+        // ******* INICIO CALCULO TOTAL GERAL ****** //
+        var despesaKm   =   $("#totalDespesaKm").val();
+        if (despesaKm!='')
+        {
+            despesaKm   =   despesaKm.replace('R$ ','');
+            despesaKm   =   despesaKm.replace('.','');
+            despesaKm   =   despesaKm.replace(',','.');
+        }
+        else
+            despesaKm   =   0;
+
+        var despesaDiv  =   $("#totalDespesaDiversas").val();
+        if (despesaDiv!='')
+        {
+            despesaDiv  =   despesaDiv.replace('R$ ','');
+            despesaDiv  =   despesaDiv.replace('.','');
+            despesaDiv  =   despesaDiv.replace(',','.');
+        }
+        else
+            despesaDiv  =   0;
+
+        var totalGeral  =   parseFloat(despesaKm)+parseFloat(despesaDiv);
+
+        $("#totalGeral").val(totalGeral).priceFormat({
+                                            prefix: 'R$ ',
+                                            centsSeparator: ',',
+                                            thousandsSeparator: '.'
+                                          }); 
+
+        // ******* FIM CALCULO TOTAL GERAL ****** //         
+    }    
     
     //Tablesorter
     $("#tPrincipal").tablesorter({widget:['zebra']                //Tabela Zebrada
@@ -69,15 +140,16 @@ $(function(){
                         Ok: function() 
                         {
                             var html        =   ""                              ;
+                            
                             var data        =   $("#dialogData").val()          ;
                             var historico   =   $("#dialogHistorico").val()     ;
                             var lojaOrigem  =   $("#dialogLojaOrigem").val()    ;
                             var lojaDestino =   $("#dialogLojaDestino").val()   ;
                             var horaOrigem  =   $("#dialogHoraOrigem").val()    ;
                             var horaDestino =   $("#dialogHoraDestino").val()   ;
-                            var km          =   $("#dialogKm").val()            ;
-                            
-                            if (lojaOrigem=="999")
+                            var km          =   $("#dialogKm").val()            ;                            
+                              
+                            if (lojaOrigem=="999")  
                                 lojaOrigem  =   "999-"+$("#txtExternoOrigem").val();
                             else
                                 lojaOrigem  =   $("#dialogLojaOrigem option[value='"+lojaOrigem+"']").attr('selected', 'selected').html();
@@ -91,18 +163,114 @@ $(function(){
                             $("#linhaInfo").remove();
                              
                             html    +=  "<tr>";
-                            html    +=  "<td>"+data+"</td>";
-                            html    +=  "<td>"+historico+"</td>";
-                            html    +=  "<td>"+lojaOrigem+"</td>";
-                            html    +=  "<td>"+$("#dialogHoraOrigem option[value='"+horaOrigem+"']").attr('selected', 'selected').html()+"</td>";
-                            html    +=  "<td>"+lojaDestino+"</td>";
-                            html    +=  "<td>"+$("#dialogHoraDestino option[value='"+horaDestino+"']").attr('selected', 'selected').html()+"</td>";
-                            html    +=  "<td>"+km+"</td>";
-                            html    +=  "</tr>";
-                            
+                            html    +=  "   <td class='vData'>"+data+"</td>";
+                            html    +=  "   <td class='vHist'>"+historico+"</td>";
+                            html    +=  "   <td class='vLjOrig'>"+lojaOrigem+"</td>";
+                            html    +=  "   <td class='vHrOrig'>"+$("#dialogHoraOrigem option[value='"+horaOrigem+"']").attr('selected', 'selected').html()+"</td>";
+                            html    +=  "   <td class='vLjDest'>"+lojaDestino+"</td>";
+                            html    +=  "   <td class='vHrDest'>"+$("#dialogHoraDestino option[value='"+horaDestino+"']").attr('selected', 'selected').html()+"</td>";
+                            html    +=  "   <td class='qKm'>"+km+"</td>";                                                        
+                            html    +=  "   <td class='acoes'>";
+                            html    +=  "       <span class='lista_acoes'>";
+                            html    +=  "           <ul>";
+                            html    +=  "               <li class='ui-state-default ui-corner-all excluiLinha' title='Excluir'  ><a href='#'   class='ui-icon ui-icon-closethick'></a></li>";
+                            html    +=  "           </ul>";
+                            html    +=  "       </span>";
+                            html    +=  "   </td>";                                                        
+                            html    +=  "</tr>"; 
+                                                                                                             
                             if(validaForm($("#dialogForm")))
                             {    
                                 $("#dDados").append(html);
+                                
+                                calculaTotalDespesaKm();                                
+                                
+                                calculaTotalGeral();
+                                
+                                limpaCampos();   
+                                
+                                $(this).dialog("close");
+                            }
+                            
+                        }
+                        ,
+                        Fechar: function()
+                        {
+                            $(this).dialog("close");
+                        }
+                }
+        }); 
+    });    
+        
+    //Caixa com Formulário
+    $(".botaoAddDespesaDiversas").click(function(){
+        function validaFormDiversas(form)
+        {
+            var err = 0;
+            form.children().children('.required').each(function(){
+                if($(this).val() == '' || $(this).val() == null){
+                    $(this).addClass('error');
+                    form.children('.error_form').show();
+                    err++;
+                }
+            });
+            if(err == 0)
+                return true;
+            else
+            {
+                show_stack_bottomleft(true, 'Erro!', 'Preencha todos os campos!');  
+                return false;
+            }
+        }
+                
+        function limpaCampos()
+        {
+            $("#dialogDataDiversos").val("");
+            $("#dialogContaDiversos option[value='']").attr('selected', 'selected');
+            $("#dialogValorDiversos").val("");
+            
+        }
+        
+        $(".dialog-despesa-diversas").dialog
+        ({
+                resizable: false,
+                height:220,
+                draggable: false,
+                width:400,
+                modal: true,
+                buttons:
+                {
+                        Ok: function() 
+                        {
+                            var html        =   ""                              ;
+                            
+                            var data        =   $("#dialogDataDiversos").val()          ;
+                            var conta       =   $("#dialogContaDiversos").val()     ;
+                            var valor       =   $("#dialogValorDiversos").val()    ;
+                              
+                            $("#linhaInfoDiversos").remove();
+                             
+                            html    +=  "<tr>";
+                            html    +=  "   <td class='vData'>"+data+"</td>";                            
+                            html    +=  "   <td class='vConta'>"+$("#dialogContaDiversos option[value='"+conta+"']").attr('selected', 'selected').html()+"</td>";
+                            html    +=  "   <td class='vValor'>"+valor+"</td>";
+                            html    +=  "   <td class='acoes'>";
+                            html    +=  "       <span class='lista_acoes'>";
+                            html    +=  "           <ul>";
+                            html    +=  "               <li class='ui-state-default ui-corner-all excluiLinhaDiversos' title='Excluir'  ><a href='#'   class='ui-icon ui-icon-closethick'></a></li>";
+                            html    +=  "           </ul>";
+                            html    +=  "       </span>";
+                            html    +=  "   </td>";                             
+                            html    +=  "</tr>"; 
+                                                                                                             
+                            if(validaFormDiversas($("#dialogFormDiversos")))
+                            {    
+                                $("#dDadosDiversos").append(html);
+
+                                calculaTotalDespesaDiversa();
+                                
+                                calculaTotalGeral();
+                                
                                 limpaCampos();   
                                 $(this).dialog("close");
                             }
@@ -129,6 +297,9 @@ $(function(){
                     $this.focus();
                     $("#nomeColaborador").val();
                     $("#abasDespesa").css("display", "none");
+                    $("#botaoIncluir").css("display", "none");
+                    $("#parametro").css("display", "none");
+                    
                 }else
                     {
                         $.each(dados, function(i,itm){
@@ -136,6 +307,8 @@ $(function(){
                         });
                         
                         $("#abasDespesa").css("display", "block");
+                        $("#botaoIncluir").css("display", "block");
+                        $("#parametro").css("display", "block");
                         
                     };
         });
@@ -199,8 +372,80 @@ $(function(){
         // REMOVE OS CARACTERES DA EXPRESSAO ACIMA
         if ($(this).val().match(expre))
             $(this).val($(this).val().replace(expre,''));
-    });       
+    });    
+    
+    $(".botaoInserir").click(function(){
+        $("#dialog-modal").text("Tem certeza que deseja incluir a despesa!");
+        $("#dialog-modal").dialog
+        ({
+                resizable: false,
+                height:120,
+                draggable: false,
+                width:220,
+                modal: true,
+                title: "Mensagem!",
+                buttons:
+                {
+                        Ok: function() 
+                        {
+                            $("#dDados").find("tr:first").remove();
+                            $.each($("#dDados").find("tr"), function(){
+                                var vCpf    =   $("#campoCpf").val()            ;                                                                                                
+                                var vData   =   $(this).find(".vData").text()   ;
+                                var vHist   =   $(this).find(".vHist").text()   ;
+                                var vLjOrig =   $(this).find(".vLjOrig").text() ;
+                                var vHrOrig =   $(this).find(".vHrOrig").text() ;
+                                var vLjDest =   $(this).find(".vLjDest").text() ;
+                                var vHrDest =   $(this).find(".vHrDest").text() ;
+                                var qKm     =   $(this).find(".qKm").text()     ; //Qtde Km
+                                
+                                //InsereDados
+                                $.post("?router=T0026/js.insereDados",{  tipo:1 //Despesa com Km
+                                                                       , data:vData
+                                                                       , historico:vHist
+                                                                       , lojaOrigem:vLjOrig
+                                                                       , hrOrigem:vHrOrig
+                                                                       , lojaDestino:vLjDest
+                                                                       , hrDestino:vHrDest
+                                                                       , km:qKm}
+                                                                       , function(dados){
+                                                                           
+                                                                           
                                     
+                                });
+                                
+                            });
+                        }
+                        ,
+                        Fechar: function()
+                        {
+                            $(this).dialog("close");
+                        }
+                }
+        });                        
+    });
+    
+    $(".excluiLinha").live("click",function(e){
+        e.preventDefault();                
+        $(this).parents("tr").remove();
+        
+        calculaTotalDespesaKm();
+        
+        calculaTotalGeral();
+        
+    });
+    
+    $(".excluiLinhaDiversos").live("click",function(e){
+        e.preventDefault();
+        
+        $(this).parents("tr").remove();  
+        
+        calculaTotalDespesaDiversa();
+        
+        calculaTotalGeral();
+                      
+    });
+                                            
 });
 /* ============== Função para Upload Fim  =================== */ 
 

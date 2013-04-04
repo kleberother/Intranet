@@ -498,6 +498,21 @@ class models_T0026 extends models
         return($stid);
     }
     
+    public function retornaParametroKm()
+    {
+        $sql    =   " SELECT SE.ValorParametro 
+                        FROM (
+                                SELECT MAX(T89.T089_dt_inicio)  DataInicio  
+                                     , T089_valor               ValorParametro
+                                  FROM T089_parametro_detalhe T89
+                                 WHERE T003_codigo = 7
+                              )SE";
+        
+        $parametro  =   $this->query($sql)->fetchAll(PDO::FETCH_COLUMN);
+        
+        return $parametro[0];
+    }    
+    
 }
 ?>
 

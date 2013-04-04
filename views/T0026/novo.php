@@ -13,7 +13,8 @@
 
 $obj            =   new models_T0026();
 
-
+$parametro      =   $obj->retornaParametroKm();
+$contas         =   $obj->retornaContas();
 
 ?>
     <!-- Divs com a barra de ferramentas -->
@@ -23,9 +24,6 @@ $obj            =   new models_T0026();
     </ul>
 </div>
 
-<!-- Divs INICIO Modal localOrigem e localDestino -->
-
-<!-- Divs FIM Modal localOrigem e localDestino -->
 <div class="dialog-despesa" title="+ Adicionar uma nova despesa!" style="display: none;">
     <div class="conteudo_16" style="width:auto;">
 
@@ -103,6 +101,45 @@ $obj            =   new models_T0026();
     </div>    
 </div>
 
+<div class="dialog-despesa-diversas" title="+ Adicionar uma nova despesa!" style="display: none;">
+    <div class="conteudo_16" style="width:auto;">
+
+        <form action="" method="post" id="dialogFormDiversos">
+        
+            <div class="grid_6">
+                <label style="display: none;color: red;border: 1px solid red;padding: 2px;">Preencha todos campos!</label>
+            </div>
+
+            <div class="clear10"></div>
+
+            <div class="grid_2">
+                <label>Data *</label>
+                <input type="text" class="data required" id="dialogDataDiversos">
+            </div>
+
+            <div class="clear10"></div>
+
+            <div class="grid_6">
+                <label>Conta *</label>
+                <select id="dialogContaDiversos" class="required">
+                    <?php foreach($contas as $campos => $valores){?>
+                    <option value="<?php echo $valores['ContaCRF'];?>"><?php echo $obj->preencheZero("E", 3, $valores['ContaCRF'])."-".$valores['ContaNome'];?></option>
+                    <?php }?>
+                </select>
+            </div>
+
+            <div class="clear10"></div>
+
+            <div class="grid_2">
+                <label>Valor *</label>
+                <input type="text" id="dialogValorDiversos" class="valor required"/>
+            </div>          
+            
+        </form>
+        
+    </div>    
+</div>
+
 
 <form action="" method="post">
 
@@ -112,13 +149,18 @@ $obj            =   new models_T0026();
         
         <div class="grid_2">
             <p>CPF*</p>
-            <input type="text"  class="cpf validate[required]" name="cpf"/>
+            <input type="text"  class="cpf validate[required]" id="campoCpf"/>
         </div>        
-        
-        
+                
         <div class="grid_6">
             <p>Nome</p>
             <input type="text" disabled="disabled" id="nomeColaborador"/>
+        </div>        
+        
+        <div class="grid_2" id="parametro" style="display:none;">
+            <p>Valor Km</p>
+            <input type="text"      class="valor" disabled="disabled"                  value="<?php echo $obj->formataMoeda($parametro);?>"/>
+            <input type="hidden"    class="valor" disabled="disabled" id="parametroKm" value="<?php echo $parametro;?>"/>
         </div>        
         
     </div>
@@ -132,62 +174,103 @@ $obj            =   new models_T0026();
             </ul>
             <!-- Inicio da div de despesas de quilometragem (tabs-1) -->
             <div id="tabs-1">
+                
+                <div class="conteudo_12">
 
-                <div class="grid_3">
-                    <input type="button" class="botao-padrao botaoAddDespesa" value="Adicionar Despesa">
-                </div>
-                                                
-                <div class="clear10"></div>
+                    <div class="grid_3">
+                        <input type="button" class="botao-padrao botaoAddDespesa" value="Adicionar Despesa">
+                    </div>
 
-                <table id="tDespesa" class="tablesorter">
-                    <thead>
-                        <tr>
-                            <th>Data            </th>
-                            <th>Histórico/Origem</th>
-                            <th>Origem          </th>
-                            <th>Hora            </th>
-                            <th>Destino         </th>
-                            <th>Hora            </th>
-                            <th>Km              </th>
+                    <div class="clear10"></div>
+
+                    <table id="tDespesa" class="tablesorter">
+                        <thead>
+                            <tr>
+                                <th>Data            </th>
+                                <th>Histórico/Origem</th>
+                                <th>Origem          </th>
+                                <th>Hora            </th>
+                                <th>Destino         </th>
+                                <th>Hora            </th>
+                                <th>Km              </th>
+                                <th>Ações           </th>
+                            </tr>
+                        </thead>
+                        <tbody id="dDados">                        
+                        <tr id="linhaInfo">
+                            <td colspan="7" align="center">Clique em adicionar despesa para uma nova despesa.</td>
                         </tr>
-                    </thead>
-                    <tbody id="dDados">                        
-                    <tr>
-                        <td colspan="7" align="center" id="linhaInfo">Clique em adicionar despesa para uma nova despesa.</td>
-                    </tr>
-                </table>
+                    </table>
+
+                    <div class="clear10"></div>  
+
+                    <div class="grid_3 prefix_14">
+                        <p>Total Despesas Km</p>
+                        <input type="text" class="valor" id="totalDespesaKm" disabled="disabled"/>
+                    </div> 
+                    
+                    <div class="clear10"></div>  
+                
+                </div>
                 
             </div>          
 
             <div id="tabs-2">
-
-                <div class="grid_3">
-                    <input type="button" class="botao-padrao" value="Adicionar Despesa">
-                </div>
                 
-                <div class="clear10"></div>
+                <div class="conteudo_12">
 
-                <table id="tDespesaDiv" class="tablesorter">
-                    <thead>
-                        <tr>
-                            <th>Data </th>
-                            <th>Conta</th>
-                            <th>Valor</th>
-                        </tr>
-                    </thead>
-                    <tbody>                        
-                        <tr>
-                            <td>Teste</td>
-                            <td>Teste</td>
-                            <td>Teste</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <div class="grid_3">
+                        <input type="button" class="botao-padrao botaoAddDespesaDiversas" value="Adicionar Despesa">
+                    </div>
+
+                    <div class="clear10"></div>
+
+                    <table id="tDespesaDiv" class="tablesorter">
+                        <thead>
+                            <tr>
+                                <th>Data </th>
+                                <th>Conta</th>
+                                <th>Valor</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dDadosDiversos">                        
+                            <tr id="linhaInfoDiversos">
+                                <td colspan="3" align="center">Clique em adicionar despesa para uma nova despesa.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="clear10"></div>  
+
+                    <div class="grid_3 prefix_14">
+                        <p>Total Despesas Diversas</p>
+                            <input type="text" id="totalDespesaDiversas" disabled="disabled"/>
+                    </div>
+
+                    <div class="clear10"></div>  
+                
+                </div>
                 
             </div>
 
         </div>        
         
+    </div>
+    
+    <div class="conteudo_16" style="display:none" id="botaoIncluir">
+    
+        <div class="grid_3 prefix_14">
+            <p>Total Geral</p>
+            <input type="text" id="totalGeral" disabled="disabled"/>
+        </div>
+        
+        <div class="clear10"></div>
+    
+        <div class="grid_3">
+            <input type="button" class="botao-padrao botaoInserir" value="Incluir">
+        </div>
+    
     </div>
         
 </form>
