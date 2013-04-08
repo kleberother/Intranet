@@ -53,7 +53,7 @@ class models_T0117 extends models
         return $this->query($sql);
     }
     
-    public function retornaRM($titulo, $descricao, $solicitante, $codRM, $user)
+    public function retornaRM($titulo, $descricao, $solicitante, $codRM)
     {        
         
         $sql    =   "  SELECT T113.T113_codigo                              CodigoRM
@@ -84,7 +84,7 @@ class models_T0117 extends models
                          FROM T113_requisicao_mudanca T113
                          JOIN T004_usuario T04 ON T04.T004_login = T113.T004_responsavel
                          JOIN T004_usuario T04B ON T04B.T004_login = T113.T004_solicitante
-                        WHERE 1 =   1
+                         WHERE 1 = 1
                         ";
         
         if(!empty($titulo))
@@ -215,17 +215,17 @@ class models_T0117 extends models
         
     }
     
-    public function mostraBotao($perfil, $user, $status) {
+    public function mostraBotao($perfil, $user, $status, $codRM) {
         
         if (($perfil == 57 ) && ($user == $_SESSION["user"]) && ($status == 1)){
             echo " <li class='ui-state-default ui-corner-all' title='Concluir'>
                                         <a href='#' class='ui-icon ui-icon-check concluir'></a> 
                    </li>
                     <li class='ui-state-default ui-corner-all' title='Excluir'>
-                                       <a href='#' onclick='excluirLinha(".$valores['CodigoRM'].")' class='ui-icon ui-icon-closethick'></a> 
+                                       <a href='#' onclick='excluirLinha(".$codRM.")' class='ui-icon ui-icon-closethick'></a> 
                     </li>
                     <li class='ui-state-default ui-corner-all' title='Alterar'>
-                                        <a href='?router=T0117/alterar&codRM=".$valores['CodigoRM']."' class='ui-icon ui-icon-pencil'></a> 
+                                        <a href='?router=T0117/alterar&codRM=".$codRM."' class='ui-icon ui-icon-pencil'></a> 
                     </li>";
         } elseif(($perfil == 59)&& ($status == 2)){
             
@@ -233,10 +233,10 @@ class models_T0117 extends models
                                         <a href='#' class='ui-icon ui-icon-check revisar'></a> 
                    </li>
                     <li class='ui-state-default ui-corner-all' title='Excluir'>
-                                       <a href='#' onclick='excluirLinha(".$valores['CodigoRM'].")' class='ui-icon ui-icon-closethick'></a> 
+                                       <a href='#' onclick='excluirLinha(".$codRM.")' class='ui-icon ui-icon-closethick'></a> 
                     </li>
                     <li class='ui-state-default ui-corner-all' title='Alterar'>
-                                        <a href='?router=T0117/alterar&codRM=".$valores['CodigoRM']."' class='ui-icon ui-icon-pencil'></a> 
+                                        <a href='?router=T0117/alterar&codRM=".$codRM."' class='ui-icon ui-icon-pencil'></a> 
                     </li>";
             
         }

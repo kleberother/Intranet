@@ -252,7 +252,6 @@ if (!empty($_POST))
                         <li><a href="#tabs-1">Contingência</a></li>
                         <li><a href="#tabs-2">Executores Internos</a></li>
                         <li><a href="#tabs-3">Executores Externos</a></li>
-                        <li><a href="#tabs-4">Comitê</a></li>
                     </ul>
                     <div id="tabs-1">
                         <span class="form-input">
@@ -397,38 +396,7 @@ if (!empty($_POST))
             </div> 
 
                     </div>
-                    <div id="tabs-4">
-                        <div >
-                            <label class="label">Comitê</label>
-                            <input style="width: 250px" type="text" class="buscaUsuario" id="txtComite"
-                                   onmouseover ='show_tooltip_alert("", "Digite o nome do Colaborador, selecione na lista e clique em adicionar.", true);
-                        tooltip.pnotify_display();' 
-                                   onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
-                                   onmouseout  ='tooltip.pnotify_remove();'     
-                                   />
-                        </div>
-                        <div style="position: absolute; top: 44px; left: 330px">
-                                <label class="label">Aprovado</label>
-                                <div id="radioC">
-                                    <input type="radio" id="radio3" name="T113_aprovado" value="S"                    class="validate[required]" /><label for="radio3">Sim</label>
-                                    <input type="radio" id="radio4" name="T113_aprovado" value="N" checked="checked"  class="validate[required]" /><label for="radio4">Não</label>
-                                </div>            
-                            </div>
-                        <div style="position: absolute; top: 44px; left: 450px;">
-                                <label class="label">Parecer</label>
-                                <textarea style="width: 250px" name="T113_justificativa" id='txtJustComite'    placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ><?php?></textarea>            
-                        </div>
-                        <div style="position: absolute; top: 44px; left: 750px">      
-                                <label class="label">Adicionar</label>
-                                <input type="button" value="+" id="btnAddComite"/>
-                        </div>   <br><br><br>
-                        <div style="position: static; top: 500px; left: auto; ">
-                            <label class="label">Membros do Comitê</label>
-                            <select style="width: 950px" name="T004_login[]" multiple id="cmbComite" >
-                            </select><br>
-                            *Clique em cima do Executor para exclui-lo da lista.
-                        </div>
-                    </div>
+                    
                 </div>       
 
             </div>   

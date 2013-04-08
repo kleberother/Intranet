@@ -88,10 +88,10 @@ echo "";
                                    <?php 
                                    $perfilSol   =   $obj->retornaPerfil($_SESSION["user"], 57);
                                    foreach ($perfilSol as $cpsSol => $valSol) {
-                                   $obj->mostraBotao(57, $valores['SolicitanteLogin'] , $valores['StatusRM']);}
+                                   $obj->mostraBotao(57, $valores['SolicitanteLogin'] , $valores['StatusRM'], $valores["CodigoRM"]);}
                                    $perfilGest   =   $obj->retornaPerfil($_SESSION["user"], 59);
                                    foreach ($perfilGest as $cpsGest => $valGest) {
-                                   $obj->mostraBotao(59, $valores['SolicitanteLogin'] , $valores['StatusRM']);}
+                                   $obj->mostraBotao(59, $valores['SolicitanteLogin'] , $valores['StatusRM'], $valores["CodigoRM"]);}
                                    ?>
                                    
                                 </ul>
