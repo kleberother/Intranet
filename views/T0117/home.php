@@ -75,7 +75,7 @@ echo "";
                         <td><?php echo $valores['DataRM'];?></td>
                         <td><?php echo $valores['TituloRM'];?></td>
                         <td><?php echo $valores['SolicitanteNome']." - ".$valores['SolicitanteLogin'];?></td>
-                        <td><?php echo $valores['StatusRM'];?></td>
+                        <td><?php $obj->nomeStatus($valores['StatusRM']);?></td>
                         <td class="acoes">
                             <span class="lista_acoes">
                                 <ul>

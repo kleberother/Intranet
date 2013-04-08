@@ -93,10 +93,17 @@ $obj->inserir($tabela, $campos);
        } elseif ($_REQUEST["cod"]   ==  4) {
        
            $tabela  =   "T004_T113";
+<<<<<<< HEAD
            $codRM   =   $_REQUEST["codRM"];
            $login   =   $_REQUEST["login"];
            $parecer =   $_REQUEST["parecer"];
            
+=======
+           $codRM   =  $_REQUEST["codRM"];
+           $login   =  $_REQUEST["login"];
+           $parecer =  $_REQUEST["parecer"];
+           $aprovar =  $_REQUEST["aprovar"];         
+>>>>>>> origin/dev
            $user       =   $login;
         $dadosUser  =   $obj->retornaDadosUsuario($user);
         
@@ -114,6 +121,10 @@ $obj->inserir($tabela, $campos);
                          ,  "T004_T113_telefone"        =>  ""
                          ,  "T004_T113_tipo"            =>  4        
                          ,  "T004_T113_justificativa"   => $parecer   //Tipo 1 = Responsaveis RM
+<<<<<<< HEAD
+=======
+                         ,  "T004_T113_aprovado"        => $aprovar       
+>>>>>>> origin/dev
                          );
         
   

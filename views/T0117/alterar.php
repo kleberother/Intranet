@@ -12,6 +12,10 @@
 //Instancia Classe
 $obj = new models_T0117();
 $codRM = $_REQUEST["codRM"];
+<<<<<<< HEAD
+=======
+$user   =   $_SESSION["user"];
+>>>>>>> origin/dev
 
 //$codRM  =    '4';
 
@@ -19,6 +23,7 @@ if (!empty($_POST)) {
 
     $tabela = "T113_requisicao_mudanca";
 
+<<<<<<< HEAD
     $titulo = $_POST['T113_titulo'];
     $solicitante = $_SESSION['user'];
     $data = date("d/m/Y h:i:s");
@@ -50,6 +55,45 @@ if (!empty($_POST)) {
         , "T113_status" => $status
         , "T113_tempo_total" => $tempo_total
         , "T113_janela_disponivel" => $janela_disp
+=======
+    $titulo             = $_POST['T113_titulo'];
+    $solicitante        = $_SESSION['user'];
+    $data               = date("d/m/Y h:i:s");
+    $descricao          = $_POST['T113_descricao'];
+    $dt_inicio          = $_POST['T113_dt_hr_inicio'] . " " . $_POST['hr_ini'] . ":00";
+    $dt_fim             = $_POST['T113_dt_hr_fim'] . " " . $_POST['hr_fim'] . ":00";
+    $motivo             = $_POST['T113_motivo'];
+    $impacto            = $_POST['T113_impacto'];
+    $tempo_previsto     = $_POST['T113_tempo_previsto'];
+    $responsavel        = $_POST["T004_responsavel"];
+    $obs_contingencia   = $_POST['T113_obs_contingencia'];
+    $tempo_total        = $_POST['T113_tempo_total'];
+    $janela_disp        = $_POST['T113_janela_disponivel'];
+    $status             = 1;                                                  //Status 1 = Aberta
+    $hora_total         =   $_POST["T113_hora_total"];
+    $hora_disponivel    =   $_POST["T113_hora_disponivel"];
+    $hora_prevista      =   $_POST["T113_hora_prevista"];
+
+
+    $campos = array(
+        "T004_solicitante"              => $solicitante
+        , "T113_data"                   => $data
+        , "T113_titulo"                 => $titulo
+        , "T113_descricao"              => $descricao
+        , "T113_dt_hr_inicio"           => $dt_inicio
+        , "T113_dt_hr_fim"              => $dt_fim
+        , "T113_motivo"                 => $motivo
+        , "T113_impacto"                => $impacto
+        , "T113_tempo_previsto"         => $tempo_previsto
+        , "T113_obs_contingencia"       => $obs_contingencia
+        , "T004_responsavel"            => $responsavel
+        , "T113_status"                 => $status
+        , "T113_tempo_total"            => $tempo_total
+        , "T113_janela_disponivel"      => $janela_disp
+        ,  "T113_hora_total"            => $hora_total
+        ,  "T113_hora_prevista"         => $hora_prevista
+        ,  "T113_hora_disponivel"       => $hora_disponivel    
+>>>>>>> origin/dev
     );
 
     $delim = "T113_codigo  = " . $codRM;
@@ -62,12 +106,24 @@ if (!empty($_POST)) {
 }
 
 $retornaDados = $obj->retornaRM($titulo, $descricao, $solicitante, $codRM);
+<<<<<<< HEAD
 
 
 
 foreach ($retornaDados as $cpsRM => $vlrRM) {
     ?>
 
+=======
+
+
+
+foreach ($retornaDados as $cpsRM => $vlrRM) {
+    
+   $statusRM    =   $vlrRM["StatusRM"];
+    
+    ?>
+
+>>>>>>> origin/dev
     <!-- Divs com a barra de ferramentas -->
     <div class="div-primaria caixa-de-ferramentas padding-padrao-vertical">
         <div class="push_9 conteudo_16">
@@ -76,6 +132,10 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
             </ul>
             <div class="push_7 grid_5">
                 <label class="label">Requisição de Mudança - <?php echo $vlrRM["CodigoRM"]; ?> </label>
+<<<<<<< HEAD
+=======
+                
+>>>>>>> origin/dev
             </div>
         </div>
     </div>
@@ -167,7 +227,17 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                         <li><a href="#tabs-1">Contingência</a></li>
                         <li><a href="#tabs-2">Executores Internos</a></li>
                         <li><a href="#tabs-3">Executores Externos</a></li>
+<<<<<<< HEAD
                         <li><a href="#tabs-4">Comitê</a></li>
+=======
+                     <?php 
+                        $CM =   $obj->retornaPerfil($user, 58);
+                        $cmt = 0;
+                        foreach ($CM as $cpPerCM => $vlPerCM) {
+                            $cmt++;
+                        }
+                     if (($cmt != 0)&&($statusRM == 2)) {?>   <li><a href="#tabs-4">Comitê</a></li><?php }?>
+>>>>>>> origin/dev
                     </ul>
                     <div id="tabs-1">
                         <span class="form-input">
@@ -186,31 +256,72 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                                 </div>
                                 
                                 <div style="position: absolute; top: 63px; left: 120px;">
+<<<<<<< HEAD
                                     <input style="width: 60px;" type="text" name="T113_hora_prevista" placeholder="" value ="" id='horaPrev'
                                            onmouseover ='show_tooltip_alert("", "Tempo previsto para voltar para cenário anterior em hora.", true);
                         tooltip.pnotify_display();'
                                            onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
                                            onmouseout  ='tooltip.pnotify_remove();'
                                            readyonly
+=======
+                                    <input style="width: 60px;" type="text" name="T113_hora_prevista" placeholder="" value ="<?php echo $vlrRM["HoraPrevista"]?>" id='horaPrev'
+                                           onmouseover ='show_tooltip_alert("", "Tempo previsto para voltar para cenário anterior em horas.", true);
+                        tooltip.pnotify_display();'
+                                           onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
+                                           onmouseout  ='tooltip.pnotify_remove();'
+                                           readonly
+>>>>>>> origin/dev
                                            />
                                 </div>
 
                                 <div style="position: absolute; top: 40px; left: 210px;">
                                     <label class="label">Disponível</label>
+<<<<<<< HEAD
                                     <input style="width: 60px"type="text" name="T113_janela_disponivel" placeholder="" value="<?php echo $vlrRM["JanelaDisp"]; ?>" id='tempoDisp' />
                                 </div>
                                 
                                 <div style="position: absolute; top: 63px; left: 280px;">
                                     <input style="width: 60px"type="text" name="T113_hora_disponivel" placeholder="" value="" id='horaDisp' />
+=======
+                                    <input style="width: 60px"type="text" name="T113_janela_disponivel" placeholder="" value="<?php echo $vlrRM["JanelaDisp"]; ?>" id='tempoDisp' 
+                                           onmouseover ='show_tooltip_alert("", "Janela disponível para praticar a mudança em minutos.", true);
+                                          tooltip.pnotify_display();'
+                                           onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
+                                           onmouseout  ='tooltip.pnotify_remove();'/>
+                                </div>
+                                
+                                <div style="position: absolute; top: 63px; left: 280px;">
+                                    <input style="width: 60px"type="text" name="T113_hora_disponivel" placeholder="" value="<?php echo $vlrRM["HoraDisponivel"]; ?>" id='horaDisp' readonly
+                                           onmouseover ='show_tooltip_alert("", "Janela disponível para praticar a mudança em horas.", true);
+                                          tooltip.pnotify_display();'
+                                           onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
+                                           onmouseout  ='tooltip.pnotify_remove();'/>
+>>>>>>> origin/dev
                                 </div>
 
                                 <div style="position: absolute; top: 40px; left: 370px;">
                                     <label class="label">Total</label>
+<<<<<<< HEAD
                                     <input style="width: 60px" type="text" name="T113_tempo_total" placeholder="" id="tempoTotal" readonly value="<?php echo $vlrRM["TempoTotal"]; ?>" />
                                 </div> 
                                 
                                 <div style="position: absolute; top: 63px; left: 440px;">
                                     <input style="width: 60px" type="text" name="T113_hora_total" placeholder="" id="horasTotal" readonly value="<?php echo $vlrRM["TempoTotal"]; ?>" />
+=======
+                                    <input style="width: 60px" type="text" name="T113_tempo_total" placeholder="" id="tempoTotal" readonly value="<?php echo $vlrRM["TempoTotal"]; ?>"
+                                           onmouseover ='show_tooltip_alert("", "Tempo total para realizar a mudança em minutos.", true);
+                                          tooltip.pnotify_display();'
+                                           onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
+                                           onmouseout  ='tooltip.pnotify_remove();'/>
+                                </div> 
+                                
+                                <div style="position: absolute; top: 63px; left: 440px;">
+                                    <input style="width: 60px" type="text" name="T113_hora_total" placeholder="" id="horasTotal" readonly value="<?php echo $vlrRM["HoraTotal"]; ?>" 
+                                           onmouseover ='show_tooltip_alert("", "Tempo total para realizar a mudança em horas.", true);
+                                          tooltip.pnotify_display();'
+                                           onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
+                                           onmouseout  ='tooltip.pnotify_remove();'/>
+>>>>>>> origin/dev
                                 </div> 
                                 <br><br><br><br><br>
 
@@ -318,6 +429,11 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
             </div> 
 
                     </div>
+<<<<<<< HEAD
+=======
+                    <?php 
+                 if(($cmt   !=  0) && ($statusRM == 2)){?>
+>>>>>>> origin/dev
                     <div id="tabs-4">
                         <div >
                             <label class="label">Comitê</label>
@@ -337,7 +453,11 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                             </div>
                         <div style="position: absolute; top: 44px; left: 450px;">
                                 <label class="label">Parecer</label>
+<<<<<<< HEAD
                                 <textarea style="width: 250px" name="T113_justificativa" id='txtJustComite'    placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ><?php?></textarea>            
+=======
+                                <textarea style="width: 250px" name="T113_justificativa" id='txtJustComite'    placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ></textarea>            
+>>>>>>> origin/dev
                         </div>
                         <div style="position: absolute; top: 44px; left: 750px">      
                                 <label class="label">Adicionar</label>
@@ -348,12 +468,20 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                             <?php $retComiteRM = $obj->retornaComiteRM($codRM);?>
                             <select style="width: 950px" name="T004_login[]" multiple id="cmbComite" >
                         <?php foreach ($retComiteRM as $cpsComt => $vlrComt) { ?>
+<<<<<<< HEAD
                                     <option value="<?php echo $vlrComt["Login"] ?>"><?php echo $vlrComt["Nome"]; ?></option>
+=======
+                                    <option value="<?php echo $vlrComt["Login"] ?>"><?php echo $vlrComt["Nome"]." | ".$vlrComt["Aprovado"]." | ".$vlrComt["Justificativa"]; ?></option>
+>>>>>>> origin/dev
     <?php } ?>    
                             </select><br>
                             *Clique em cima do Executor para exclui-lo da lista.
                         </div>
+<<<<<<< HEAD
                     </div>
+=======
+                    </div> <?php }?>
+>>>>>>> origin/dev
                 </div>       
 
             </div>   
@@ -376,6 +504,18 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
             <div class="clear"></div>
 
             <div class="grid_2">
+<<<<<<< HEAD
+=======
+                <?php 
+                $GM = $obj->retornaPerfil($user, 59);
+                $rev = 0;
+                foreach ($GM as $cmpPerf => $vlrPerf) {
+                    $rev++;
+                }
+                if(($statusRM == 1) && ($rev != 0)){ ?>
+                <input type='checkbox' id='revisado' name='revisado' value='1'/><label for='revisado'>Revisado</label> 
+                <?php }?>
+>>>>>>> origin/dev
                 <input type="hidden" value="<?php echo $codRM; ?>" id="codRM">
                 <input type="submit" value="Atualizar" class="botao-padrao" >
             </div>

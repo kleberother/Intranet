@@ -68,6 +68,11 @@ $obj->excluir($tabela, $delim);
         $delim   =   "T113_codigo       =    $codRM ";
         $delim  .=   "AND T004_login        =   '$login' "; 
         $delim  .=   "AND T004_T113_tipo    =   4" ;
+<<<<<<< HEAD
+=======
+        
+        $obj->excluir($tabela, $delim);
+>>>>>>> origin/dev
            
            
 }

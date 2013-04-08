@@ -27,24 +27,35 @@ if (!empty($_POST))
     $impacto            =   $_POST['T113_impacto']                                  ;    
     $tempo_previsto     =   $_POST['T113_tempo_previsto']                           ;    
     $arrResp            =   explode("-",$_POST['T004_responsavel'])                 ;    
-    $responsavel        =   str_replace(" ", "", $arrResp[1])                   ;
+    $responsavel        =   str_replace(" ", "", $arrResp[1])                       ;
     $obs_contingencia   =   $_POST['T113_obs_contingencia']                         ;
     $status             =   1;                                                  //Status 1 = Aberta
+    $janela_disp        =   $_POST["T113_janela_disponivel"]                        ;
+    $tempo_total        =   $_POST["T113_tempo_total"]                              ;
+    $hora_total         =   $_POST["T113_hora_total"]                               ;
+    $hora_prevista      =   $_POST["T113_hora_prevista"]                            ;
+    $hora_disponivel    =   $_POST["T113_hora_disponivel"]                          ;
+    
 //    $prioridade         =   $_POST['T113_'];
     
     $campos =   array(
-                        "T004_solicitante"      => $solicitante
-                     ,  "T113_data"             => $data
-                     ,  "T113_titulo"           => $titulo
-                     ,  "T113_descricao"        => $descricao
-                     ,  "T113_dt_hr_inicio"     => $dt_inicio
-                     ,  "T113_dt_hr_fim"        => $dt_fim
-                     ,  "T113_motivo"           => $motivo
-                     ,  "T113_impacto"          => $impacto
-                     ,  "T113_tempo_previsto"   => $tempo_previsto
-                     ,  "T113_obs_contingencia" => $obs_contingencia
-                     ,  "T004_responsavel"      => $responsavel
-                     ,  "T113_status"           => $status
+                        "T004_solicitante"          => $solicitante
+                     ,  "T113_data"                 => $data
+                     ,  "T113_titulo"               => $titulo
+                     ,  "T113_descricao"            => $descricao
+                     ,  "T113_dt_hr_inicio"         => $dt_inicio
+                     ,  "T113_dt_hr_fim"            => $dt_fim
+                     ,  "T113_motivo"               => $motivo
+                     ,  "T113_impacto"              => $impacto
+                     ,  "T113_tempo_previsto"       => $tempo_previsto
+                     ,  "T113_obs_contingencia"     => $obs_contingencia
+                     ,  "T004_responsavel"          => $responsavel
+                     ,  "T113_status"               => $status
+                     ,  "T113_janela_disponivel"    => $janela_disp
+                     ,  "T113_tempo_total"          => $tempo_total
+                     ,  "T113_hora_total"           => $hora_total
+                     ,  "T113_hora_prevista"        => $hora_prevista
+                     ,  "T113_hora_disponivel"      => $hora_disponivel   
                      );
     
     $insere     =   $obj->inserir($tabela, $campos);
@@ -234,29 +245,56 @@ if (!empty($_POST))
             <textarea style="width: 500px" name="T113_impacto"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ></textarea>            
         </div>
 
-        <br><br><br><br><br><br><br><br>
-
-        <div class="grid_16">
-            <div id="tabs">
-                <ul>
-                    <li><a href="#tabs-1">Contingência</a></li>
-                </ul>
-                <div id="tabs-1">
-                    <span class="form-input">
-                        <div class="conteudo_12">  
-                            <div class="grid_8">
-                            <div style="position: absolute; top: 50px; left: 7px;">
-                                <label class="label">Tempo:</label>
-                            </div>      
-                            <div style="position: absolute; top: 30px; left: 50px;">
-                                <label class="label">Contingência</label>
-                                <input style="width: 60px;" type="text" name="T113_tempo_previsto" placeholder=""
-                                onmouseover ='show_tooltip_alert("","Tempo previsto para voltar para cenário anterior.", true);tooltip.pnotify_display();'
-                                onmousemove ='tooltip.css({"top": event.clientY+12, "left": event.clientX+12});' 
-                                onmouseout  ='tooltip.pnotify_remove();'
-                                />
-                            </div> 
+ <br><br><br><br><br><br><br><br>
+            <div class="grid_16">
+                <div id="tabs">
+                    <ul>
+                        <li><a href="#tabs-1">Contingência</a></li>
+                        <li><a href="#tabs-2">Executores Internos</a></li>
+                        <li><a href="#tabs-3">Executores Externos</a></li>
+                        <li><a href="#tabs-4">Comitê</a></li>
+                    </ul>
+                    <div id="tabs-1">
+                        <span class="form-input">
+                            <div class="conteudo_16">                            
+                                <div style="position: absolute; top: 60px; left: 7px;">
+                                    <label class="label">Tempo:</label>
+                                </div> 
+                                <div style="position: absolute; top: 40px; left: 50px;">
+                                    <label class="label">Contingência</label>
+                                    <input style="width: 60px;" type="text" name="T113_tempo_previsto" placeholder="" id='tempoPrev' value ="<?php echo $vlrRM["TempoPrevisto"] ?>"
+                                           onmouseover ='show_tooltip_alert("", "Tempo previsto para voltar para cenário anterior em minutos.", true);
+                        tooltip.pnotify_display();'
+                                           onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
+                                           onmouseout  ='tooltip.pnotify_remove();'
+                                           />
+                                </div>
                                 
+                                <div style="position: absolute; top: 63px; left: 120px;">
+                                    <input style="width: 60px;" type="text" name="T113_hora_prevista" placeholder="" value ="" id='horaPrev'
+                                           onmouseover ='show_tooltip_alert("", "Tempo previsto para voltar para cenário anterior em hora.", true);
+                        tooltip.pnotify_display();'
+                                           onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
+                                           onmouseout  ='tooltip.pnotify_remove();'
+                                           readyonly
+                                           />
+                                </div>
+
+                                <div style="position: absolute; top: 40px; left: 210px;">
+                                    <label class="label">Disponível</label>
+                                    <input style="width: 60px"type="text" name="T113_janela_disponivel" placeholder="" value="<?php echo $vlrRM["JanelaDisp"]; ?>" id='tempoDisp' />
+                                </div>
+                                
+                                <div style="position: absolute; top: 63px; left: 280px;">
+                                    <input style="width: 60px"type="text" name="T113_hora_disponivel" placeholder="" value="" id='horaDisp' />
+                                </div>
+
+                                <div style="position: absolute; top: 40px; left: 370px;">
+                                    <label class="label">Total</label>
+                                    <input style="width: 60px" type="text" name="T113_tempo_total" placeholder="" id="tempoTotal" readonly value="<?php echo $vlrRM["TempoTotal"]; ?>" />
+                                </div> 
+                                
+<<<<<<< HEAD
                             <div style="position: absolute; top: 30px; left: 250px;">
                                 <label class="label">Disponível</label>
                                 <input style="width: 60px"type="text" name="T113_janela_disponivel" placeholder="" />
@@ -292,109 +330,169 @@ if (!empty($_POST))
                                 </select>
                                 *Clique em cima do Executor para exclui-lo da lista.
                             </div>       
+=======
+                                <div style="position: absolute; top: 63px; left: 440px;">
+                                    <input style="width: 60px" type="text" name="T113_hora_total" placeholder="" id="horasTotal" readonly value="<?php echo $vlrRM["TempoTotal"]; ?>" />
+                                </div> 
+                                <br><br><br><br><br>
+
+                                <div class="clear"></div>
+
+                                <div class="grid_7">
+                                    <label class="label">Executores Contingência</label>
+                                    <input type="text" name="" class="buscaUsuario" id="txtExeCont" 
+                                           onmouseover ='show_tooltip_alert("", "Digite o nome ou Login do Colaborador, selecione na lista e clique em adicionar.", true);
+                        tooltip.pnotify_display();' 
+                                           onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
+                                           onmouseout  ='tooltip.pnotify_remove();'                                       
+                                           />
+                                </div>                            
+
+                                <div class="grid_1">   
+                                    <label style="position: absolute; left: 439px;" class="label">Adicionar</label>
+                                    <input style="position: absolute; top: 119px;" type="button" value="+" id="btnAddCont"/>
+                                </div>                            
+                                <div class="clear"></div>
+    <?php $retExeCont = $obj->retornaExecutoresCont($codRM); ?>
+                                <div class="grid_7">
+                                    <label class="label">Executores</label>
+                                    <select name="ExeCont[]" multiple id="cmbExeCont">
+                                <?php foreach ($retExeCont as $cpsExeCont => $vlrExCont) { ?>
+                                            <option value="<?php echo $vlrExCont["Login"]; ?>"> <?php echo $vlrExCont["Nome"]; ?> </option>
+    <?php } ?>
+                                    </select>
+                                    *Clique em cima do Executor para exclui-lo da lista.
+                                </div>                               
+
+                                <div style="position: absolute; top: 30px; left: 515px">
+                                    <label class="label">Observação Contingência</label>
+                                    <textarea style="height: 185px" name="T113_obs_contingencia"    placeholder="Observação da contingência"         class="textarea-table" cols="150" rows="10" ><?php echo $vlrRM["ObsContingencia"]; ?></textarea>            
+                                </div>                            
+
+                            </div>
+                        </span>
+                    </div>
+                    <div id="tabs-2">
+                        <div >
+                            <label class="label">Executor da Requisição de Mudança (Interno)*</label>
+                            <input style="width: 250px" type="text" class="buscaUsuario" id="txtExeInt"
+                                   onmouseover ='show_tooltip_alert("", "Digite o nome do Colaborador, selecione na lista e clique em adicionar.", true);
+                        tooltip.pnotify_display();' 
+                                   onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
+                                   onmouseout  ='tooltip.pnotify_remove();'     
+                                   />
+>>>>>>> origin/dev
                         </div>
-                          <div class="grid_1">
-                           <div style="position: absolute; top: 30px; left: 500px">
-                                <label class="label">Observação Contingência</label>
-                                <textarea style="height: 160px" name="T113_obs_contingencia"    placeholder="Observação da contingência"         class="textarea-table" cols="30" rows="10" ></textarea>            
-                           </div>  
+                        <div style="position: absolute; top: 44px; left: 275px">      
+                            <label class="label">Adicionar</label>
+                            <input type="button" value="+" id="btnAddExeInt"/>
                         </div>
+    <?php $retExeIntRM = $obj->retornaExecutoresRM($codRM); ?>
+                        <div style="top: 84px; left: 275px">
+                            <label class="label">Executores Internos</label>
+                            <select style="width: 250px" name="T004_login[]" multiple id="cmbExeInt" >
+                        <?php foreach ($retExeIntRM as $cpsExIn => $vlrExInt) { ?>
+                                    <option value="<?php echo $vlrExInt["Login"] ?>"><?php echo $vlrExInt["Nome"]; ?></option>
+    <?php } ?>    
+                            </select>
+                            *Clique em cima do Executor para exclui-lo da lista.
                         </div>
-                        
-                        <div class="clear"></div>
-                    </span>
-                </div>
-            </div>                                                            
-        </div>             
 
-        <div class="clear"></div>
+                    </div>
+                    <div id="tabs-3">
+                         <div >
+                <label class="label">Nome</label>
+                <input style="width: 250px" type="text" id="txtNomeExt"/>
+            </div>
 
+            <div style="position: absolute; top: 44px; left: 275px">
+                <label class="label">E-mail</label>
+                <input style="width: 250px" type="text" id="txtEmailExt"/>
+            </div>
 
-        <div class="clear10"></div> 
+            <div style="position: absolute; top: 44px; left: 534px">
+                <label class="label">Telefone</label>
+                <input style="width: 100px" type="text" id="txtFoneExt" class="fone"/>
+            </div>
 
-        <div class="grid_5">
-            <label class="label">Executor da Requisição de Mudança (Interno)*</label>
-            <input type="text" class="buscaUsuario" id="txtExeInt"
-                   onmouseover ='show_tooltip_alert("","Digite o nome do Colaborador, selecione na lista e clique em adicionar.", true);tooltip.pnotify_display();' 
-                   onmousemove ='tooltip.css({"top": event.clientY+12, "left": event.clientX+12});' 
-                   onmouseout  ='tooltip.pnotify_remove();'     
-            />
-        </div>
-        
-          <div class="grid_1">      
-            <label class="label">Adicionar</label>
-            <input type="button" value="+" id="btnAddExeInt"/>
-        </div>    
-        
-        <div class="push_2 grid_3">
-            <label class="label">Nome Executor Externo</label>
-            <input type="text" id="txtNomeExt"/>
-        </div>
-
-        <div class="push_2 grid_2">
-            <label class="label">E-mail</label>
-            <input type="text" id="txtEmailExt"/>
-        </div>
-
-        <div class="push_2 grid_2">
-            <label class="label">Telefone</label>
-            <input type="text" id="txtFoneExt" class="fone"/>
-        </div>
-        
-           <div class="push_2 grid_3">
-            <label class="label">Notificado</label>
-            <div id="radio">
+            <div style="position: absolute; top: 44px; left: 650px">
+                <label class="label">Notificado</label>
+                <div id="radio" >
                     <input type="radio" id="radio1" name="T113_resp_notificado" value="S"                    class="validate[required]" /><label for="radio1">Sim</label>
                     <input type="radio" id="radio2" name="T113_resp_notificado" value="N" checked="checked"  class="validate[required]" /><label for="radio2">Não</label>
-            </div>            
-        </div>                
+                </div>            
+            </div>                
 
-        <div class="push_1 grid_1">      
-            <label class="label">Adicionar</label>
-            <input type="button" value="+" id="btnAddExeExt"/>
-        </div>     
+            <div style="position: absolute; top: 44px; left: 735px">      
+                <label class="label">Adicionar</label>
+                <input type="button" value="+" id="btnAddExeExt"/>
+            </div>    
+            <div style=" top: 55px; left: 0px">
+                <label class="label">Executores Externos</label>
+                <select style="width: 625px;" name="ExeExt[]" multiple id="cmbExeExt" readonly>
+                </select>
+                *Clique em cima do Executor para exclui-lo da lista.
+            </div> 
 
-            
-        
-        <div class="clear"></div>
-        
-        <div class=" grid_6">
-            <label class="label">Executores Internos</label>
-            <select name="T004_login[]" multiple id="cmbExeInt" class="validate[required]">
+                    </div>
+                    <div id="tabs-4">
+                        <div >
+                            <label class="label">Comitê</label>
+                            <input style="width: 250px" type="text" class="buscaUsuario" id="txtComite"
+                                   onmouseover ='show_tooltip_alert("", "Digite o nome do Colaborador, selecione na lista e clique em adicionar.", true);
+                        tooltip.pnotify_display();' 
+                                   onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
+                                   onmouseout  ='tooltip.pnotify_remove();'     
+                                   />
+                        </div>
+                        <div style="position: absolute; top: 44px; left: 330px">
+                                <label class="label">Aprovado</label>
+                                <div id="radioC">
+                                    <input type="radio" id="radio3" name="T113_aprovado" value="S"                    class="validate[required]" /><label for="radio3">Sim</label>
+                                    <input type="radio" id="radio4" name="T113_aprovado" value="N" checked="checked"  class="validate[required]" /><label for="radio4">Não</label>
+                                </div>            
+                            </div>
+                        <div style="position: absolute; top: 44px; left: 450px;">
+                                <label class="label">Parecer</label>
+                                <textarea style="width: 250px" name="T113_justificativa" id='txtJustComite'    placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ><?php?></textarea>            
+                        </div>
+                        <div style="position: absolute; top: 44px; left: 750px">      
+                                <label class="label">Adicionar</label>
+                                <input type="button" value="+" id="btnAddComite"/>
+                        </div>   <br><br><br>
+                        <div style="position: static; top: 500px; left: auto; ">
+                            <label class="label">Membros do Comitê</label>
+                            <select style="width: 950px" name="T004_login[]" multiple id="cmbComite" >
+                            </select><br>
+                            *Clique em cima do Executor para exclui-lo da lista.
+                        </div>
+                    </div>
+                </div>       
 
-            </select>
-            *Clique em cima do Executor para exclui-lo da lista.
-        </div>
+            </div>   
 
-         <div class="push_2 grid_6">
-            <label class="label">Executores Externos</label>
-            <select name="ExeExt[]" multiple id="cmbExeExt" readonly>
 
-            </select>
-            *Clique em cima do Executor para exclui-lo da lista.
-        </div>    
+           
+            <div class="clear"></div>
 
-        <div class="clear"></div>
 
-        
 
-            
-
-                   
-
-        <div class="clear10"></div>
-
-<!--        <div class="grid_2">
-            <label class="label">Prioridade *</label>
-            <input type="text" name=""          />            
-        </div>-->
-
-        <div class="clear"></div>
-
-        <div class="grid_2">
-            <input type="submit" value="Salvar" class="botao-padrao" >
-        </div>
-            
-    </form>
     
+
+            <div class="clear10"></div>
+
+            <!--        <div class="grid_2">
+                        <label class="label">Prioridade *</label>
+                        <input type="text" name=""          />            
+                    </div>-->
+
+            <div class="clear"></div>
+
+            <div class="grid_2">
+                <input type="hidden" value="<?php echo $codRM; ?>" id="codRM">
+                <input type="submit" value="Incluir" class="botao-padrao" >
+            </div>
+
+        </form>
+
 </div>
