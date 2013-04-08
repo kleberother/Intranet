@@ -307,15 +307,27 @@ $(function(){
      
      });
      
-     $("#revisado").click(function(){
+     $("#revisar").click(function(){
          
-         var revisado    =   $("input[name=revisado]:checked").val();
+         var status    =   3;
          var codRM    =   $("#codRM").val();
      
-        $.post("?router=T0117/js.alteraStatus", {revisado:revisado, codRM:codRM});
-        $("#revisado").remove();
+        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
+        $("#revisar").remove();
         
      });
+     
+         $("#concluir").click(function(){
+         
+         var status    =   2;
+         var codRM    =   $("#codRM").val();
+     
+        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
+        $("#revisar").remove();
+        
+     });
+     
+     
      
 });
 

@@ -79,17 +79,21 @@ echo "";
                         <td class="acoes">
                             <span class="lista_acoes">
                                 <ul>
-                                    <li class="ui-state-default ui-corner-all" title="Alterar">
-                                        <a href="?router=T0117/alterar&codRM=<?php echo $valores['CodigoRM'];?>" class="ui-icon ui-icon-pencil"></a> 
-                                    </li>
+                                   
                                     <li class="ui-state-default ui-corner-all" title="Visualizar">
                                         <a href="?router=T0117/consultar&codRM=<?php echo $valores['CodigoRM'];?>" class="ui-icon ui-icon-search"></a> 
                                     </li>
                                 </ul>
                                 <ul>
-                                    <li class="ui-state-default ui-corner-all" title="Excluir">
-                                        <a href="#" onclick="excluirLinha(<?php echo $valores['CodigoRM'];?>)" class="ui-icon ui-icon-closethick"></a> 
-                                    </li>
+                                   <?php 
+                                   $perfilSol   =   $obj->retornaPerfil($_SESSION["user"], 57);
+                                   foreach ($perfilSol as $cpsSol => $valSol) {
+                                   $obj->mostraBotao(57, $valores['SolicitanteLogin'] , $valores['StatusRM']);}
+                                   $perfilGest   =   $obj->retornaPerfil($_SESSION["user"], 59);
+                                   foreach ($perfilGest as $cpsGest => $valGest) {
+                                   $obj->mostraBotao(59, $valores['SolicitanteLogin'] , $valores['StatusRM']);}
+                                   ?>
+                                   
                                 </ul>
                            </span>
                         </td>

@@ -9,6 +9,8 @@ foreach ($perfil as $key => $value) {
     
     $perfilUser =   $value["PERFIL"];
     
+    echo $perfilUser;
+    
 }
 
 $retornaConfirmados =   $obj->retornaStatusItens($auditoria);
@@ -203,7 +205,8 @@ if (!empty($_POST))
                                     <div class="div-primaria caixa-de-ferramentas padding-padrao-vertical">
                                         <ul class="lista-horizontal">
                                             <?php 
-                                                if((($perfilUser ==  56) &&($valores["Gerente"] == 1) && ($a == 0)) || (($perfilUser ==  55) &&($valores["CoordInventario"] == 1) && ($a == 0) )){   ?>
+                                            echo $perfilUser." - ".$valores["CoordInventario"]." - ".$a;
+                                            if((($perfilUser ==  55) &&($valores["Gerente"] == 1) && ($a == 0)) || (($perfilUser ==  56) &&($valores["CoordInventario"] == 1) && ($a == 0) )){   ?>
                                             <li><a href="#"                     class="botao-padrao-verde rupturaItens"><span class="ui-icon ui-icon-newwin"  ></span>Ruptura</a></li>
                                             <?php } elseif ((($perfilUser ==  56) &&($valores["Gerente"] == 1) && ($a > 0)) || (($perfilUser ==  55) &&($valores["CoordInventario"] == 1) && ($a > 0))) {  ?>
                                             <li><a href="#"                     class="botao-padrao-vermelho rupturaItens"><span class="ui-icon ui-icon-newwin"  ></span>Ruptura</a></li>

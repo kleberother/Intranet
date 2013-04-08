@@ -53,8 +53,9 @@ class models_T0117 extends models
         return $this->query($sql);
     }
     
-    public function retornaRM($titulo, $descricao, $solicitante, $codRM)
+    public function retornaRM($titulo, $descricao, $solicitante, $codRM, $user)
     {        
+        
         $sql    =   "  SELECT T113.T113_codigo                              CodigoRM
                             , T113.T004_solicitante                         SolicitanteLogin
                             , T04B.T004_nome                                SolicitanteNome
@@ -193,20 +194,51 @@ class models_T0117 extends models
                 echo    "Aberta";
                 break;
             case 2:
-               echo     "Revisada";
+               echo     "Concluída";
                 break;
             case 3:
-                echo    "Suspensa";
+                echo    "Revisada";
                 break;
             case 4:
-                echo    "Reprovada";
+                echo    "Suspensa";
                 break;
             case 5:
-                echo    "Aprovada";
+                echo    "Reprovada";
                 break;
             case 6:
-                echo    "Concluída";
+                echo    "Aprovada";
                 break;
+            case 7:
+                echo    "Finalizada";
+                break;
+        }
+        
+    }
+    
+    public function mostraBotao($perfil, $user, $status) {
+        
+        if (($perfil == 57 ) && ($user == $_SESSION["user"]) && ($status == 1)){
+            echo " <li class='ui-state-default ui-corner-all' title='Concluir'>
+                                        <a href='#' class='ui-icon ui-icon-check concluir'></a> 
+                   </li>
+                    <li class='ui-state-default ui-corner-all' title='Excluir'>
+                                       <a href='#' onclick='excluirLinha(".$valores['CodigoRM'].")' class='ui-icon ui-icon-closethick'></a> 
+                    </li>
+                    <li class='ui-state-default ui-corner-all' title='Alterar'>
+                                        <a href='?router=T0117/alterar&codRM=".$valores['CodigoRM']."' class='ui-icon ui-icon-pencil'></a> 
+                    </li>";
+        } elseif(($perfil == 59)&& ($status == 2)){
+            
+              echo " <li class='ui-state-default ui-corner-all' title='Revisar'>
+                                        <a href='#' class='ui-icon ui-icon-check revisar'></a> 
+                   </li>
+                    <li class='ui-state-default ui-corner-all' title='Excluir'>
+                                       <a href='#' onclick='excluirLinha(".$valores['CodigoRM'].")' class='ui-icon ui-icon-closethick'></a> 
+                    </li>
+                    <li class='ui-state-default ui-corner-all' title='Alterar'>
+                                        <a href='?router=T0117/alterar&codRM=".$valores['CodigoRM']."' class='ui-icon ui-icon-pencil'></a> 
+                    </li>";
+            
         }
         
     }
