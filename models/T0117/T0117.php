@@ -34,10 +34,10 @@ class models_T0117 extends models
     {              
        $altera = $this->exec($this->atualiza($tabela, $campos, $delim));
        
-       if($altera)
-            $this->alerts('false', 'Alerta!', 'Alterado com Sucesso!');
-       else
-            $this->alerts('true', 'Erro!', 'Não foi possível Alterar!');          
+//       if($altera)
+//            $this->alerts('false', 'Alerta!', 'Alterado com Sucesso!');
+//       else
+//            $this->alerts('true', 'Erro!', 'Não foi possível Alterar!');          
        
       // echo $altera;
        return $altera;

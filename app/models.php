@@ -613,7 +613,7 @@ class models extends PDO
                 $sql_aux .= $nomes." = ".$this->formataValor($tabela,$nomes,$valores). ",";
             }
             $sql_aux = substr($sql_aux, 0, (strlen($sql_aux)-1));
-            echo  $sql.$sql_aux. " WHERE ".$delimitador;
+           // echo  $sql.$sql_aux. " WHERE ".$delimitador;
            // echo "<br/>";
             return  $sql.$sql_aux. " WHERE ".$delimitador;
         }
