@@ -314,10 +314,7 @@ $(function(){
      
         $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
         
-        $(".revisar").remove(); 
-        $(".excluir").remove();
-        $(".alterar").remove();
-        
+         location.reload();
      });
      
          $(".concluir").click(function(){
@@ -326,7 +323,7 @@ $(function(){
          var codRM    =   $("#codRM").val();
      
         $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
-        $(".concluir").remove();
+        location.reload();
         
      });
      
