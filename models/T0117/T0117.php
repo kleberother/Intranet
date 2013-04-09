@@ -218,18 +218,22 @@ class models_T0117 extends models
     public function mostraBotao($perfil, $user, $status, $codRM) {
         
         if (($perfil == 57 ) && ($user == $_SESSION["user"]) && ($status == 1)){
-            echo " <li class='ui-state-default ui-corner-all' title='Concluir'>
+            echo " 
+                    <input type='hidden' value='".$codRM."' id='codRM'>
+                  <li class='ui-state-default ui-corner-all' title='Concluir'>
                                         <a href='#' class='ui-icon ui-icon-check concluir'></a> 
                    </li>
                     <li class='ui-state-default ui-corner-all' title='Excluir'>
-                                       <a href='#' onclick='excluirLinha(".$codRM.")' class='ui-icon ui-icon-closethick'></a> 
+                                       <a href='#' onclick='excluirLinha(".$codRM.")' class='ui-icon ui-icon-closethick excluir'></a> 
                     </li>
                     <li class='ui-state-default ui-corner-all' title='Alterar'>
-                                        <a href='?router=T0117/alterar&codRM=".$codRM."' class='ui-icon ui-icon-pencil'></a> 
+                                        <a href='?router=T0117/alterar&codRM=".$codRM."' class='ui-icon ui-icon-pencil alterar'></a> 
                     </li>";
         } elseif(($perfil == 59)&& ($status == 2)){
             
-              echo " <li class='ui-state-default ui-corner-all' title='Revisar'>
+              echo " 
+                    <input type='hidden' value='".$codRM."' id='codRM'>
+                    <li class='ui-state-default ui-corner-all' title='Revisar'>
                                         <a href='#' class='ui-icon ui-icon-check revisar'></a> 
                    </li>
                     <li class='ui-state-default ui-corner-all' title='Excluir'>

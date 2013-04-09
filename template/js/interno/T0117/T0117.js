@@ -307,23 +307,26 @@ $(function(){
      
      });
      
-     $("#revisar").click(function(){
+     $(".revisar").click(function(){
          
          var status    =   3;
          var codRM    =   $("#codRM").val();
      
         $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
-        $("#revisar").remove();
+        
+        $(".revisar").remove(); 
+        $(".excluir").remove();
+        $(".alterar").remove();
         
      });
      
-         $("#concluir").click(function(){
+         $(".concluir").click(function(){
          
          var status    =   2;
          var codRM    =   $("#codRM").val();
      
         $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
-        $("#revisar").remove();
+        $(".concluir").remove();
         
      });
      

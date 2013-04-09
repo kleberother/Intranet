@@ -1,8 +1,8 @@
 <?php
 /* * ************************************************************************
   Intranet - DAVÓ SUPERMERCADOS
- * Criado em: 14/02/2013 Rodrigo Alfieri    
- * Descrição: Nova RM
+ * Criado em: 23/03/2013 Rodrigo Alfieri    
+ * Descrição: Alterar RM
  * Entradas:   
  * Origens:   
 
@@ -20,29 +20,25 @@ if (!empty($_POST)) {
 
     $tabela = "T113_requisicao_mudanca";
 
-    $titulo             = $_POST['T113_titulo'];
-    $solicitante        = $_SESSION['user'];
-    $data               = date("d/m/Y h:i:s");
-    $descricao          = $_POST['T113_descricao'];
-    $dt_inicio          = $_POST['T113_dt_hr_inicio'] . " " . $_POST['hr_ini'] . ":00";
-    $dt_fim             = $_POST['T113_dt_hr_fim'] . " " . $_POST['hr_fim'] . ":00";
-    $motivo             = $_POST['T113_motivo'];
-    $impacto            = $_POST['T113_impacto'];
-    $tempo_previsto     = $_POST['T113_tempo_previsto'];
-    $responsavel        = $_POST["T004_responsavel"];
-    $obs_contingencia   = $_POST['T113_obs_contingencia'];
-    $tempo_total        = $_POST['T113_tempo_total'];
-    $janela_disp        = $_POST['T113_janela_disponivel'];
-    $status             = 1;                                                  //Status 1 = Aberta
+    $titulo             =   $_POST['T113_titulo'];
+    $solicitante        =   $_POST['T004_solicitante'];
+    $descricao          =   $_POST['T113_descricao'];
+    $dt_inicio          =   $_POST['T113_dt_hr_inicio'] . " " . $_POST['hr_ini'] . ":00";
+    $dt_fim             =   $_POST['T113_dt_hr_fim'] . " " . $_POST['hr_fim'] . ":00";
+    $motivo             =   $_POST['T113_motivo'];
+    $impacto            =   $_POST['T113_impacto'];
+    $tempo_previsto     =   $_POST['T113_tempo_previsto'];
+    $responsavel        =   $_POST["T004_responsavel"];
+    $obs_contingencia   =   $_POST['T113_obs_contingencia'];
+    $tempo_total        =   $_POST['T113_tempo_total'];
+    $janela_disp        =   $_POST['T113_janela_disponivel'];
     $hora_total         =   $_POST["T113_hora_total"];
     $hora_disponivel    =   $_POST["T113_hora_disponivel"];
     $hora_prevista      =   $_POST["T113_hora_prevista"];
 
 
     $campos = array(
-        "T004_solicitante"              => $solicitante
-        , "T113_data"                   => $data
-        , "T113_titulo"                 => $titulo
+          "T113_titulo"                 => $titulo
         , "T113_descricao"              => $descricao
         , "T113_dt_hr_inicio"           => $dt_inicio
         , "T113_dt_hr_fim"              => $dt_fim
@@ -50,8 +46,6 @@ if (!empty($_POST)) {
         , "T113_impacto"                => $impacto
         , "T113_tempo_previsto"         => $tempo_previsto
         , "T113_obs_contingencia"       => $obs_contingencia
-        , "T004_responsavel"            => $responsavel
-        , "T113_status"                 => $status
         , "T113_tempo_total"            => $tempo_total
         , "T113_janela_disponivel"      => $janela_disp
         ,  "T113_hora_total"            => $hora_total
@@ -142,11 +136,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
             <div style="position: absolute; top: 205px; left: 900px;">
                 <label class="label">Responsável da Requisição de Mudança*</label>
                 <input style="width: 268px" type="text" class="buscaUsuario validate[required]"
-                       onmouseover ='show_tooltip_alert("", "Digite o nome do Colaborador e selecione na lista.", true);
-                        tooltip.pnotify_display();' 
-                       onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
-                       onmouseout  ='tooltip.pnotify_remove();'                    
-
+                       readonly                    
                        name="T004_responsavel"
                        value   ="<?php echo $vlrRM["Responsavel"]; ?>"
                        />

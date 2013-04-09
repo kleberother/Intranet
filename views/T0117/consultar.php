@@ -228,7 +228,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
 
                                 <div style="position: absolute; top: 30px; left: 515px">
                                     <label class="label">Observação Contingência</label>
-                                    <textarea style="height: 185px" name="T113_obs_contingencia"    placeholder="Observação da contingência"         class="textarea-table" cols="150" rows="10" ><?php echo $vlrRM["ObsContingencia"]; ?></textarea>            
+                                    <textarea style="height: 130px" name="T113_obs_contingencia"    placeholder="Observação da contingência"         class="textarea-table" cols="150" rows="5" ><?php echo $vlrRM["ObsContingencia"]; ?></textarea>            
                                 </div>                            
 
                             </div>
@@ -239,7 +239,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
     <?php $retExeIntRM = $obj->retornaExecutoresRM($codRM); ?>
                         <div style="top: 84px; left: 275px">
                             <label class="label">Executores Internos</label>
-                            <select style="width: 250px" name="T004_login[]" multiple readonly >
+                            <select style="width: 450px" name="T004_login[]" multiple readonly >
                         <?php foreach ($retExeIntRM as $cpsExIn => $vlrExInt) { ?>
                                     <option value="<?php echo $vlrExInt["Login"] ?>"><?php echo $vlrExInt["Nome"]; ?></option>
     <?php } ?>    
