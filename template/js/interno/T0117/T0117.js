@@ -308,7 +308,7 @@ $(function(){
         
         $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM});
        
-         location.reload();
+          location.reload();
      });
      
          $(".concluir").click(function(){

@@ -256,17 +256,14 @@ class models_T0117 extends models
                        FROM    T004_T009 T0409
                             JOIN
                                T004_usuario T04
-                            ON T0409.T004_login = T04.T004_login";
+                            ON T0409.T004_login = T04.T004_login
+                            WHERE  T0409.T009_codigo = 58";
         
+    
         return $this->query($sql);
     }
     
-    
-    public function enviaEmailComite($html, $email){
-    
-        mail($email, "Aviso de RM ao Comitê", $html);
-    
-    }
+
      
 }
  ?>
