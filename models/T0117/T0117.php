@@ -33,13 +33,6 @@ class models_T0117 extends models
     public function altera($tabela,$campos,$delim)
     {              
        $altera = $this->exec($this->atualiza($tabela, $campos, $delim));
-       
-//       if($altera)
-//            $this->alerts('false', 'Alerta!', 'Alterado com Sucesso!');
-//       else
-//            $this->alerts('true', 'Erro!', 'Não foi possível Alterar!');          
-       
-      // echo $altera;
        return $altera;
     }  
     
@@ -243,11 +236,37 @@ class models_T0117 extends models
                                         <a href='?router=T0117/alterar&codRM=".$codRM."' class='ui-icon ui-icon-pencil'></a> 
                     </li>";
             
-        }
+        } 
         
     }
     
-
+    public function retornaDadosUser($user) {
+        
+        $sql    =   " SELECT T004_nome  Nome
+                        FROM T004_usuario
+                       WHERE T004_login = '$user' ";
+       
+        return $this->query($sql);
+        
+    }
+    
+    
+    public function retornaComite() {
+        $sql    =   "SELECT T04.T004_nome Nome, T04.T004_email Email
+                       FROM    T004_T009 T0409
+                            JOIN
+                               T004_usuario T04
+                            ON T0409.T004_login = T04.T004_login";
+        
+        return $this->query($sql);
+    }
+    
+    
+    public function enviaEmailComite(){
+    
+    
+    
+    }
      
 }
  ?>

@@ -596,7 +596,7 @@ class models extends PDO
             }
             $sql_aux1 = substr($sql_aux1,0,strlen($sql_aux1)-1);
             $sql_aux2 = substr($sql_aux2,0,strlen($sql_aux2)-1);
-            //echo $sql.$sql_aux1.") VALUES (".$sql_aux2.")";  
+           // echo $sql.$sql_aux1.") VALUES (".$sql_aux2.")";  
           //echo "<br/><br/><br/>";   
             return  $sql.$sql_aux1.") VALUES (".$sql_aux2.")";
         }

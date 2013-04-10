@@ -49,22 +49,14 @@ $(function(){
         var parecer     =   $("#txtJustComite").val();
         var codRM       =   $("#codRM").val();
         
-        
         var str         =   nome+" | "+aprovado+" | "+parecer;
 
         $('#cmbComite').append('<option value="'+str+'" selected="selected">'+str+'</option>');
         
-        $("#txtComite").val("");
         $("#txtJustComite").val("");
         $("#txtComite").focus();
         
-        if (aprovado === "S"){
-            
-            $.post("?router=T0117/js.AprovaRM", {codRM:codRM});
-            
-        }
-        
-      $.post("?router=T0117/js.IncluirExec", {login:user[1], aprovar:aprovado,  parecer:parecer, cod:4, codRM:codRM});
+      $.post("?router=T0117/js.IncluirExec", {login:user[1], aprovar:aprovado,  parecer:parecer, cod:4, codRM:codRM, });
         
     });
     
@@ -314,6 +306,8 @@ $(function(){
      
         $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
         
+        $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM});
+       
          location.reload();
      });
      

@@ -401,15 +401,6 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
             <div class="clear"></div>
 
             <div class="grid_2">
-                <?php 
-                $GM = $obj->retornaPerfil($user, 59);
-                $rev = 0;
-                foreach ($GM as $cmpPerf => $vlrPerf) {
-                    $rev++;
-                }
-                if(($statusRM == 1) && ($rev != 0)){ ?>
-                <input type='checkbox' id='revisado' name='revisado' value='1'/><label for='revisado'>Revisado</label> 
-                <?php }?>
                 <input type="hidden" value="<?php echo $codRM; ?>" id="codRM">
                 <input type="submit" value="Atualizar" class="botao-padrao" >
             </div>

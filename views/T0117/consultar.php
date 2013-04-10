@@ -165,7 +165,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                         foreach ($CM as $cpPerCM => $vlPerCM) {
                             $cmt++;
                         }
-                     if (($cmt != 0)&&($statusRM == 2)) {?>   <li><a href="#tabs-4">Comitê</a></li><?php }?>
+                     if ($statusRM == 3) {?>   <li><a href="#tabs-4">Comitê</a></li><?php }?>
                     </ul>
                     <div id="tabs-1">
                         <span class="form-input">
@@ -265,9 +265,45 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
 
                     </div>
                     <?php 
-                 if(($cmt   !=  0) && ($statusRM == 2)){?>
+                 if($statusRM == 3){?>
                     <div id="tabs-4">
+                    <?php if(($cmt   !=  0) && ($statusRM == 3)){
+                        $retUser = $obj->retornaDadosUser($user);
+                        foreach ($retUser as $cpsUser => $vlruser) {
+                            $nomeUser   =   $vlruser["Nome"];
+                        }
+                        ?>
                         <div >
+                            <label class="label">Comitê</label>
+                            <input name='T004_nome' type='text' id='txtComite' value='<?php echo $nomeUser." - ".$user;?>' style='width: 300px;' readonly/>  
+                                   
+                        </div>
+                        <div style="position: absolute; top: 44px; left: 350px">
+                                <label class="label">Aprovado</label>
+                                <div id="radioC">
+                                    <input type="radio" id="radio3" name="T113_aprovado" value="S"                    class="validate[required]" /><label for="radio3">Sim</label>
+                                    <input type="radio" id="radio4" name="T113_aprovado" value="N" checked="checked"  class="validate[required]" /><label for="radio4">Não</label>
+                                </div>            
+                            </div>
+                        <div style="position: absolute; top: 44px; left: 450px;">
+                                <label class="label">Parecer</label>
+                                <textarea style="width: 250px" name="T113_justificativa" id='txtJustComite'    placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ></textarea>            
+                        </div>
+                        <div style="position: absolute; top: 44px; left: 790px">      
+                                <label class="label">Adicionar</label>
+                                <input type="button" value="+" id="btnAddComite"/>
+                        </div>   <br><br><br>
+                        <div style="position: static; top: 500px; left: auto; ">
+                            <label class="label">Membros do Comitê</label>
+                            <?php $retComiteRM = $obj->retornaComiteRM($codRM);?>
+                            <select style="width: 950px" name="T004_login[]" multiple id="cmbComite" >
+                        <?php foreach ($retComiteRM as $cpsComt => $vlrComt) { ?>
+                                    <option value="<?php echo $vlrComt["Login"] ?>"><?php echo $vlrComt["Nome"]." | ".$vlrComt["Aprovado"]." | ".$vlrComt["Justificativa"]; ?></option>
+    <?php } ?>    
+                            </select><br>
+                            *Clique em cima do Executor para exclui-lo da lista.
+                     </div> <?php } else {?>
+                            <div >
                             <label class="label">Comitê</label>
                            
                         <div style="position: static; top: 500px; left: auto; ">
@@ -280,15 +316,15 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                             </select><br>
                             
                         </div>
-                    </div> <?php }?>
-                </div>       
+                     </div> <?php } ?>
+                 </div>    <?php }?>   
 
             </div>   
 
 
            
             <div class="clear"></div>
-
+            <input type="hidden" value="<?php echo $codRM; ?>" id="codRM">
 
 
     
