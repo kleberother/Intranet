@@ -262,9 +262,9 @@ class models_T0117 extends models
     }
     
     
-    public function enviaEmailComite(){
+    public function enviaEmailComite($html, $email){
     
-    
+        mail($email, "Aviso de RM ao Comitê", $html);
     
     }
      
