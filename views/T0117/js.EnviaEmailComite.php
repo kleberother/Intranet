@@ -19,7 +19,7 @@ $nome   =   $valCom["Nome"];
 
         $to         = $valCom["Email"]; 
         $from       = "web@davo.com.br"; 
-        $subject    = "Aviso de RM ao Comitê";
+        $subject    = "Aviso de RM ao Comite";
         
         $html   =   $nome.'<br>';
         $html   .=   'Há uma Requisição de Mundança disponível para aprovação.<br>';
