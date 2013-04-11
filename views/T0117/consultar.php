@@ -144,15 +144,20 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
 
             <div style="position: absolute; top: 350px; left: 170px;">
                 <label class="label">Qual a necessidade de mudança? *</label>
-                <textarea style="width: 500px" name="T113_motivo"      placeholder="Falta o Texto!"       class="validate[required] textarea-table" cols="50" rows="4" readonly><?php echo $vlrRM["MotivoRM"]; ?></textarea>            
+                <textarea style="width: 485px" name="T113_motivo"      placeholder="Falta o Texto!"       class="validate[required] textarea-table" cols="50" rows="4" readonly><?php echo $vlrRM["MotivoRM"]; ?></textarea>            
             </div>
 
             <div style="position: absolute; top: 350px; left: 680px;">
                 <label class="label">Qual o impacto para o negocio? *</label>
-                <textarea style="width: 500px" name="T113_impacto"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" readonly ><?php echo $vlrRM["ImpactoRM"]; ?></textarea>            
+                <textarea style="width: 485px" name="T113_impacto"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" readonly ><?php echo $vlrRM["ImpactoRM"]; ?></textarea>            
             </div>
+            
+            <div style="position: absolute; top: 450px; left: 170px;">
+                <label class="label">Qual impacto durante a ocorrência? (Para o negócio)*</label>
+                <textarea style="width: 1000px" name="T113_impacto_ocorrencia"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" readonly ><?php echo $vlrRM["ImpactoRmOc"]; ?></textarea>            
+            </div>  
 
-            <br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             <div class="grid_16">
                 <div id="tabs">
                     <ul>

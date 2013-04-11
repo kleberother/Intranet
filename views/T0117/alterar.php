@@ -1,7 +1,7 @@
 <?php
 /* * ************************************************************************
   Intranet - DAVÓ SUPERMERCADOS
- * Criado em: 23/03/2013 Rodrigo Alfieri    
+ * Criado em: 23/03/2013 Roberta Schimidt  
  * Descrição: Alterar RM
  * Entradas:   
  * Origens:   
@@ -35,6 +35,7 @@ if (!empty($_POST)) {
     $hora_total         =   $_POST["T113_hora_total"];
     $hora_disponivel    =   $_POST["T113_hora_disponivel"];
     $hora_prevista      =   $_POST["T113_hora_prevista"];
+    $impacto_ocorr      =   $_POST["T113_impacto_ocorrencia"];
 
 
     $campos = array(
@@ -50,7 +51,8 @@ if (!empty($_POST)) {
         , "T113_janela_disponivel"      => $janela_disp
         ,  "T113_hora_total"            => $hora_total
         ,  "T113_hora_prevista"         => $hora_prevista
-        ,  "T113_hora_disponivel"       => $hora_disponivel    
+        ,  "T113_hora_disponivel"       => $hora_disponivel  
+        ,  "T113_impacto_ocorrencia"    => $impacto_ocorr    
     );
 
     $delim = "T113_codigo  = " . $codRM;
@@ -153,15 +155,20 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
 
             <div style="position: absolute; top: 350px; left: 170px;">
                 <label class="label">Qual a necessidade de mudança? *</label>
-                <textarea style="width: 500px" name="T113_motivo"      placeholder="Falta o Texto!"       class="validate[required] textarea-table" cols="50" rows="4" ><?php echo $vlrRM["MotivoRM"]; ?></textarea>            
+                <textarea style="width: 485px" name="T113_motivo"      placeholder="Falta o Texto!"       class="validate[required] textarea-table" cols="50" rows="4" ><?php echo $vlrRM["MotivoRM"]; ?></textarea>            
             </div>
 
             <div style="position: absolute; top: 350px; left: 680px;">
-                <label class="label">Qual o impacto para o negocio? *</label>
-                <textarea style="width: 500px" name="T113_impacto"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ><?php echo $vlrRM["ImpactoRM"]; ?></textarea>            
+                <label class="label">Qual o impacto para o negocio se não houver a mudança? *</label>
+                <textarea style="width: 485px" name="T113_impacto"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ><?php echo $vlrRM["ImpactoRM"]; ?></textarea>            
+            </div>
+            
+            <div style="position: absolute; top: 450px; left: 170px;">
+                <label class="label">Qual impacto durante a ocorrência? (Para o negócio)*</label>
+                <textarea style="width: 1000px" name="T113_impacto_ocorrencia"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ><?php echo $vlrRM["ImpactoRmOc"]; ?></textarea>            
             </div>
 
-            <br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             <div class="grid_16">
                 <div id="tabs">
                     <ul>
@@ -266,7 +273,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                                 </div>                               
 
                                 <div style="position: absolute; top: 30px; left: 515px">
-                                    <label class="label">Observação Contingência</label>
+                                    <label class="label">Plano de Contingência</label>
                                     <textarea style="height: 185px" name="T113_obs_contingencia"    placeholder="Observação da contingência"         class="textarea-table" cols="150" rows="10" ><?php echo $vlrRM["ObsContingencia"]; ?></textarea>            
                                 </div>                            
 
