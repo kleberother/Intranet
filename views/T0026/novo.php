@@ -147,7 +147,11 @@ $contas         =   $obj->retornaContas();
         
         <div class="clear10"></div>
         
-        <div class="grid_2">
+        <div class="grid_3" style="display:none;">
+            <input type="hidden"  id="codigoDespesa"/>
+        </div>        
+        
+        <div class="grid_3">
             <p>CPF*</p>
             <input type="text"  class="cpf validate[required]" id="campoCpf"/>
         </div>        
@@ -186,14 +190,14 @@ $contas         =   $obj->retornaContas();
                     <table id="tDespesa" class="tablesorter">
                         <thead>
                             <tr>
-                                <th>Data            </th>
-                                <th>Histórico/Origem</th>
-                                <th>Origem          </th>
-                                <th>Hora            </th>
-                                <th>Destino         </th>
-                                <th>Hora            </th>
-                                <th>Km              </th>
-                                <th>Ações           </th>
+                                <th width="7%">Data         </th>
+                                <th>Histórico               </th>
+                                <th width="15%">Origem      </th>
+                                <th width="4%">Hora         </th>
+                                <th width="15%">Destino     </th>
+                                <th width="4%">Hora         </th>
+                                <th width="4%">Km           </th>
+                                <th width="4%">Ações        </th>
                             </tr>
                         </thead>
                         <tbody id="dDados">                        

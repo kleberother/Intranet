@@ -3,6 +3,8 @@
 // Desenvolvedor:  Rodrigo Alfieri
 
 $(function(){
+    
+    document.activeAjaxConnections = 0                      ;
         
     function calculaTotalDespesaKm()
     {
@@ -12,7 +14,7 @@ $(function(){
             var vKm     =   $("#parametroKm").val()                 ; //Valor Km                                                             
                 total  +=   tKm * vKm                               ;  
         });
-        $("#totalDespesaKm").val(total);
+        $("#totalDespesaKm").val(total.toFixed(2));
         $("#totalDespesaKm").priceFormat({
                                             prefix: 'R$ ',
                                             centsSeparator: ',',
@@ -66,34 +68,14 @@ $(function(){
 
         var totalGeral  =   parseFloat(despesaKm)+parseFloat(despesaDiv);
 
-        $("#totalGeral").val(totalGeral).priceFormat({
+        $("#totalGeral").val(totalGeral.toFixed(2)).priceFormat({
                                             prefix: 'R$ ',
                                             centsSeparator: ',',
                                             thousandsSeparator: '.'
                                           }); 
 
         // ******* FIM CALCULO TOTAL GERAL ****** //         
-    }    
-    
-    //Tablesorter
-    $("#tPrincipal").tablesorter({widget:['zebra']                //Tabela Zebrada
-                                  , sortList: [[1,0]]               //Ordena Coluna 2 Crescente
-                                  , headers: {0:{sorter: false}    //Retira o "Sorter" da Coluna 1
-                                             , 7:{sorter: false}    //Retira o "Sorter" da Coluna 8
-                                             }
-                                  });
-                                  
-    $("#tDespesa").tablesorter({widget:['zebra']                //Tabela Zebrada
-                                    , sortList: [[0,0]]               //Ordena Coluna 2 Crescente
-                                    , headers: {3:{sorter: false}    //Retira o "Sorter" da Coluna 4
-                                               , 5:{sorter: false}    //Retira o "Sorter" da Coluna 6
-                                               , 6:{sorter: false}    //Retira o "Sorter" da Coluna 7
-                                               }
-                                    });
-                                  
-    $("#tDespesaDiv").tablesorter({widget:['zebra']                //Tabela Zebrada
-                                    , sortList: [[0,0]]               //Ordena Coluna 2 Crescente
-                                    });
+    }                                   
         
     //Caixa com Formulário
     $(".botaoAddDespesa").click(function(){
@@ -387,34 +369,109 @@ $(function(){
                 buttons:
                 {
                         Ok: function() 
-                        {
-                            $("#dDados").find("tr:first").remove();
-                            $.each($("#dDados").find("tr"), function(){
-                                var vCpf    =   $("#campoCpf").val()            ;                                                                                                
-                                var vData   =   $(this).find(".vData").text()   ;
-                                var vHist   =   $(this).find(".vHist").text()   ;
-                                var vLjOrig =   $(this).find(".vLjOrig").text() ;
-                                var vHrOrig =   $(this).find(".vHrOrig").text() ;
-                                var vLjDest =   $(this).find(".vLjDest").text() ;
-                                var vHrDest =   $(this).find(".vHrDest").text() ;
-                                var qKm     =   $(this).find(".qKm").text()     ; //Qtde Km
-                                
-                                //InsereDados
-                                $.post("?router=T0026/js.insereDados",{  tipo:1 //Despesa com Km
-                                                                       , data:vData
-                                                                       , historico:vHist
-                                                                       , lojaOrigem:vLjOrig
-                                                                       , hrOrigem:vHrOrig
-                                                                       , lojaDestino:vLjDest
-                                                                       , hrDestino:vHrDest
-                                                                       , km:qKm}
-                                                                       , function(dados){
-                                                                           
-                                                                           
-                                    
-                                });
-                                
-                            });
+                        {                            
+                            var vCpf            =   $("#campoCpf").val()            ;
+                            var totalGeral      =   $("#totalGeral").val()          ;
+                            //InsereDados
+                            $.get("?router=T0026/js.insereDados",{  tipo:1 //Despesa com Km
+                                                                   , cpf:vCpf
+                                                                   , totalGeral:totalGeral
+                                                                   }
+                            , function(dados){
+                                if(dados!=0)
+                                 {
+                                      $("#codigoDespesa").val(dados);
+                                      $.each($("#dDados").find("tr"), function(){
+                                          var codigoDespesa   =   $("#codigoDespesa").val()       ;                                                                                                                                   
+                                          var vData           =   $(this).find(".vData").text()   ;
+                                          var vHist           =   $(this).find(".vHist").text()   ;
+                                          var vLjOrig         =   $(this).find(".vLjOrig").text() ;
+                                          var vHrOrig         =   $(this).find(".vHrOrig").text() ;
+                                          var vLjDest         =   $(this).find(".vLjDest").text() ;
+                                          var vHrDest         =   $(this).find(".vHrDest").text() ;
+                                          var qKm             =   $(this).find(".qKm").text()     ; //Qtde Km
+                                          var totalDespesa    =   $("#totalDespesaKm").val()      ; 
+                                          var totalDespesaDiv =   $("#totalDespesaDiversas").val();
+
+                                          //InsereDados
+                                        $.ajax({
+                                            url: "?router=T0026/js.insereDados",
+                                            type: 'get',
+                                            data: {   tipo:2 //Despesa com Km
+                                                    , codigoDespesa:codigoDespesa
+                                                    , data:vData
+                                                    , historico:vHist
+                                                    , lojaOrigem:vLjOrig
+                                                    , hrOrigem:vHrOrig
+                                                    , lojaDestino:vLjDest
+                                                    , hrDestino:vHrDest
+                                                    , km:qKm
+                                                    , totalDespesa:totalDespesa
+                                                    , totalDespesaDiv:totalDespesaDiv
+                                                  },
+                                            
+                                            beforeSend: function() {
+                                                document.activeAjaxConnections++;
+                                                console.log(document.activeAjaxConnections);
+                                            },
+                                            success: function() {
+                                                document.activeAjaxConnections--;
+                                                if (0 == document.activeAjaxConnections) {
+                                                   //executou todos os get 
+                                                   $(location).attr('href','?router=T0026/home&statusDespesa=1');
+                                                }
+
+                                            },
+                                            error :function(){
+                                                document.activeAjaxConnections--;
+                                            }                  
+                                        });                                               
+                                                                                   
+                                      });
+                                     //Despesas Diversas
+                                     $.each($("#dDadosDiversos").find("tr"), function(){
+                                         var codigoDespesa   =   $("#codigoDespesa").val()       ;                                                                                                                                   
+                                         var vData           =   $(this).find(".vData").text()   ;
+                                         var vConta          =   $(this).find(".vConta").text()   ;
+                                         var vValor          =   $(this).find(".vValor").text() ;
+
+                                         //InsereDados
+                                        $.ajax({
+                                            url: "?router=T0026/js.insereDados",
+                                            type: 'get',
+                                            data: {  tipo:3 //Despesa com Km
+                                                   , codigoDespesa:codigoDespesa
+                                                   , data:vData
+                                                   , conta:vConta
+                                                   , valor:vValor
+                                                  },
+                                           
+                                            beforeSend: function() {                                                
+                                                document.activeAjaxConnections++;
+                                            },
+                                            success: function() {
+                                                document.activeAjaxConnections--;
+                                                if (0 == document.activeAjaxConnections) {
+                                                   //executou todos os get 
+                                                   $(location).attr('href','?router=T0026/home&statusDespesa=1');
+                                                }  
+
+                                            },
+                                            error :function(){
+                                                document.activeAjaxConnections--;
+                                            }                  
+                                        }); 
+
+                                     });  
+                                     
+                                     
+
+                                 }else
+                                     show_stack_bottomleft(true, 'Erro!', 'Não foi possível inserir!');  
+                            });  
+                            
+                            $(this).dialog("close");                                                        
+                            
                         }
                         ,
                         Fechar: function()
@@ -445,12 +502,119 @@ $(function(){
         calculaTotalGeral();
                       
     });
+    
+    $(".aprovarDespesa").live("click",function(e){
+        e.preventDefault();
+        var $this           =   $(this)             ;
+        var codigoEtapa     =   $this.parents("tr").find(".codigoEtapa").text() ;
+        var codigoDespesa   =   $this.parents("tr").find(".codigoDespesa").text();
+
+        $("#dialog-aprovar").dialog
+        ({
+                resizable: false,
+                height:130,
+                draggable: false,
+                width:300,
+                modal: true,
+                buttons:
+                {
+                        Ok: function() 
+                        {   var $thisDialog =   $(this);
+                            $.get("?router=T0026/js.aprovar" ,{  codigoEtapa:codigoEtapa
+                                                               , codigoDespesa:codigoDespesa}
+                                                               , function(dados){
+                                                                   if(dados==1)
+                                                                       {
+                                                                           $this.parents("tr").remove();
+                                                                           $thisDialog.dialog("close");
+                                                                           show_stack_bottomleft(false, 'Alerta!', 'Despesa(s) aprovada(s) com sucesso!');  
+                                                                           
+                                                                       }
+                                                                   else
+                                                                       {
+                                                                           $thisDialog.dialog("close");
+                                                                           show_stack_bottomleft(true, 'Erro!', 'Despesa(s) não foram aprovada(s)!');  
+                                                                       }
+                                                               });
+                            
+                            
+                            
+                        }
+                        ,
+                        Fechar: function()
+                        {
+                            $(this).dialog("close");
+                        }
+                }
+        }); 
+    });
+    
+    $(".cancelarDespesa").live("click",function(e){
+        e.preventDefault();
+        var $this           =   $(this)                                             ;
+        var codigoDespesa   =   $this.parents("tr").find(".codigoDespesa").text()   ;
+        
+        $("#dialog-cancelar").dialog
+        ({
+                resizable: false,
+                height:130,
+                draggable: false,
+                width:300,
+                modal: true,
+                buttons:
+                {
+                        Ok: function() 
+                        {
+                            var $thisDialog =   $(this);
+                            $.post("?router=T0026/js.cancelar",{codigoDespesa:codigoDespesa},function(dados){
+                                if (dados==1)
+                                    {
+                                        show_stack_bottomleft(false, 'Alerta!', 'Despesa cancelada com sucesso!');
+                                        $this.parents("tr").remove();                                                                                
+                                    }else
+                                        {
+                                            show_stack_bottomleft(true, 'Erro!', 'Não foi possível cancelar a Despesa!');  
+                                        }                                                                                                                            
+                            });
+                            
+                            $thisDialog.dialog("close");
+                            
+                        }
+                        ,
+                        Fechar: function()
+                        {
+                            $(this).dialog("close");
+                        }
+                }
+        });         
+        
+    });
+    
+    $(".uploadArquivo").live("click",function(e){
+        e.preventDefault();
+        
+        $("#dialog-upload").dialog
+        ({
+            resizable: false,
+            height:250,
+            width:330,
+            modal: true,
+            draggable: false,
+            buttons:
+            {
+                    "Upload": function()
+                    {
+                        $("#form-upload").append("<input type='hidden' name='T008_codigo' value='"+cod+"'</input>");
+                        $("#form-upload").submit();
+                    } 
+                    ,
+                    Cancelar: function()
+                    {
+                        $(this).dialog("close");
+                    }
+            }
+        }); 
+        
+    });
                                             
 });
-/* ============== Função para Upload Fim  =================== */ 
-
-/* ============== T0026/novo FIM ============================ */
-
-/* -------- Controle de versões - T0026.js --------------
- * 1.0.0 - 99/99/9999 - Rodrigo --> 1. Liberada versao inicial
- */
