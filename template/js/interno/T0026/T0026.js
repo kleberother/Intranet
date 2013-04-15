@@ -569,7 +569,7 @@ $(function(){
                             $.post("?router=T0026/js.cancelar",{codigoDespesa:codigoDespesa},function(dados){
                                 if (dados==1)
                                     {
-                                        show_stack_bottomleft(false, 'Alerta!', 'Despesa cancelada com sucesso!');
+                                        show_stack_bottomleft(false, 'Alerta', 'Despesa cancelada com sucesso!');
                                         $this.parents("tr").remove();                                                                                
                                     }else
                                         {
