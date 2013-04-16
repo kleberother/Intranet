@@ -61,22 +61,9 @@ if (!empty($_POST))
     {
         $tabela     =   "T004_T113";
         
-        $user       =   $valores;
-        $dadosUser  =   $obj->retornaDadosUsuario($user);
-        
-        foreach($dadosUser as $cp   =>  $vl)
-        {
-            $nomeUsuario    =   $vl['NomeUsuario'];
-            $emailUsuario   =   $vl['EmailUsuario'];
-        }
-                
         $campos =   array(
                             "T113_codigo"           =>  $codigoRM
                          ,  "T004_login"            =>  $valores
-                         ,  "T004_T113_nome"        =>  $nomeUsuario
-                         ,  "T004_T113_email"       =>  $emailUsuario
-                         ,  "T004_T113_telefone"    =>  ""
-                         ,  "T004_T113_notificado"  =>  ""
                          ,  "T004_T113_tipo"        =>  2               //Tipo 1 = Responsaveis RM
                          );
         
@@ -92,21 +79,9 @@ if (!empty($_POST))
     {
         $tabela     =   "T004_T113";
         
-        $user       =   $valores;
-        $dadosUser  =   $obj->retornaDadosUsuario($user);
-        
-        foreach($dadosUser as $cp   =>  $vl)
-        {
-            $nomeUsuario    =   $vl['NomeUsuario'];
-            $emailUsuario   =   $vl['EmailUsuario'];
-        }
-                
         $campos =   array(
                             "T113_codigo"           =>  $codigoRM
                          ,  "T004_login"            =>  $valores
-                         ,  "T004_T113_nome"        =>  $nomeUsuario
-                         ,  "T004_T113_email"       =>  $emailUsuario
-                         ,  "T004_T113_telefone"    =>  ""
                          ,  "T004_T113_tipo"        =>  1               //Tipo 1 = Responsaveis RM
                          );
         
