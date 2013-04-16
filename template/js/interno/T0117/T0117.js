@@ -50,22 +50,14 @@ $(function(){
         var parecer     =   $("#txtJustComite").val();
         var codRM       =   $("#codRM").val();
         
-        
         var str         =   nome+" | "+aprovado+" | "+parecer;
 
         $('#cmbComite').append('<option value="'+str+'" selected="selected">'+str+'</option>');
         
-        $("#txtComite").val("");
         $("#txtJustComite").val("");
         $("#txtComite").focus();
         
-        if (aprovado === "S"){
-            
-            $.post("?router=T0117/js.AprovaRM", {codRM:codRM});
-            
-        }
-        
-      $.post("?router=T0117/js.IncluirExec", {login:user[1], aprovar:aprovado,  parecer:parecer, cod:4, codRM:codRM});
+      $.post("?router=T0117/js.IncluirExec", {login:user[1], aprovar:aprovado,  parecer:parecer, cod:4, codRM:codRM, });
         
     });
     
@@ -308,15 +300,29 @@ $(function(){
      
      });
      
-     $("#revisado").click(function(){
+     $(".revisar").click(function(){
          
-         var revisado    =   $("input[name=revisado]:checked").val();
+         var status    =   3;
          var codRM    =   $("#codRM").val();
      
-        $.post("?router=T0117/js.alteraStatus", {revisado:revisado, codRM:codRM});
-        $("#revisado").remove();
+        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
+        
+        $.post("?router=T0117/js.EnviaEmailComite", {codRM:codRM});
+       
+          location.reload();
+     });
+     
+         $(".concluir").click(function(){
+         
+         var status    =   2;
+         var codRM    =   $("#codRM").val();
+     
+        $.post("?router=T0117/js.alteraStatus", {status:status, codRM:codRM});
+        location.reload();
         
      });
+     
+     
      
 });
 

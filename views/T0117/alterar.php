@@ -2,8 +2,8 @@
 <?php
 /* * ************************************************************************
   Intranet - DAVÓ SUPERMERCADOS
- * Criado em: 14/02/2013 Rodrigo Alfieri    
- * Descrição: Nova RM
+ * Criado em: 23/03/2013 Roberta Schimidt  
+ * Descrição: Alterar RM
  * Entradas:   
  * Origens:   
 
@@ -21,29 +21,26 @@ if (!empty($_POST)) {
 
     $tabela = "T113_requisicao_mudanca";
 
-    $titulo             = $_POST['T113_titulo'];
-    $solicitante        = $_SESSION['user'];
-    $data               = date("d/m/Y h:i:s");
-    $descricao          = $_POST['T113_descricao'];
-    $dt_inicio          = $_POST['T113_dt_hr_inicio'] . " " . $_POST['hr_ini'] . ":00";
-    $dt_fim             = $_POST['T113_dt_hr_fim'] . " " . $_POST['hr_fim'] . ":00";
-    $motivo             = $_POST['T113_motivo'];
-    $impacto            = $_POST['T113_impacto'];
-    $tempo_previsto     = $_POST['T113_tempo_previsto'];
-    $responsavel        = $_POST["T004_responsavel"];
-    $obs_contingencia   = $_POST['T113_obs_contingencia'];
-    $tempo_total        = $_POST['T113_tempo_total'];
-    $janela_disp        = $_POST['T113_janela_disponivel'];
-    $status             = 1;                                                  //Status 1 = Aberta
+    $titulo             =   $_POST['T113_titulo'];
+    $solicitante        =   $_POST['T004_solicitante'];
+    $descricao          =   $_POST['T113_descricao'];
+    $dt_inicio          =   $_POST['T113_dt_hr_inicio'] . " " . $_POST['hr_ini'] . ":00";
+    $dt_fim             =   $_POST['T113_dt_hr_fim'] . " " . $_POST['hr_fim'] . ":00";
+    $motivo             =   $_POST['T113_motivo'];
+    $impacto            =   $_POST['T113_impacto'];
+    $tempo_previsto     =   $_POST['T113_tempo_previsto'];
+    $responsavel        =   $_POST["T004_responsavel"];
+    $obs_contingencia   =   $_POST['T113_obs_contingencia'];
+    $tempo_total        =   $_POST['T113_tempo_total'];
+    $janela_disp        =   $_POST['T113_janela_disponivel'];
     $hora_total         =   $_POST["T113_hora_total"];
     $hora_disponivel    =   $_POST["T113_hora_disponivel"];
     $hora_prevista      =   $_POST["T113_hora_prevista"];
+    $impacto_ocorr      =   $_POST["T113_impacto_ocorrencia"];
 
 
     $campos = array(
-        "T004_solicitante"              => $solicitante
-        , "T113_data"                   => $data
-        , "T113_titulo"                 => $titulo
+          "T113_titulo"                 => $titulo
         , "T113_descricao"              => $descricao
         , "T113_dt_hr_inicio"           => $dt_inicio
         , "T113_dt_hr_fim"              => $dt_fim
@@ -51,13 +48,12 @@ if (!empty($_POST)) {
         , "T113_impacto"                => $impacto
         , "T113_tempo_previsto"         => $tempo_previsto
         , "T113_obs_contingencia"       => $obs_contingencia
-        , "T004_responsavel"            => $responsavel
-        , "T113_status"                 => $status
         , "T113_tempo_total"            => $tempo_total
         , "T113_janela_disponivel"      => $janela_disp
         ,  "T113_hora_total"            => $hora_total
         ,  "T113_hora_prevista"         => $hora_prevista
-        ,  "T113_hora_disponivel"       => $hora_disponivel    
+        ,  "T113_hora_disponivel"       => $hora_disponivel  
+        ,  "T113_impacto_ocorrencia"    => $impacto_ocorr    
     );
 
     $delim = "T113_codigo  = " . $codRM;
@@ -143,11 +139,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
             <div style="position: absolute; top: 205px; left: 900px;">
                 <label class="label">Responsável da Requisição de Mudança*</label>
                 <input style="width: 268px" type="text" class="buscaUsuario validate[required]"
-                       onmouseover ='show_tooltip_alert("", "Digite o nome do Colaborador e selecione na lista.", true);
-                        tooltip.pnotify_display();' 
-                       onmousemove ='tooltip.css({"top": event.clientY + 12, "left": event.clientX + 12});' 
-                       onmouseout  ='tooltip.pnotify_remove();'                    
-
+                       readonly                    
                        name="T004_responsavel"
                        value   ="<?php echo $vlrRM["Responsavel"]; ?>"
                        />
@@ -164,15 +156,20 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
 
             <div style="position: absolute; top: 350px; left: 170px;">
                 <label class="label">Qual a necessidade de mudança? *</label>
-                <textarea style="width: 500px" name="T113_motivo"      placeholder="Falta o Texto!"       class="validate[required] textarea-table" cols="50" rows="4" ><?php echo $vlrRM["MotivoRM"]; ?></textarea>            
+                <textarea style="width: 485px" name="T113_motivo"      placeholder="Falta o Texto!"       class="validate[required] textarea-table" cols="50" rows="4" ><?php echo $vlrRM["MotivoRM"]; ?></textarea>            
             </div>
 
             <div style="position: absolute; top: 350px; left: 680px;">
-                <label class="label">Qual o impacto para o negocio? *</label>
-                <textarea style="width: 500px" name="T113_impacto"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ><?php echo $vlrRM["ImpactoRM"]; ?></textarea>            
+                <label class="label">Qual o impacto para o negocio se não houver a mudança? *</label>
+                <textarea style="width: 485px" name="T113_impacto"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ><?php echo $vlrRM["ImpactoRM"]; ?></textarea>            
+            </div>
+            
+            <div style="position: absolute; top: 450px; left: 170px;">
+                <label class="label">Qual impacto durante a ocorrência? (Para o negócio)*</label>
+                <textarea style="width: 1000px" name="T113_impacto_ocorrencia"     placeholder="Falta o Texto!"        class="validate[required] textarea-table" cols="47" rows="4" ><?php echo $vlrRM["ImpactoRmOc"]; ?></textarea>            
             </div>
 
-            <br><br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             <div class="grid_16">
                 <div id="tabs">
                     <ul>
@@ -185,7 +182,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                         foreach ($CM as $cpPerCM => $vlPerCM) {
                             $cmt++;
                         }
-                     if (($cmt != 0)&&($statusRM == 2)) {?>   <li><a href="#tabs-4">Comitê</a></li><?php }?>
+                     if (($cmt != 0)&&($statusRM == 3)) {?>   <li><a href="#tabs-4">Comitê</a></li><?php }?>
                     </ul>
                     <div id="tabs-1">
                         <span class="form-input">
@@ -277,7 +274,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
                                 </div>                               
 
                                 <div style="position: absolute; top: 30px; left: 515px">
-                                    <label class="label">Observação Contingência</label>
+                                    <label class="label">Plano de Contingência</label>
                                     <textarea style="height: 185px" name="T113_obs_contingencia"    placeholder="Observação da contingência"         class="textarea-table" cols="150" rows="10" ><?php echo $vlrRM["ObsContingencia"]; ?></textarea>            
                                 </div>                            
 
@@ -353,7 +350,7 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
 
                     </div>
                     <?php 
-                 if(($cmt   !=  0) && ($statusRM == 2)){?>
+                 if(($cmt   !=  0) && ($statusRM == 3)){?>
                     <div id="tabs-4">
                         <div >
                             <label class="label">Comitê</label>
@@ -412,15 +409,6 @@ foreach ($retornaDados as $cpsRM => $vlrRM) {
             <div class="clear"></div>
 
             <div class="grid_2">
-                <?php 
-                $GM = $obj->retornaPerfil($user, 59);
-                $rev = 0;
-                foreach ($GM as $cmpPerf => $vlrPerf) {
-                    $rev++;
-                }
-                if(($statusRM == 1) && ($rev != 0)){ ?>
-                <input type='checkbox' id='revisado' name='revisado' value='1'/><label for='revisado'>Revisado</label> 
-                <?php }?>
                 <input type="hidden" value="<?php echo $codRM; ?>" id="codRM">
                 <input type="submit" value="Atualizar" class="botao-padrao" >
             </div>

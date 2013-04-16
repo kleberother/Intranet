@@ -596,8 +596,13 @@ class models extends PDO
             }
             $sql_aux1 = substr($sql_aux1,0,strlen($sql_aux1)-1);
             $sql_aux2 = substr($sql_aux2,0,strlen($sql_aux2)-1);
+<<<<<<< HEAD
 //            echo $sql.$sql_aux1.") VALUES (".$sql_aux2.")";  
 //            echo "<br/><br/><br/>";   
+=======
+           // echo $sql.$sql_aux1.") VALUES (".$sql_aux2.")";  
+          //echo "<br/><br/><br/>";   
+>>>>>>> origin/dev-roberta
             return  $sql.$sql_aux1.") VALUES (".$sql_aux2.")";
         }
     }
@@ -613,8 +618,13 @@ class models extends PDO
                 $sql_aux .= $nomes." = ".$this->formataValor($tabela,$nomes,$valores). ",";
             }
             $sql_aux = substr($sql_aux, 0, (strlen($sql_aux)-1));
+<<<<<<< HEAD
 //            echo  $sql.$sql_aux. " WHERE ".$delimitador;
 //            echo "<br/>";
+=======
+           // echo  $sql.$sql_aux. " WHERE ".$delimitador;
+           // echo "<br/>";
+>>>>>>> origin/dev-roberta
             return  $sql.$sql_aux. " WHERE ".$delimitador;
         }
     }

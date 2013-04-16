@@ -61,13 +61,13 @@ class models_T0095 extends models
         
         $sql    =   "      SELECT T93.T093_codigo                                       CodigoAuditoria
                                 , T93.T093_gerente                                      Gerente 
-                                , T93.T093_inventario                                   CoordInventario
                                 , T93.T020_departamento                                 Departamento
                                 , T93.T020_secao                                        Secao
                                 , T93.T020_grupo                                        Grupo
                                 , T93.T020_subgrupo                                     Subgrupo            
                                 , T06.T006_codigo                                       CodigoLoja
                                 , T06.T006_nome                                         NomeLoja 
+                                , T93.T093_inventario                                   CoordInventario
                                 , date_format(T93.T093_dt_inicio,'%d/%m/%Y')            Data
                                 , FNDVINT_Auditoria_QtItens(T93.T093_codigo)            QtdeItens
                                 , FNDVINT_Auditoria_QtEmLinha(T93.T093_codigo)          EmLinha
@@ -785,10 +785,10 @@ class models_T0095 extends models
     {              
        $altera = $this->exec($this->atualiza($tabela, $campos, $delim));
        
-//       if($altera)
-//            $this->alerts('false', 'Alerta!', 'Alterado com Sucesso!');
-//       else
-//            $this->alerts('true', 'Erro!', 'Não foi possível Alterar!');          
+      // if($altera)
+       //     $this->alerts('false', 'Alerta!', 'Alterado com Sucesso!');
+       //else
+         //   $this->alerts('true', 'Erro!', 'Não foi possível Alterar!');          
        
       // echo $altera;
        return $altera;
