@@ -116,7 +116,7 @@ margin-top: -15px;
 
 /* MESTRE - UTILIZO ESSA DIV QUANDO UTILIZAR DUAS OU MAIS COLUNAS - TABLESS */
 #mestre{
-    /*width: 1000px;*/
+    width: 1000px;
     width: 100%;
     max-width: 1000px;
     margin: 10px auto;
@@ -149,21 +149,21 @@ margin-top: -15px;
 }
 /* CONTEUDO ID */
 #conteudo{
-    /*width: 1000px;*/
+    width: 1000px;
     width: 100%;
     max-width: 1000px;
     margin: 10px auto;
 }
 
 .conteudo{
-    /*width: 1000px;*/
+    width: 1000px;
     width: 100%;
     max-width: 1000px;
     margin: 10px auto;
 }
 
 #tabs {
-    /*width: 1000px;*/
+    width: 1000px;
     margin: 10px auto;
 }
 
@@ -225,7 +225,7 @@ margin-top: -15px;
 
 /* FORMULARIO ID */
 #formulario{
-/*    width: 1000px;*/
+    width: 1000px;
     width: 100%;
     max-width: 1000px;
     margin: 10px auto;

@@ -171,7 +171,7 @@ $contas         =   $obj->retornaContas();
         
     <div id="abasDespesa" class="conteudo_16" style="display:none">
             
-        <div id="tabs">
+        <div id="tabs" style="width: auto;">
             <ul>
                 <li class="ui-state-default"><a href="#tabs-1">Despesas com Quilometragem</a></li>
                 <li class="ui-state-default"><a href="#tabs-2">Despesas Diversas</a></li>
