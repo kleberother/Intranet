@@ -334,6 +334,7 @@ class models_T0026 extends models
     public function retornaDespesa($DespesaCodigo)
     {
         $sql    =   "  SELECT T16.T016_codigo                                   DespesaCodigo
+                            , T16.T016_cpf                                      CpfUsuario
                             , T04.T004_nome                                     UsuarioNome
                             , T04.T004_matricula                                UsuarioMatricula
                             , T16.T004_login                                    DespesaLogin

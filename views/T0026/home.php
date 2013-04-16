@@ -223,7 +223,7 @@ switch ($statusDespesa) {
                 <td style="display:none;"><?php echo $valores['DespesaCodigo'];?>;EtapaCodigo:<?php echo $valores['CodigoEtapa'];?></td>
                 <td>                                    
                     <ul class="lista-de-acoes">                                        
-                        <li><a href="?router=T0026/detalhes&DespesaCodigo=<?php echo $valores['DespesaCodigo']?>" title="Detalhes"><span class='ui-icon ui-icon-search'></span></a></li>
+                        <li><a href="?router=T0026/detalhes&despesaCodigo=<?php echo $valores['DespesaCodigo']?>" title="Detalhes"><span class='ui-icon ui-icon-search'></span></a></li>
                         <!--<li><a href="javascript:upload(<?php echo $valores['DespesaCodigo'];?>)" title="Anexar"  >  <span class='ui-icon ui-icon-pin-s'></span></a></li>-->
                         <li><a target="_blank" href="?router=T0026/js.pdf&DespesaCodigo=<?php echo $valores['DespesaCodigo'];?>" title="Imprimir"><span class='ui-icon ui-icon-print'></span></a></li>
                         <li><a href="#" title="Aprovar"     class="aprovarDespesa"  ><span class='ui-icon ui-icon-check'>   </span></a></li>                                    
