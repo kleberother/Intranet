@@ -97,7 +97,21 @@ class models_T0119 extends models
  
         return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
     }
-
+    
+    public function ConsultaLoteIntranet($Loja,$Lote)
+    {
+        $sql=" SELECT 1
+                 FROM T116_ccu_lote t
+                WHERE t.T006_codigo  =  $Loja".$this->calculaDigitoMod11($Loja,1,100)
+                ." AND t.T116_lote    =  $Lote
+               LIMIT 1
+             ";   
+        
+        $Retorno=$this->query($sql)->fetchAll(PDO::FETCH_COLUMN) ;
+        return $Retorno[0];
+        
+    }
+    
     public function ConsultaDetalhesLoteLoja($Loja,$Lote)
     {
         $sql="  SELECT d.sequence , d.plu_id , d.desc_plu , d.quantity , d.unit_price , d.amount
@@ -173,7 +187,9 @@ class models_T0119 extends models
     {
         $sql    =   "  SELECT sa.status_aprovacao_id            Codigo
                             , sa.status_aprovacao_descricao     Descricao
-                         FROM davo_ccu_status_aprovacao sa";
+                         FROM davo_ccu_status_aprovacao sa
+                        WHERE sa.status_aprovacao_id   >  0
+                        ";
         
         return $this->query($sql);
     }

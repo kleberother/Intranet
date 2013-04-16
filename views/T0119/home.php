@@ -121,8 +121,9 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                 <!--<th><input type="checkbox" value="1" class="chkSelecionaTodos" <?php echo $statusDespesa!=1?"disabled":""?>/></th>-->
                 <th>Lote</th>
                 <th>Loja</th>
+                <th>Tipo</th>
                 <th>Valor</th>
-                <th>Valor</th>
+                <th>?:</th>
                 <th>Ações</th>
                 
 <!--                <th>Data</th>
@@ -133,13 +134,20 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
             </tr>
         </thead>
         <tbody>
-        <?php   foreach($RetornoLotes as $campos=>$valores){?>            
+        <?php   foreach($RetornoLotes as $campos=>$valores)
+                {
+                   $existeIntranet = $obj->ConsultaLoteIntranet($valores['store_key'],$valores['lote_numero']);
+                   
+                   if($existeIntranet)
+                   {
+            ?>            
             <tr>
                 <!--<td><?php echo "DespesaCodigo:".$valores['DespesaCodigo'].";"."EtapaCodigo:".$valores['CodigoEtapa'];?>" class="chkItem" <?php echo $statusDespesa!=1?"disabled":""?></td>-->
+                <td class="txtLoja"><?php echo $valores['store_key'];   ?></td>
                 <td class="txtLote"><?php echo $valores['lote_numero']; ?></td>
-                <td class="txtLoja"><?php echo $valores['store_key']; ?></td>
                 <td ><?php echo $objEMP->RetornaStringTipo($valores['tipo_codigo']); ?></td>
-                <td><?php echo $valores['amount'];?></td>
+                <td><?php  echo $objEMP->formataMoedaSufixo($valores['amount']);?></td>
+                <td><?php  echo $existeIntranet ?></td>
                 <td>                                    
                     <ul class="lista-de-acoes">                                        
                         <li><a href="#" title="Detalhes" class="Detalhes">    <span class='ui-icon ui-icon-search'> </span></a></li>                                    
@@ -147,7 +155,9 @@ $SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
                     </ul>
                 </td>
             </tr>
-        <?php }?>
+              <?php 
+                   }
+                }?>
         </tbody>
         
     </table>
