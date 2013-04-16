@@ -109,7 +109,7 @@ jQuery(function($){
       prefix: '',
       centsSeparator: ',',
       thousandsSeparator: '.'
-  });
+    });
   //VALOR LIQUIDO
   $("#valor_liquido").priceFormat({
       prefix: 'R$ ',

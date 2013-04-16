@@ -13,17 +13,17 @@
 
 $obj            =   new models_T0026();
 
-$statusDespesa      =   $_POST['statusDespesa'];
+$statusDespesa      =   $_REQUEST['statusDespesa'];
 
 //Função para filtro
 function FiltroQuery()
 {
             
     $obj                =   new models_T0026()                                          ;
-    $FiltroNumero       =   $_POST['FiltroNumero']                                      ;        
-    $FiltroData         =   $_POST['FiltroData']                                        ;   //tratar a data
-    $FiltroElaborador   =   $obj->formataLoginAutoComplete($_POST['FiltroElaborador'])  ;
-    $FiltroValor        =   $_POST['FiltroValor']                                       ;
+    $FiltroNumero       =   $_REQUEST['FiltroNumero']                                      ;        
+    $FiltroData         =   $_REQUEST['FiltroData']                                        ;   //tratar a data
+    $FiltroElaborador   =   $obj->formataLoginAutoComplete($_REQUEST['FiltroElaborador'])  ;
+    $FiltroValor        =   $_REQUEST['FiltroValor']                                       ;
     
     //Formata Data
     if(!empty($FiltroData))
@@ -45,8 +45,8 @@ function FiltroQuery()
 }
 
 //Filtro Quantidade de Resgistros em Tela
-$FiltroRegistros        =   $_POST['FiltroRegistros']       ;
-$filtroReg              =   $_POST['FiltroRegistros']       ; //seleção do combo de Filtro de Registros (propriedade: selected)
+$FiltroRegistros        =   $_REQUEST['FiltroRegistros']       ;
+$filtroReg              =   $_REQUEST['FiltroRegistros']       ; //seleção do combo de Filtro de Registros (propriedade: selected)
 if (!empty($FiltroRegistros))
     $FiltroRegistros    =   " LIMIT $FiltroRegistros" ;
 
@@ -84,18 +84,19 @@ switch ($statusDespesa) {
 <div id="dialog-aprovar" title="Mensagem!" style="display:none">
     <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja aprovar essa(s) Despesa(s)?</p>
 </div>
+<!-- Caixa Dialogo Cancelar -->
+<div id="dialog-cancelar" title="Mensagem!" style="display:none">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja cancelar essa Despesa?</p>
+</div>
 <!-- Caixa de Upload-->
 <div id="dialog-upload" title="Upload" style="display:none">
 	<p    class="validateTips">Selecione um tipo e um arquivo para carregar no sistema!</p>
         <span class="form-input">
 	<form action="?router=T0026/js.upload" method="post" id="form-upload"  enctype="multipart/form-data">
-	<fieldset>
-                <label class="label">Nome do Arquivo*</label>
-                <input type="text"    name="T055_nome" id="nomeArquivo"/>
-                <label class="label">Escolha o Arquivo*</label>
-                <input type="file"      name="P0026_arquivo"      id="arquivo" class="form-input-text"   />
-                <input type="hidden"    name="T004_login"           value="<?php echo $user?>"           />
-        </fieldset>
+            <fieldset>
+                    <label class="label">Escolha o Arquivo*</label>                
+                    <input type="file"      name="despesaArquivo"               id="arquivo"            />
+            </fieldset>
 	</form>
         </span>
 </div>
@@ -112,8 +113,9 @@ switch ($statusDespesa) {
 <!-- Divs com filtros oculta -->
 <div class="conteudo_16  div-filtro">
     
-    <form action="" method="post" class="div-filtro-visivel">
-        
+    <form action="?router=T0026/home/" method="get" class="div-filtro-visivel">
+        <input type="hidden" name="router" value="T0026/home" />
+
         <div class="grid_5">
             <label class="label">Status</label>
             <select name="statusDespesa" id="statusDespesa">
@@ -129,22 +131,22 @@ switch ($statusDespesa) {
         
         <div class="grid_2">
             <label class="label">Nº Despesa</label>
-            <input type="text" name="FiltroNumero" size="10"                value="<?php echo $_POST['FiltroNumero'];?>"/>               
+            <input type="text" name="FiltroNumero" size="10"                value="<?php echo $_REQUEST['FiltroNumero'];?>"/>               
         </div>
         
         <div class="grid_2">
             <label class="label">Data Elaboração</label>
-            <input type="text" name="FiltroData" class="data"               value="<?php echo $_POST['FiltroData'];?>"/>               
+            <input type="text" name="FiltroData" class="data"               value="<?php echo $_REQUEST['FiltroData'];?>"/>               
         </div>
         
         <div class="grid_3">
             <label class="label">Elaborador</label>
-            <input type="text" name="FiltroElaborador" class="buscaUsuario" value="<?php echo $_POST['FiltroElaborador'];?>"/>             
+            <input type="text" name="FiltroElaborador" class="buscaUsuario" value="<?php echo $_REQUEST['FiltroElaborador'];?>"/>             
         </div>
         
         <div class="grid_2">
             <label class="label">Valor</label>
-            <input type="text" name="FiltroValor" class="valor"             value="<?php echo $_POST['FiltroValor'];?>"/>              
+            <input type="text" name="FiltroValor" class="valor"             value="<?php echo $_REQUEST['FiltroValor'];?>"/>              
         </div>
         
         <div class="grid_2">
@@ -174,23 +176,24 @@ switch ($statusDespesa) {
     
     <div class="clear10"></div>
     
-    <table id="tPrincipal" class="tablesorter">
+    <table class="tablesorter tDados">
         <thead>
             <tr>
-                <th><input type="checkbox" value="1" class="chkSelecionaTodos" <?php echo $statusDespesa!=1?"disabled":""?>/></th>
+                <!--<th><input type="checkbox" value="1" class="chkSelecionaTodos" <?php echo $statusDespesa!=1?"disabled":""?>/></th>-->
                 <th>Despesa Nº</th>
                 <th>Elaborado Por</th>
                 <th>Data</th>
                 <th>Última Etapa</th>
                 <th>Valor</th>
-                <th>Arquivos</th>
+                <!--<th>Arquivos</th>-->
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
         <?php   foreach($itensFiltrados as $campos=>$valores){?>            
             <tr>
-                <td><?php echo "DespesaCodigo:".$valores['DespesaCodigo'].";"."EtapaCodigo:".$valores['CodigoEtapa'];?>" class="chkItem" <?php echo $statusDespesa!=1?"disabled":""?></td>
+                <td class="codigoDespesa"   style="display:none;"><?php echo $valores['DespesaCodigo'];?></td>
+                <td class="codigoEtapa"     style="display:none;"><?php echo $valores['CodigoEtapa'];?></td>
                 <td><?php echo $valores['DespesaCodigo']; ?></td>
                 <td><?php echo $valores['Login']; ?></td>
                 <td><?php echo $valores['DespesaData']; ?></td>
@@ -204,8 +207,8 @@ switch ($statusDespesa) {
                         onmouseout  ="tooltip.pnotify_remove();"><?php echo $Etapa; ?></p>
                     <?php }?>
                 </td>
-                <td><?php echo $Valor    = money_format('%n', $valores['DespesaValor']);?></td>
-                <td>                        <?php $ArquivosDespesa  =   $obj->retornaArquivos($valores['DespesaCodigo']);?>
+                <td><?php echo $obj->formataMoeda($valores['DespesaValor'])?></td>
+<!--                <td>                        <?php $ArquivosDespesa  =   $obj->retornaArquivos($valores['DespesaCodigo']);?>
                         <?php foreach($ArquivosDespesa  as  $cpsArquivo =>  $vlsArquivo){
                                 $Categoria      =   $vlsArquivo['CategoriaCodigo']                          ;
                                 $ArquivoCodigo  =   $vlsArquivo['ArquivoCodigo']                            ;
@@ -216,14 +219,16 @@ switch ($statusDespesa) {
                             ?>
                         <a target="_blank" href="<?php echo $LinkArquivo?>"><?php echo $vlsArquivo['ArquivoNome'];?></a>  <?php if ($statusDespesa==1){?>|  <a href="javascript:excluir('T0026','T0026/home&cod=<?php echo $valores['DespesaCodigo'];?>&path=<?php echo $obj->preencheZero("E", 4, $Categoria)."/".$obj->preencheZero("E", 4, $ArquivoCodigo).".".$Extensao;?>','T016_T055','T055_codigo','<?php echo $vlsArquivo['ArquivoCodigo']?>')">Excluir</a><?php }?>
                         <?php }?>
-                </td>
+                </td>-->
                 <td style="display:none;"><?php echo $valores['DespesaCodigo'];?>;EtapaCodigo:<?php echo $valores['CodigoEtapa'];?></td>
                 <td>                                    
                     <ul class="lista-de-acoes">                                        
-                        <li><a href="?router=T0026/detalhes&DespesaCodigo=<?php echo $valores['DespesaCodigo']?>" title="Detalhes"><span class='ui-icon ui-icon-search'></span></a></li>
-                        <li><a href="javascript:upload(<?php echo $valores['DespesaCodigo'];?>)" title="Anexar"  >  <span class='ui-icon ui-icon-pin-s'></span></a></li>
+                        <li><a href="?router=T0026/detalhes&despesaCodigo=<?php echo $valores['DespesaCodigo']?>" title="Detalhes"><span class='ui-icon ui-icon-search'></span></a></li>
+                        <!--<li><a href="javascript:upload(<?php echo $valores['DespesaCodigo'];?>)" title="Anexar"  >  <span class='ui-icon ui-icon-pin-s'></span></a></li>-->
                         <li><a target="_blank" href="?router=T0026/js.pdf&DespesaCodigo=<?php echo $valores['DespesaCodigo'];?>" title="Imprimir"><span class='ui-icon ui-icon-print'></span></a></li>
-                        <li><a href="#" title="Aprovar" class="Aprovar">    <span class='ui-icon ui-icon-check'>                </span></a></li>                                    
+                        <li><a href="#" title="Aprovar"     class="aprovarDespesa"  ><span class='ui-icon ui-icon-check'>   </span></a></li>                                    
+                        <li><a href="#" title="Cancelar"    class="cancelarDespesa" ><span class='ui-icon ui-icon-cancel'>  </span></a></li>                                    
+                        <li><a href="#" title="Upload"      class="uploadArquivo"   ><span class='ui-icon ui-icon-pin-s'>  </span></a></li>                                    
                     </ul>
                 </td>
             </tr>

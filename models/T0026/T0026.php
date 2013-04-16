@@ -63,7 +63,8 @@ class models_T0026 extends models
                          WHERE T006_codigo  NOT IN  (0)";
         
         if(isset($loja))
-            $sql   .=  "   AND T006_codigo  NOT IN  ($loja)";
+            if($loja!="999")
+                $sql   .=  "   AND T006_codigo  NOT IN  ($loja)";
             
         return $this->query($sql);
     }
@@ -97,22 +98,19 @@ class models_T0026 extends models
                         AND T61.T061_codigo  = 2
                         AND T60.T060_ordem   = 1";
         
-        return $this->query($sql);
+        $grpWkfUser =   $this->query($sql)->fetchAll(PDO::FETCH_COLUMN);
+        
+        return $grpWkfUser[0];
     }
     
-    public function retornaEtapaGrupo($CodigoGrupoWkf)
+    public function retornaEtapaGrupo($grpWkfUser)
     {
-        $sql    =   "  SELECT T60.T059_codigo            CodigoGrupoWorkflow
-                            , T60.T060_codigo            CodigoWorkflow
-                            , T60.T060_num_dias          NumDiasWorkflow
-                            , T60.T060_obriga_aprovacao  ObrigaWorkflow
-                            , T60.T060_ordem             OrdemWorkflow
-                            , T60.T060_proxima_etapa     ProxEtapaWorkflow     
-                            , T60.T061_codigo            ProcessoWorkflow
-                         FROM T060_workflow T60          
-                        WHERE T60.T059_codigo  = $CodigoGrupoWkf";
+        $sql = "SELECT T1.T060_codigo              EtapaCodigo
+                     , T1.T060_proxima_etapa       ProxEtapaCodigo
+                  FROM T060_workflow               T1
+                 WHERE T1.T059_codigo              = $grpWkfUser";
 
-        return  $this->query($sql);
+        return $this->query($sql);
     }
     
     public function retornaProximaEtapa($CodigoEtapa)
@@ -166,7 +164,8 @@ class models_T0026 extends models
                                 JOIN T004_T059 T0459      ON ( T0459.T004_login = '$user' )
                                 JOIN T060_workflow T60    ON ( T60.T059_codigo  =  T0459.T059_codigo )
                                 JOIN T016_despesa T16    ON ( T16.T016_codigo  =  T1660.T016_codigo )
-                               WHERE T1660.T060_codigo  = T60.T060_codigo ";
+                               WHERE T1660.T060_codigo  = T60.T060_codigo 
+                                 AND T16.T016_status in ('0','1')";
         
         $sql    .=  $FiltroQuery;
         
@@ -335,6 +334,7 @@ class models_T0026 extends models
     public function retornaDespesa($DespesaCodigo)
     {
         $sql    =   "  SELECT T16.T016_codigo                                   DespesaCodigo
+                            , T16.T016_cpf                                      CpfUsuario
                             , T04.T004_nome                                     UsuarioNome
                             , T04.T004_matricula                                UsuarioMatricula
                             , T16.T004_login                                    DespesaLogin
@@ -397,8 +397,7 @@ class models_T0026 extends models
                                 GROUP BY T016_T060.T016_codigo
                             ) SE1
                         JOIN T016_T060  ON (     T016_codigo     = SE1.cod
-                                             AND T016_T060_ordem = SE1.ordem
-                                            )";
+                                             AND T016_T060_ordem = SE1.ordem)";
 
         return $this->query($sql);
     }
@@ -482,6 +481,75 @@ class models_T0026 extends models
         return $this->query($sql);
     }
     
+    public function verificaCpf($cpf)
+    {
+        $connORA  =   $this->consulta;
+        
+        $sql = "  SELECT A.TIP_RAZAO_SOCIAL NOME
+                    FROM RMS.AA2CTIPO A
+                   WHERE A.TIP_LOJ_CLI  =   'F'
+                     AND A.TIP_NATUREZA =   'FS'
+                     AND A.TIP_CGC_CPF  = '$cpf'";        
+        
+        $stid    = oci_parse($connORA, $sql);
+        oci_execute($stid);
+        return($stid);
+    }
+    
+    public function retornaParametroKm()
+    {
+        $sql    =   " SELECT SE.ValorParametro 
+                        FROM (
+                                SELECT MAX(T89.T089_dt_inicio)  DataInicio  
+                                     , T089_valor               ValorParametro
+                                  FROM T089_parametro_detalhe T89
+                                 WHERE T003_codigo = 7
+                              )SE";
+        
+        $parametro  =   $this->query($sql)->fetchAll(PDO::FETCH_COLUMN);
+        
+        return $parametro[0];
+    }   
+    
+    public function retornaArrayPeriodo($codigoDespesa)
+    {
+        $sql    =   "  SELECT MIN(date_format(T01516.T015_T016_saida,'%d/%m/%Y'))  DataInicial
+                            , MAX(date_format(T01516.T015_T016_saida,'%d/%m/%Y'))  DataFinal
+                         FROM T015_T016 T01516
+                        WHERE T016_codigo  = $codigoDespesa";
+        
+        $dadoPeriodo    =   $this->query($sql);        
+        foreach($dadoPeriodo as $campos => $valores)
+        {
+            $arrPeriodo =   array(    
+                                      "DataInicial" =>  $valores['DataInicial']
+                                    , "DataFinal"   =>  $valores['DataFinal']
+                                 );
+        }
+        
+        return $arrPeriodo;
+    }
+    
+    public function retornaDadosConta($crf)
+    {        
+        $sql    =   " SELECT T14.T014_codigo      CodigoConta
+                        FROM T014_conta T14       
+                       WHERE T014_CRF_RMS = $crf";        
+        
+        return $this->query($sql);
+
+    }
+    
+    public function retornaUltimaEtapaAprovadaDespesa($codigoDespesa)
+    {
+        $sql =   "   SELECT max(T1660.T060_codigo)   ProxEtapa
+                       FROM T016_T060 T1660
+                      WHERE T1660.T016_codigo  = $codigoDespesa   
+                        AND T1660.T016_T060_status = 0";
+
+        return $this->query($sql);
+    }  
+        
 }
 ?>
 

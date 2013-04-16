@@ -93,8 +93,8 @@ $(function(){
             {
                     "Finalizar": function(){
                         $.post("?router=T0095/js.statusConfirmacao",{codigoAuditoria:codigoAuditoria, status:1 }, function(dados){
-                        
-                        if (dados == 56) 
+                            
+                          if (dados == 56) 
                             $.post("?router=T0095/js.enviaEmailConfirmacao",{codigoAuditoria:codigoAuditoria});
                         else
                             $.post("?router=T0095/js.enviaEmailConfirmacaoCoor",{codigoAuditoria:codigoAuditoria});

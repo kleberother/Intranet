@@ -55,7 +55,7 @@ if (!is_null($_POST['T026_rms_cgc_cpf'])
                        , "T004_login"           =>  $user);
         //inserirFluxoAp($valores['ProxEtapaCodigo'],1);
         $insere2 = $objWkf->inserir($tabela, $array);
-        $insere3 = $objWkf->inserirFluxoAp($codAp, $valores['ProxEtapaCodigo'],2);
+        $insere3 = $objWkf->inserirFluxo($codigoDespesa, $valores['ProxEtapaCodigo'],2);
     }
 
     header('location:?router=T0016/home');

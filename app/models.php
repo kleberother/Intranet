@@ -596,8 +596,9 @@ class models extends PDO
             }
             $sql_aux1 = substr($sql_aux1,0,strlen($sql_aux1)-1);
             $sql_aux2 = substr($sql_aux2,0,strlen($sql_aux2)-1);
-            //echo $sql.$sql_aux1.") VALUES (".$sql_aux2.")";  
-          //echo "<br/><br/><br/>";   
+
+//            echo $sql.$sql_aux1.") VALUES (".$sql_aux2.")";  
+//            echo "<br/><br/><br/>";   
             return  $sql.$sql_aux1.") VALUES (".$sql_aux2.")";
         }
     }
@@ -613,8 +614,8 @@ class models extends PDO
                 $sql_aux .= $nomes." = ".$this->formataValor($tabela,$nomes,$valores). ",";
             }
             $sql_aux = substr($sql_aux, 0, (strlen($sql_aux)-1));
-            echo  $sql.$sql_aux. " WHERE ".$delimitador;
-           // echo "<br/>";
+//            echo  $sql.$sql_aux. " WHERE ".$delimitador;
+//            echo "<br/>";
             return  $sql.$sql_aux. " WHERE ".$delimitador;
         }
     }
@@ -963,8 +964,7 @@ class models extends PDO
         
         return $this->query($sql);
     }    
-    
-    
+        
     //Monta tabela ToolTip Fluxo WorkFlow
     public function tabelaToolTipFluxoWorkFlow($Codigo, $NumeroTabela)
     {
@@ -1322,7 +1322,57 @@ class models extends PDO
         
     }
     
+    public function formataMoeda($valor)
+    {
+        return $valor  =   'R$ ' . number_format($valor, 2, ',', '.'); // retorna R$100.000,50
+    }   
+    
+    public function uploadArquivo($path)
+    {       
+            if(!(isset($_POST['submit']))){exit;}        
+            if($_FILES["file"]["size"] > 99999999){exit;}
+            $err=$_FILES["file"]["error"];
+            $message='<div style="margin:5px; color:red;">Upload falhou! ';
+            if ($err > 0){
+                       switch($err){
+                                     case '1':
+                                               $message.='php.ini max file size exceeded.';
+                                               break;
+                                     case '2':
+                                               $message.='tamanho máximo excedido.';
+                                               break;
+                                     case '3':
+                                               $message.='file upload was only partial.';
+                                               break;
+                                     case '4':
+                                               $message.='no file was attached.';
+                                               break;
+                                     case '7':
+                                               $message.='permissão negada.';
+                                               break;
+                                     default :
+                                               $message.='Unexpected error occers.';}
+                                     $message.='</div>';
+            }
+            else{
+                       if (file_exists($path.$_FILES["file"]["name"])){
+                                     $message.='arquivo ja existe.</div>';}
+                       else{
+                                     @move_uploaded_file($_FILES["file"]["tmp_name"],$path.$_FILES["file"]["name"]);
+                                     $message='<div style="margin:5px; color:green;">Upload realizado com sucesso!</div>';}
+            }
+            
+            return $message;
+    } 
+    
+    public function retornaExtensaoArquivo($extensao)
+    {
+       return $this->query(" SELECT T57.T057_codigo codifoExtensao
+                                  , T57.T057_nome   nomeExtensao
+                                  , T57.T057_desc   descricaoExtensao
+                               FROM T057_extensao   T57
+                              WHERE T57.T057_nome = '$extensao'");
+    }       
+    
 }
-
-
 ?>

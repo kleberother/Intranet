@@ -2,8 +2,12 @@
 
 $obj    = new models_T0095();
 
-$codigoAuditoria    =   $_POST["codigoAuditoria"];
-$status             =   $_POST["status"];
+//$codigoAuditoria    =   $_POST["codigoAuditoria"];
+//$status             =   $_POST["status"];
+
+$codigoAuditoria    = 54988;
+        
+$status             = 1;
 
 $retornaPerfil = $obj->retornaPerfil($_SESSION['user']);
 

@@ -55,7 +55,7 @@ class models_T0097 extends models
 
                            ORDER BY $filtro DESC";  
         
-        //echo $sql;
+        echo $sql;
         
         $stid    = oci_parse($connORA, $sql);
         oci_execute($stid);

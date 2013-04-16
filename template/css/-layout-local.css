@@ -1,0 +1,262 @@
+@charset "utf-8";
+body{
+    font-family:"trebuchet ms", tahoma, verdana, arial, sans-serif;
+    font-size:11px;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:normal;
+    letter-spacing:normal;
+    line-height:1;
+    /*text-transform: capitalize; -- essa tag faz todos as palavras iniciarem com a letra maiuscula exe: Esse Sistema É Legal*/
+}
+
+td{
+    vertical-align: top;
+}
+
+select{
+    font-family: "Lucida Sans Typewriter";
+    font-size: 11px;
+}
+
+/* ID CABECALHO */
+#cabecalho{
+    height: 113px;
+    background:url(-template-imagens/background-cabecalho-local.png) repeat-x;
+}
+
+#cabec-conteudo{
+    width: 1000px;
+    margin: 0 auto;
+    height: 113px;
+/*	border-left: 1px solid #00C;
+    border-right: 1px solid #00C;	*/
+}
+
+
+/* DIVS INFORMAÇÃO = 1 BARRINHA */
+#cabec-cont-informacao{	/* DIV MESTRE */
+    display:inline-block;
+    /*border-bottom: 1px solid #FF0000;*/
+    width: 100%;
+    padding-top: 1px;
+}
+
+#cabec-cont-info-data{
+/*    border-right: 1px solid #D37474;*/
+     /*width: 200px;*/
+    float: left;
+    padding: 3px 30px 3px 0;
+}
+
+#cabec-cont-info-atalhos{
+/*    border-right: 1px solid #D37474;
+    border-left: 1px solid #7C2727;
+    width: 200px;*/
+    float: left;
+    padding: 0px 30px 0px 30px;
+    background: url(-template-imagens/delimitador-top-local.png) no-repeat left;
+}
+
+#cabec-cont-info-fast_path{
+    float: left;
+    padding: 1px 30px 0px 30px;
+/*    border-right: 1px solid #D37474;
+    border-left: 1px solid #7C2727;*/
+    width: 100px;
+    background: url(-template-imagens/delimitador-top-local.png) no-repeat left;
+}
+
+#cabec-cont-info-login{
+/*    border-left: 1px solid #7C2727;*/
+    padding: 3px 30px 3px 30px;
+    float: left;
+    background: url(-template-imagens/delimitador-top-local.png) no-repeat left;
+}
+
+
+
+
+/* DIVS TITULOS = 2 BARRINHA */
+#cabec-cont-localizacao{	/* DIV MESTRE */
+    display:inline-block;
+/*	border-bottom: 1px solid #FF0000;*/
+    width: 100%;
+    margin: 5px 0;
+}
+
+#cabec-cont-loca-cont-logo{
+/*	border: 1px solid #376d37;*/
+    width: 45px;
+    padding: 0;
+    float: left;
+    margin-right: 15px;
+}
+
+/* DIV MENU */
+#cabec-cont-menu{
+    height: 30px;
+/*   border: 1px solid #fff;*/
+margin-top: -15px;
+}
+
+
+/* ID FERRAMENTAS */
+#ferramenta{
+    height: 40px;
+    background: #E2D6C1 url(-template-imagens/background-ferramenta.png) repeat-x bottom;
+    border-top: 1px solid #F4F0E8;
+}
+
+#ferr-conteudo{
+    width: 1000px;
+    margin: 0 auto;
+    height: 40px;
+}
+
+/* MESTRE - UTILIZO ESSA DIV QUANDO UTILIZAR DUAS OU MAIS COLUNAS - TABLESS */
+#mestre{
+    width: 1000px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 10px auto;
+    overflow: hidden;
+}
+
+
+#mest-quadrado-left{
+    width: 30%;
+    float: left;
+/*    border: 1px dotted red;*/
+}
+
+#mest-quadrado-left_50{
+    width: 45%;
+    float: left;
+/*    border: 1px dotted red;*/
+}
+
+#mest-quadrado-right{
+    width: 65%;
+    float: right;
+/*    border: 1px dotted red;*/
+}
+
+#mest-quadrado-right_50{
+    width: 45%;
+    float: right;
+/*    border: 1px dotted red;*/
+}
+/* CONTEUDO ID */
+#conteudo{
+    width: 1000px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 10px auto;
+}
+
+.conteudo{
+    width: 1000px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 10px auto;
+}
+
+#tabs {
+    width: 1000px;
+    margin: 10px auto;
+}
+
+#cont-borda{
+    border: 1px solid #F3F3F3;
+    background: #F9F9F9;
+    float: left;
+    padding: 10px 0;
+}
+
+#cont-bord-imagem{
+    height: 360px; 
+    border: 1px solid #F3F3F3;
+    width: 480px;
+    background: #FFF;
+    float: left;
+    margin: 0 10px;
+}
+
+#cont-noticia{
+/*    border: 1px solid #F3F3F3;*/
+    width: 430px;
+    float: right;
+    color: #795F38;
+}
+
+#cont-noticia-2{
+/*    border: 1px solid #F3F3F3;*/
+    width: 600px;
+    float: left;
+    color: #795F38;
+    border-right: 1px solid #E9E9E9;
+    padding-right: 10px;
+}
+
+#cont-ultimas_noticias{
+    width: 330px;
+    float: right;
+}
+
+/* PAGINA UTILIDADES */
+#cont-favoritos{
+    border-right: 1px solid #F3F3F3;
+    float: left;
+    width: 479px;
+}
+
+#cont-widgets{
+    border-left: 1px solid #AAAAAA;
+    width: 479px;
+    float: right;
+    height: 377px;
+}
+
+#cont-widg-conteudo{
+    margin-left: 10px;
+}
+/* FIM PAGINAS UTILIDADES */
+
+/* FORMULARIO ID */
+#formulario{
+    width: 1000px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 10px auto;
+}
+
+#form-trocar{
+    margin-bottom: 20px;
+}
+/* RODAPE ID */
+#rodape{
+    width: 1000px;
+    margin: 0 auto;
+    border-top: 1px solid #E9E9E9;
+    border-bottom: 1px solid #E9E9E9;
+    height: 22px;
+    padding: 3px 0;
+    clear: both;
+}
+
+#roda-redes_sociais{
+    float: left;
+    margin-right: 5px;
+    padding-top: 2px;
+    border-right: 1px solid #E9E9E9;
+}
+
+#copyright{
+    float: left;
+    height: 20px;
+    margin-left: 5px;
+    padding: 7px 0;
+}
+
+

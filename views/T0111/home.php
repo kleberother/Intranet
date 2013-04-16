@@ -289,7 +289,7 @@ if (!empty($_POST))
                                <a class="ui-icon ui-icon-close" href="#"  onclick="excluirLinha(<?php echo $valores['Codigo']?>)"  title="Excluir"></a>
                                </li>
                                <?php }?>
-                               <?php if($_SESSION["user"] == "acfranca" || $_SESSION["user"] == "rsnascim" || $_SESSION["user"] == "kscarpan" || $_SESSION["user"] == "psantos" ) {?>
+                               <?php if($_SESSION["user"] == "acfranca" || $_SESSION["user"] == "cmiranda" || $_SESSION["user"] == "rsnascim" || $_SESSION["user"] == "kscarpan" || $_SESSION["user"] == "psantos" ) {?>
                                    <li>
                                <a class="ui-icon ui-icon-pencil" href="?router=T0111/atualizar&cod=<?php echo $valores["Codigo"]?>&EtapaCodigo=<?php echo $valores["EtapaCodigo"]?>&status=<?php echo $status;?>&filtro=<?php echo $filtros;?>" title="Editar"></a>
                                </li>

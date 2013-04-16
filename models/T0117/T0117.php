@@ -33,13 +33,6 @@ class models_T0117 extends models
     public function altera($tabela,$campos,$delim)
     {              
        $altera = $this->exec($this->atualiza($tabela, $campos, $delim));
-       
-       if($altera)
-            $this->alerts('false', 'Alerta!', 'Alterado com Sucesso!');
-       else
-            $this->alerts('true', 'Erro!', 'Não foi possível Alterar!');          
-       
-      // echo $altera;
        return $altera;
     }  
     
@@ -55,6 +48,7 @@ class models_T0117 extends models
     
     public function retornaRM($titulo, $descricao, $solicitante, $codRM)
     {        
+        
         $sql    =   "  SELECT T113.T113_codigo                              CodigoRM
                             , T113.T004_solicitante                         SolicitanteLogin
                             , T04B.T004_nome                                SolicitanteNome
@@ -83,7 +77,7 @@ class models_T0117 extends models
                          FROM T113_requisicao_mudanca T113
                          JOIN T004_usuario T04 ON T04.T004_login = T113.T004_responsavel
                          JOIN T004_usuario T04B ON T04B.T004_login = T113.T004_solicitante
-                        WHERE 1 =   1
+                         WHERE 1 = 1
                         ";
         
         if(!empty($titulo))
@@ -193,22 +187,80 @@ class models_T0117 extends models
                 echo    "Aberta";
                 break;
             case 2:
-               echo     "Revisada";
+               echo     "Concluída";
                 break;
             case 3:
-                echo    "Suspensa";
+                echo    "Revisada";
                 break;
             case 4:
-                echo    "Reprovada";
+                echo    "Suspensa";
                 break;
             case 5:
-                echo    "Aprovada";
+                echo    "Reprovada";
                 break;
             case 6:
-                echo    "Concluída";
+                echo    "Aprovada";
+                break;
+            case 7:
+                echo    "Finalizada";
                 break;
         }
         
+    }
+    
+    public function mostraBotao($perfil, $user, $status, $codRM) {
+        
+        if (($perfil == 57 ) && ($user == $_SESSION["user"]) && ($status == 1)){
+            echo " 
+                    <input type='hidden' value='".$codRM."' id='codRM'>
+                  <li class='ui-state-default ui-corner-all' title='Concluir'>
+                                        <a href='#' class='ui-icon ui-icon-check concluir'></a> 
+                   </li>
+                    <li class='ui-state-default ui-corner-all' title='Excluir'>
+                                       <a href='#' onclick='excluirLinha(".$codRM.")' class='ui-icon ui-icon-closethick excluir'></a> 
+                    </li>
+                    <li class='ui-state-default ui-corner-all' title='Alterar'>
+                                        <a href='?router=T0117/alterar&codRM=".$codRM."' class='ui-icon ui-icon-pencil alterar'></a> 
+                    </li>";
+        } elseif(($perfil == 59)&& ($status == 2)){
+            
+              echo " 
+                    <input type='hidden' value='".$codRM."' id='codRM'>
+                    <li class='ui-state-default ui-corner-all' title='Revisar'>
+                                        <a href='#' class='ui-icon ui-icon-check revisar'></a> 
+                   </li>
+                    <li class='ui-state-default ui-corner-all' title='Excluir'>
+                                       <a href='#' onclick='excluirLinha(".$codRM.")' class='ui-icon ui-icon-closethick'></a> 
+                    </li>
+                    <li class='ui-state-default ui-corner-all' title='Alterar'>
+                                        <a href='?router=T0117/alterar&codRM=".$codRM."' class='ui-icon ui-icon-pencil'></a> 
+                    </li>";
+            
+        } 
+        
+    }
+    
+    public function retornaDadosUser($user) {
+        
+        $sql    =   " SELECT T004_nome  Nome
+                        FROM T004_usuario
+                       WHERE T004_login = '$user' ";
+       
+        return $this->query($sql);
+        
+    }
+    
+    
+    public function retornaComite() {
+        $sql    =   "SELECT T04.T004_nome Nome, T04.T004_email Email
+                       FROM    T004_T009 T0409
+                            JOIN
+                               T004_usuario T04
+                            ON T0409.T004_login = T04.T004_login
+                            WHERE  T0409.T009_codigo = 58";
+        
+    
+        return $this->query($sql);
     }
     
 
