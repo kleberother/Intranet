@@ -57,13 +57,25 @@ class models_T0119 extends models
     
     public function ConsultaLotesLoja($Loja)
     {
-        $sql="  SELECT l.lote_numero , l.store_key , l.amount
+        $sql="
+                SELECT l.store_key , l.lote_numero , l.start_time 
+                     , l.amount , l.quantity_rows 
+                     , t.tipo_codigo 
+                     , sc.status_consumo_id     , sc.status_consumo_descricao
+                     , si.status_integracao_id  , si.status_integracao_descricao
+                     , sa.status_aprovacao_id   , sa.status_aprovacao_descricao
+                      -- l.lote_numero , l.store_key , l.amount
                   FROM davo_ccu_lote l
-                 where l.store_key = 2
-                   and l.aprovacao_status_id = 0 
-                 LIMIT 10
-              ";
-        
+                  INNER JOIN davo_ccu_tipo t                 ON (     t.tipo_codigo           = l.tipo_codigo          )
+                  INNER JOIN davo_ccu_status_consumo    sc   ON (     sc.status_consumo_id    = l.consumo_status_id    )
+                  INNER JOIN davo_ccu_status_integracao si   ON (     si.status_integracao_id = l.integracao_status_id )
+                  INNER JOIN davo_ccu_status_aprovacao  sa   ON (     sa.status_aprovacao_id  = l.aprovacao_status_id  )
+                 WHERE l.store_key = 2
+                  /* AND l.aprovacao_status_id = 0  */
+                  ORDER BY l.start_time 
+                  LIMIT 100
+                ";
+ 
         return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
     }
 
@@ -71,9 +83,8 @@ class models_T0119 extends models
     {
         $sql="  SELECT d.sequence , d.plu_id , d.desc_plu , d.quantity , d.unit_price , d.amount
                   FROM davo_ccu_lote_detalhe d
-                 where d.store_key = 2
-                   and d.lote_numero = 419
-                 LIMIT 10
+                 where d.store_key   = $Loja
+                   and d.lote_numero = $Lote
               ";
         
         return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
@@ -89,23 +100,23 @@ class models_T0119 extends models
                  WHERE t.tipo_codigo = $Tipo
              ";        
         
-        # $Retorno=$this->query($sql) ; #->fetchAll(PDO::FETCH_COLUMN,2);
-        return $this->query($sql);
+        $Retorno=$this->query($sql) ; #->fetchAll(PDO::FETCH_COLUMN,2);
+        #return $this->query($sql);
         # echo $sql;
-        # print_r($Retorno);
+       
         foreach($Retorno as $campos=>$valores)
         {
+            $valores['tipo_codigo'] ;
             $TipoPai=$valores['tipo_codigo_pai'] ;
-            $String=$String.$valores['descricao'].RetornaStringTipo($TipoPai);
-            echo $TipoPai;
-            # echo $String;
-            echo "a";
-            # if ($TipoPai <> 0)
-              // RetornaStringTipo($TipoPai);
-            # return $String ; 
+            
+            if ($TipoPai)
+              $String=$this->RetornaStringTipo($TipoPai).' -> '.$valores['descricao'];
+            else
+              $String=$valores['descricao'];
+            
         }
         
-        // return $String ; 
+        return $String ; 
         # RetornaStringTipo(5);
         
     }

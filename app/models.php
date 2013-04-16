@@ -1326,6 +1326,29 @@ class models extends PDO
     {
         return $valor  =   'R$ ' . number_format($valor, 2, ',', '.'); // retorna R$100.000,50
     }   
+
+    public function formataMoedaSufixo($valor,$Decimais,$Sufixo)
+    { // Funcao para formatar valores em moedas
+        
+        // verifica se retornará quantidade de casas decimais espeficas
+        if(!$Decimais)
+            $Decimais=2;
+        
+        // verifica se retornará quantidade de sufixo R$
+        if($Sufixo)
+           return $valor  =   'R$ ' . number_format($valor, $Decimais, ',', '.'); // retorna R$100.000,50
+        else
+           return $valor  =   number_format($valor, $Decimais, ',', '.'); // retorna 100.000,50
+    }   
+
+    public function formataNumero($valor,$Decimais)
+    {
+        if(!$Decimais)
+            $Decimais=2;
+
+        return $valor  =   number_format($valor, $Decimais, ',', '.'); // retorna 100.000,50
+    }   
+    
     
     public function uploadArquivo($path)
     {       

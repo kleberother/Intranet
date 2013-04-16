@@ -128,10 +128,11 @@
                 sortList: [],
                 headerList: [],
                 dateFormat: "uk",
-                decimal: '/\.|\,/g',
+                decimal: '/\,|\./g',
                 onRenderHeader: null,
                 selectorHeaders: 'thead th',
-                debug: false
+                debug: false,
+                locale: 'br'
             };
 
             /* debuging utils */
@@ -1003,6 +1004,68 @@
             return $(cell).metadata()[p];
         }, type: "numeric"
     });
+    ts.addParser({
+        id: "moeda",  
+          is: function(s) {  
+              return true;  
+          },  
+          format: function(s) {  
+              return $.tablesorter.formatFloat(s.replace(new RegExp(/[^0-9,]/g),""));  
+          },  
+          type: "numeric"  
+    });    
+
+    ts.addParser({
+        id: "brazilNumber",  
+          is: function(s) {  
+              return true;  
+          },  
+          format: function(s) {  
+              return $.tablesorter.formatFloat(s.replace(new RegExp(/[^0-9,]/g),""));  
+          },  
+          type: "numeric"  
+    });          
+      
+    ts.addParser({
+        id: "brazilCurrency",
+        is: function(s) {
+           return /^(R\$)(\ |\t)+\d*([\.\,]\d+)*/.test(s);
+        },
+        format: function(s) {
+           s = s.replace(/\./g,"");
+           s = s.replace(/\,/g,".");
+           return $.tablesorter.formatFloat(s.replace(new RegExp(/[^0-9.,-]/g),""));
+        },
+        type: 'numeric'
+      }); 
+ 
+    ts.addParser({
+        id: "cubicMeters",
+        is: function(s) {
+           return /[m³]$/.test(s);
+        },
+        format: function(s) {
+           s = s.replace(/\./g,"");
+           s = s.replace(/\,/g,".");
+           return $.tablesorter.formatFloat(s.replace(new RegExp(/[^0-9.,-]/g),""));
+        },
+        type: 'numeric'
+      }); 
+    
+    ts.addParser({
+        id: "brazilDate",
+        is: function (s) {
+            return /\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}$/.test(s);
+        }, format: function (s, table) {
+            var c = table.config;
+            s = s.replace(/\-/g, "/");
+            if (c.dateFormat == "dd/mm/yyyy" || c.dateFormat == "dd-mm-yyyy" || c.dateFormat == "dd/mm/yy" || c.dateFormat == "dd-mm-yy") {
+                s = s.replace(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2}|\d{4})$/, "$3/$2/$1");
+            }
+            return $.tablesorter.formatFloat(new Date(s).getTime());
+        }, type: "numeric"
+    });
+    
     // add default widgets
     ts.addWidget({
         id: "zebra",
@@ -1027,5 +1090,6 @@
                 $.tablesorter.benchmark("Applying Zebra widget", time);
             }
         }
+        
     });
 })(jQuery);
