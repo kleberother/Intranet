@@ -423,17 +423,13 @@ class models_T0117 extends models
     
     public function retornaComiteRM($codRm){
         
-<<<<<<< HEAD
-           $sql    =   "SELECT T04113.T113_codigo      Codigo
-                          , T04113.T004_T113_nome      Nome
-                          , T04113.T004_login          Login
-=======
+
            $sql    =   "SELECT T04113.T113_codigo           Codigo
                           , T04113.T004_T113_nome           Nome
                           , T04113.T004_login               Login
                           , T04113.T004_T113_justificativa  Justificativa
                           , T04113.T004_T113_aprovado       Aprovado    
->>>>>>> origin/dev
+
                        FROM T004_T113 T04113
                       WHERE T04113.T004_T113_tipo = 4
                         AND T04113.T113_codigo    = $codRm";
@@ -495,4 +491,3 @@ class models_T0117 extends models
      
 }
  ?>
->>>>>>> 148f36d03329d248606ec6adce731e4b3d6c3ee5
