@@ -1,17 +1,29 @@
 <?php
 // teste ORAAS141
 //Instancia Classe
-$conn      =   "emporium";
-$objEMP    =   new models_T0119($conn);
+$conn       =   "emporium";
+$objEMP     =   new models_T0119($conn);
+$obj        =   new models_T0119();
 
-$RetornoLotes  = $objEMP->ConsultaLotesLoja(1);
+if(!empty($_POST))
+{   
+    
+    $filtroLoja             =   $_REQUEST['FiltroLoja']             ;
+    $filtroDtInicio         =   $_REQUEST['FiltroDataInicio']       ;
+    $filtroDtFim            =   $_REQUEST['FiltroDataFim']          ;
+    $filtroStatusConsumo    =   $_REQUEST['FiltroStatusConsumo']    ;
+    $filtroStatusIntegracao =   $_REQUEST['FiltroStatusIntegracao'] ;
+    $filtroStatusAprovacao  =   $_REQUEST['FiltroStatusAprovacao']  ;
+    $filtroRegistros        =   $_REQUEST['FiltroRegistros']        ;
+        
+    $RetornoLotes   =   $objEMP->ConsultaLotesLoja($filtroLoja, $filtroDtInicio, $filtroDtFim, $filtroStatusConsumo, $filtroStatusIntegracao, $filtroStatusAprovacao, $filtroRegistros);
+}
 
+$SelectBoxLoja              =   $obj->retornaLojasSelectBox();
+$SelectStatusIntegracao     =   $objEMP->retornaStatusIntegracao();
+$SelectStatusConsumo        =   $objEMP->retornaStatusConsumo();
+$SelectStatusAprovacao      =   $objEMP->retornaStatusAprovacao();
 
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 ?>
 <div id="dialog-aprovar" style="display:none;">
     
@@ -26,7 +38,83 @@ $RetornoLotes  = $objEMP->ConsultaLotesLoja(1);
     </ul>
 </div>
 
-<div class="conteudo_16">
+<!-- Divs com filtros oculta -->
+<div class="conteudo_16  div-filtro">
+    
+    <form action="" method="post" class="div-filtro-visivel">
+        <!--<input type="hidden" name="router" value="T0119/home" />-->
+        
+        <div class="grid_4">       
+            <label class="label">Loja</label>
+            <select name="FiltroLoja">
+                <option value="">Todas</option>
+                <?php foreach($SelectBoxLoja as $campos=>$valores){?>
+                <option value="<?php echo substr($valores['LojaCodigo'], 0, -1);?>" <?php echo substr($valores['LojaCodigo'], 0, -1)==$filtroLoja?"selected":"";?>><?php echo $obj->preencheZero("E",3,$valores['LojaCodigo'])."-".$valores['LojaNome'];?></option>
+                <?php }?>
+            </select>                                       
+        </div>
+        
+        <div class="grid_2">
+            <label class="label">Data Início</label>
+            <input type="text" name="FiltroDataInicio"  class="data"    value="<?php echo $_REQUEST['FiltroDataInicio'];?>"/>               
+        </div>
+        
+        <div class="grid_2">
+            <label class="label">Data Fim</label>
+            <input type="text" name="FiltroDataFim"     class="data"    value="<?php echo $_REQUEST['FiltroDataFim'];?>"/>               
+        </div>
+        
+        <div class="grid_4">
+        <label class="label">Status Consumo</label>
+            <select name="FiltroStatusConsumo">
+                <option value="">Todos</option>
+                <?php foreach($SelectStatusConsumo as $campos=>$valores){?>
+                <option value="<?php echo $valores['Codigo'];?>" <?php echo $valores['Codigo']==$filtroStatusConsumo?"selected":"";?>><?php echo $obj->preencheZero("E",3,$valores['Codigo'])."-".$valores['Descricao'];?></option>
+                <?php }?>
+            </select>            
+        </div>
+        
+        <div class="grid_4">
+        <label class="label">Status Integração</label>
+            <select name="FiltroStatusIntegracao">
+                <option value="">Todos</option>
+                <?php foreach($SelectStatusIntegracao as $campos=>$valores){?>
+                <option value="<?php echo $valores['Codigo'];?>" <?php echo $valores['Codigo']==$filtroStatusIntegracao?"selected":"";?>><?php echo $obj->preencheZero("E",3,$valores['Codigo'])."-".$valores['Descricao'];?></option>
+                <?php }?>
+            </select>            
+        </div>
+        
+        <div class="grid_4">
+        <label class="label">Status Aprovação</label>
+            <select name="FiltroStatusAprovacao">
+                <option value="">Todos</option>
+                <?php foreach($SelectStatusAprovacao as $campos=>$valores){?>
+                <option value="<?php echo $valores['Codigo'];?>" <?php echo $valores['Codigo']==$filtroStatusAprovacao?"selected":"";?>><?php echo $obj->preencheZero("E",3,$valores['Codigo'])."-".$valores['Descricao'];?></option>
+                <?php }?>
+            </select>            
+        </div>
+                
+        <div class="grid_2">
+        <label class="label">Qtde Registros</label>
+            <select name="FiltroRegistros">
+                <option value="50"  <?php echo $filtroRegistros==50 ?"selected":""?>>50     </option>
+                <option value="100" <?php echo $filtroRegistros==100?"selected":""?>>100    </option>
+                <option value=""    <?php echo $filtroRegistros=="" ?"selected":""?>>Todos  </option>
+            </select>            
+        </div>
+
+        <div class="grid_1">
+            <input type="submit" class="botao-padrao" value="Filtrar">
+        </div>
+        
+        <div class="clear5"></div>
+                
+    </form>
+    
+</div>
+
+<div class="conteudo_16">    
+                
     <table id="tPrincipal" class="tablesorter">
         <thead>
             <tr>

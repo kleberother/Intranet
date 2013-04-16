@@ -54,7 +54,7 @@ if (!empty($_POST))
             <select name="loja">
                 <option value="">Todas</option>
                 <?php foreach($SelectBoxLoja as $campos=>$valores){?>
-                <option value="<?php echo $valores['LojaCodigo']?>" <?php echo $valores['LojaCodigo']==$loja?"selected":"";?>><?php echo $obj->preencheZero("E",3,$valores['LojaCodigo'])."-".$valores['LojaNome'];?></option>
+                <option value="<?php echo $valores['LojaCodigo'];?>" <?php echo $valores['LojaCodigo']==$loja?"selected":"";?>><?php echo $obj->preencheZero("E",3,$valores['LojaCodigo'])."-".$valores['LojaNome'];?></option>
                 <?php }?>
             </select>                                       
         </div>

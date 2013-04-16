@@ -74,8 +74,6 @@ switch ($statusDespesa) {
         break;
 }
 ?>
-<!-- jQuery do Programa T0026-->
-<script type="text/javascript" src="template/js/interno/T0026/T0026.js"></script>
 <!-- Caixa Dialogo Excluir -->
 <div id='dialog-confirm' title='Mensagem!' style='display:none'>
     <p><span class='ui-icon ui-icon-alert' style='float:left; margin:0 7px 20px 0;'></span>Tem certeza que deseja excluir este item?</p>

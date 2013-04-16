@@ -55,10 +55,9 @@ class models_T0119 extends models
        return $exclui;
     }  
     
-    public function ConsultaLotesLoja($Loja)
+    public function ConsultaLotesLoja($filtroLoja, $filtroDtInicio, $filtroDtFim, $filtroStatusConsumo, $filtroStatusIntegracao, $filtroStatusAprovacao, $filtroRegistros)
     {
-        $sql="
-                SELECT l.store_key , l.lote_numero , l.start_time 
+        $sql="  SELECT l.store_key , l.lote_numero , l.start_time 
                      , l.amount , l.quantity_rows 
                      , t.tipo_codigo 
                      , sc.status_consumo_id     , sc.status_consumo_descricao
@@ -69,12 +68,32 @@ class models_T0119 extends models
                   INNER JOIN davo_ccu_tipo t                 ON (     t.tipo_codigo           = l.tipo_codigo          )
                   INNER JOIN davo_ccu_status_consumo    sc   ON (     sc.status_consumo_id    = l.consumo_status_id    )
                   INNER JOIN davo_ccu_status_integracao si   ON (     si.status_integracao_id = l.integracao_status_id )
-                  INNER JOIN davo_ccu_status_aprovacao  sa   ON (     sa.status_aprovacao_id  = l.aprovacao_status_id  )
-                 WHERE l.store_key = 2
-                  /* AND l.aprovacao_status_id = 0  */
-                  ORDER BY l.start_time 
-                  LIMIT 100
-                ";
+                  INNER JOIN davo_ccu_status_aprovacao  sa   ON (     sa.status_aprovacao_id  = l.aprovacao_status_id  )                  
+                 WHERE 1    =   1";
+                 
+                 if(!empty($filtroLoja))
+                    $sql   .=  " AND l.store_key                = $filtroLoja";
+                 
+                 if(!empty($filtroDtInicio))
+                    $sql   .=  " AND l.l.start_time            >= $filtroDtInicio 00:00:00";
+                 
+                 if(!empty($filtroDtFim))
+                    $sql   .=  " AND l.l.start_time            <= $filtroDtFim 23:59:59";
+                 
+                 if(!empty($filtroStatusConsumo))
+                    $sql   .=  " AND sc.status_consumo_id       = $filtroStatusConsumo";
+                 
+                 if(!empty($filtroStatusIntegracao))
+                    $sql   .=  " AND si.status_integracao_id    = $filtroStatusIntegracao";
+                 
+                 if(!empty($filtroStatusAprovacao))
+                    $sql   .=  " AND sa.status_aprovacao_id     = $filtroStatusAprovacao";
+                 
+                  $sql  .=  " ORDER BY l.start_time ";
+                  
+                  if(!empty($filtroRegistros))
+                    $sql  .=  " LIMIT $filtroRegistros";
+                
  
         return $this->query($sql) ; // ->fetchAll(PDO::FETCH....);
     }
@@ -119,6 +138,44 @@ class models_T0119 extends models
         return $String ; 
         # RetornaStringTipo(5);
         
+    }
+    
+    public function retornaLojasSelectBox()
+    {
+        $sql = "   SELECT T06.T006_codigo LojaCodigo
+                        , T06.T006_nome   LojaNome
+                     FROM T006_loja T06
+                     JOIN T065_segmento_filiais T65 ON T06.T065_codigo = T65.T065_codigo
+                    WHERE T65.T065_codigo  = 1";
+        
+        return $this->query($sql);
+    }
+    
+    public function retornaStatusIntegracao()
+    {
+        $sql    =   "  SELECT si.status_integracao_id               Codigo
+                            , si.status_integracao_descricao        Descricao
+                         FROM davo_ccu_status_integracao si";
+        
+        return $this->query($sql);          
+    }
+    
+    public function retornaStatusConsumo()
+    {
+        $sql    =   "  SELECT sc.status_consumo_id              Codigo
+                            , sc.status_consumo_descricao       Descricao
+                         FROM davo_ccu_status_consumo sc";
+        
+        return $this->query($sql);        
+    }
+    
+    public function retornaStatusAprovacao()
+    {
+        $sql    =   "  SELECT sa.status_aprovacao_id            Codigo
+                            , sa.status_aprovacao_descricao     Descricao
+                         FROM davo_ccu_status_aprovacao sa";
+        
+        return $this->query($sql);
     }
             
     

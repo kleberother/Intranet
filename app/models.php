@@ -161,13 +161,13 @@ class models extends PDO
                             break;
                      case "emporium"     :   
                          //Testa se deve apresentar erro de conexão na view
-                 // $link = mysql_connect(QAS_HOST_EMPORIUM, QAS_USER_EMPORIUM, QAS_PASS_EMPORIUM);    
-                   $link = mysql_connect(PRD_HOST_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM); 
+                  $link = mysql_connect(QAS_HOST_EMPORIUM, QAS_USER_EMPORIUM, QAS_PASS_EMPORIUM);    
+//                   $link = mysql_connect(PRD_HOST_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM); 
                             if (!$link) 
                                 echo ($verificaConexao==1)?"Não foi possivel conectar":die('Não foi possível conectar: ' . mysql_error());
                             else 
-                             parent::__construct('mysql:host='.PRD_HOST_EMPORIUM.';dbname='.PRD_BD_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM);
-                           // parent::__construct('mysql:host='.QAS_HOST_EMPORIUM.';dbname='.QAS_BD_EMPORIUM, QAS_USER_EMPORIUM, QAS_PASS_EMPORIUM);
+//                             parent::__construct('mysql:host='.PRD_HOST_EMPORIUM.';dbname='.PRD_BD_EMPORIUM, PRD_USER_EMPORIUM, PRD_PASS_EMPORIUM);
+                            parent::__construct('mysql:host='.QAS_HOST_EMPORIUM.';dbname='.QAS_BD_EMPORIUM, QAS_USER_EMPORIUM, QAS_PASS_EMPORIUM);
                                 
                             break; 
                      //Caso não seja nenhum dos casos acima ele faz a conexão com o MySQL Satélite/Intranet
